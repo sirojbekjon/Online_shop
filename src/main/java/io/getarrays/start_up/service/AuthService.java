@@ -32,8 +32,6 @@ public class AuthService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Autowired
-    EmailService emailService;
 
     @Autowired
     AuthenticationManager authenticationManager;

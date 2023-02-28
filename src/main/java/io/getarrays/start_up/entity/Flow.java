@@ -21,20 +21,19 @@ public class Flow extends AbstractEntity {
     @ManyToOne
     private User user;
 
-    private boolean archived=false;
+    private boolean archived;
 
-    private boolean canceled = false;
+    private boolean canceled;
 
-    private boolean delivered = false;
+    private boolean delivered;
 
-    private boolean hold = false;
+    private boolean hold ;
 
-    private boolean neww = false;
+    private boolean neww;
 
-    private boolean onway = false;
+    private boolean onway;
 
-    private boolean ready = false;
+    private boolean ready;
 
     private Long visits_count;
-
 }

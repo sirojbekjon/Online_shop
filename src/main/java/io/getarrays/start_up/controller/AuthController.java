@@ -1,24 +1,17 @@
 package io.getarrays.start_up.controller;
 
 import io.getarrays.start_up.payload.Userdto;
-import io.getarrays.start_up.entity.User;
 import io.getarrays.start_up.payload.LoginDto;
 import io.getarrays.start_up.repository.UserRepository;
 import io.getarrays.start_up.security.JwtProvider;
 import io.getarrays.start_up.service.AuthService;
-import io.getarrays.start_up.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/api/auth")

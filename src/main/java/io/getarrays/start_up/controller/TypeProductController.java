@@ -30,16 +30,16 @@ public class TypeProductController {
 
 
     @GetMapping("/get")
-    public HttpEntity<?> getTypeSubject(){
+    public HttpEntity<?> getTypeProduct(){
         List<TypeProduct> typeProducts = typeProductRepository.findAll();
         return ResponseEntity.status(202).body(typeProducts);
     }
 
     @GetMapping("/get/{id}")
-    public HttpEntity<?> getTypeSubjectById(@PathVariable Long id){
-        Optional<TypeProduct> optionalTypeSubject = typeProductRepository.findById(id);
-        if (optionalTypeSubject.isPresent()){
-            TypeProduct typeProduct = optionalTypeSubject.get();
+    public HttpEntity<?> getTypeProductById(@PathVariable Long id){
+        Optional<TypeProduct> optionalTypeProduct = typeProductRepository.findById(id);
+        if (optionalTypeProduct.isPresent()){
+            TypeProduct typeProduct = optionalTypeProduct.get();
             return ResponseEntity.status(202).body(typeProduct);
         }else {
             return ResponseEntity.status(404).body("Not Found");
@@ -47,9 +47,9 @@ public class TypeProductController {
     }
 
     @GetMapping("/delete/{id}")
-    public HttpEntity<?> deleteTypeSubject(@PathVariable Long id){
-        Optional<TypeProduct> optionalTypeSubject = typeProductRepository.findById(id);
-        if (optionalTypeSubject.isPresent()){
+    public HttpEntity<?> deleteTypeProduct(@PathVariable Long id){
+        Optional<TypeProduct> optionalTypeProduct = typeProductRepository.findById(id);
+        if (optionalTypeProduct.isPresent()){
             typeProductRepository.deleteById(id);
             return ResponseEntity.status(202).body("Deleted");
         }else {
@@ -60,9 +60,9 @@ public class TypeProductController {
 
     @PutMapping("/edit/{id}")
     public HttpEntity<?> editTypeSubject(@PathVariable Long id,@RequestBody TypeProduct typeProduct){
-        Optional<TypeProduct> optionalTypeSubject = typeProductRepository.findById(id);
-        if (optionalTypeSubject.isPresent()){
-            TypeProduct typeProduct1 = optionalTypeSubject.get();
+        Optional<TypeProduct> optionalTypeProduct = typeProductRepository.findById(id);
+        if (optionalTypeProduct.isPresent()){
+            TypeProduct typeProduct1 = optionalTypeProduct.get();
             typeProduct1.setName(typeProduct.getName());
             TypeProduct savedTypeProduct = typeProductRepository.save(typeProduct1);
             return ResponseEntity.status(202).body(savedTypeProduct);

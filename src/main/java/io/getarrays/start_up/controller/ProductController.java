@@ -7,7 +7,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/subject")
+@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
@@ -35,12 +35,8 @@ public class ProductController {
         return productService.editProduct(id, productDto);
     }
 
-
-
-
-
-
-
-
-
+    @DeleteMapping("/delete/{id}")
+    public HttpEntity<?> deleteById(@PathVariable Long id){
+        return productService.deleteById(id);
+    }
 }

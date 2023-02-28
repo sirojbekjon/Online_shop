@@ -1,7 +1,6 @@
 package io.getarrays.start_up.payload;
 
 import lombok.Data;
-
 import java.awt.*;
 import java.util.List;
 

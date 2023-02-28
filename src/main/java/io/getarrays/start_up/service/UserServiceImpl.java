@@ -37,17 +37,11 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     public HttpEntity<?> editUser(Long id, Userdto userdto) {
-        Optional<Role> optionalRole = roleRepository.findById(userdto.getRole());
-        Role role = optionalRole.get();
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
-            user.setName(userdto.getName());
-            user.setEmail(userdto.getEmail());
-            user.setLastName(userdto.getLastName());
             user.setUsername(userdto.getUsername());
             user.setPassword(passwordEncoder.encode(userdto.getPassword()));
-            user.setRole(role);
             User save = userRepository.save(user);
             return ResponseEntity.status(200).body(save);
         }else {

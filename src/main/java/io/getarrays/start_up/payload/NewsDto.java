@@ -12,5 +12,5 @@ public class NewsDto {
 
     private TextArea text;
 
-    private List<Long> fileUploadId;
+    private Long fileUploadId;
 }
