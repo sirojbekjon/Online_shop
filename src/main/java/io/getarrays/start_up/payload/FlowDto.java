@@ -13,5 +13,21 @@ public class FlowDto {
 
     private Long product;
 
+    private User user;
+
+    private boolean archived;
+
+    private boolean canceled;
+
+    private boolean delivered;
+
+    private boolean hold ;
+
+    private boolean neww;
+
+    private boolean onway;
+
+    private boolean ready;
+
     private Long visits_count;
 }

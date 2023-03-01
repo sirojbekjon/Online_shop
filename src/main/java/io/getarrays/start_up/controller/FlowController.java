@@ -36,14 +36,18 @@ public class FlowController {
         return ResponseEntity.status(202).body(allFlow);
     }
 
-    @GetMapping("/user_flow/{userId}")
-    public HttpEntity<?> getByUserId(@PathVariable Long userId){
-        return flowService.getByUserId(userId);
+    @GetMapping("/get/{flowId}")
+    public HttpEntity<?> getByFlowId(@PathVariable Long flowId){
+        return flowService.getByFlowId(flowId);
     }
 
+    @PutMapping("/edit/{flowId}")
+    public HttpEntity<?> editFlowById(@PathVariable Long userId,FlowDto flowDto){
+        return flowService.editFlowById(userId, flowDto);
+    }
 
-
-
-
-
+    @DeleteMapping("/delete/{flowId}")
+    public HttpEntity<?> deleteFlowById(@PathVariable Long flowId){
+        return flowService.deleteFlowById(flowId);
+    }
 }

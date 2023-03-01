@@ -45,11 +45,41 @@ public class FlowService {
         return ResponseEntity.status(202).body("Saved successfully");
     }
 
-    public HttpEntity<?> getByUserId(Long userId) {
-        List<Flow> FlowList = flowRepository.findByUserId(userId);
-        if (!FlowList.isEmpty()){
-            return ResponseEntity.status(200).body(FlowList);
+    public HttpEntity<?> getByFlowId(Long flowId) {
+        Optional<Flow> optionalFlow = flowRepository.findById(flowId);
+        if (optionalFlow.isPresent()){
+            return ResponseEntity.status(200).body(optionalFlow.get());
         }
         return ResponseEntity.status(404).body("Not Found");
+    }
+
+    public HttpEntity<?> editFlowById(Long flowId,FlowDto flowDto){
+        Optional<Flow> optionalFlow = flowRepository.findById(flowId);
+        Optional<Product> optionalProduct = productRepository.findById(flowDto.getProduct());
+
+        if (optionalFlow.isPresent() && optionalProduct.isPresent()){
+            Flow flow = optionalFlow.get();
+            flow.setName(flowDto.getName());
+            flow.setNeww(flowDto.isNeww());
+            flow.setProduct(optionalProduct.get());
+            flow.setHold(flowDto.isHold());
+            flow.setArchived(flowDto.isArchived());
+            flow.setHold(flowDto.isHold());
+            flow.setCanceled(flowDto.isCanceled());
+            flow.setOnway(flowDto.isOnway());
+            flow.setName(flowDto.getName());
+            flow.setDelivered(flowDto.isDelivered());
+            flow.setReady(flowDto.isReady());
+        }
+        return ResponseEntity.status(202).body("Oqim o'zgartirildi");
+    }
+
+    public HttpEntity<?> deleteFlowById(Long flowId) {
+         flowRepository.deleteById(flowId);
+        Optional<Flow> optionalFlow = flowRepository.findById(flowId);
+        if (!optionalFlow.isPresent()){
+            return ResponseEntity.status(202).body("deleted");
+        }
+        return ResponseEntity.status(409).body("Not deleted");
     }
 }
