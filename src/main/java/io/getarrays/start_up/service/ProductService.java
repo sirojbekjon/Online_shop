@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -61,7 +62,7 @@ public class ProductService {
     }
 
 
-    public HttpEntity<?> getProductById(Long id) {
+    public HttpEntity<?> getProductById(UUID id) {
         Optional<Product> optionalSubjects = productRepository.findById(id);
         if (optionalSubjects.isPresent()){
             Product subject = optionalSubjects.get();
@@ -72,7 +73,7 @@ public class ProductService {
     }
 
 
-    public HttpEntity<?> editProduct(Long id, ProductDto productDto) {
+    public HttpEntity<?> editProduct(UUID id, ProductDto productDto) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         Optional<TypeProduct> optionalTypeProduct = typeProductRepository.findById(productDto.getTypeProductId());
 
@@ -100,7 +101,7 @@ public class ProductService {
         }return ResponseEntity.status(404).body("Not Found");
     }
 
-    public HttpEntity<?> deleteById(Long id) {
+    public HttpEntity<?> deleteById(UUID id) {
         productRepository.deleteById(id);
         return ResponseEntity.status(202).body("Product Deleted");
     }

@@ -52,23 +52,23 @@ public class DataLoader implements CommandLineRunner {
 
             userRepository.save(new User(
                     "superAdmin",
-                    "superAdmin",
                     passwordEncoder.encode("superAdmin"),
+                    "+8437436758454",
                     superAdmin,
                     true
             ));
             userRepository.save(new User(
                "admin",
-               "admin",
-               passwordEncoder.encode("admin"),
+                    passwordEncoder.encode("admin"),
+                    "12345678",
                admin,
                true
             ));
 
             userRepository.save(new User(
                     "user",
-                    "user",
                     passwordEncoder.encode("user"),
+                    "+983473443",
                     user,
                     true
             ));

@@ -3,13 +3,10 @@ package io.getarrays.start_up.payload;
 import lombok.Data;
 
 @Data
-public class Userdto {
+public class ClientDto {
 
-    private String username;
-
-    private String password;
-
+    private String name;
     private String phoneNumber;
+    private Long flow;
+
 }
-
-

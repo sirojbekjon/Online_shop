@@ -31,8 +31,9 @@ public class FlowController {
     };
 
     @GetMapping("/get")
-    public HttpEntity<?> getFlow(){
-        List<Flow> allFlow = flowRepository.findAll();
+    public HttpEntity<?> getFlow(@CurrentUser User user){
+        Long id = user.getId();
+        List<Flow> allFlow = flowRepository.findAllByUserId(id);
         return ResponseEntity.status(202).body(allFlow);
     }
 

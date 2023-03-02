@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
@@ -23,20 +25,18 @@ public class ProductController {
         return productService.getProduct();
     }
 
-
     @GetMapping("/get/{id}")
-    public HttpEntity<?> getProductById(@PathVariable Long id){
+    public HttpEntity<?> getProductById(@PathVariable UUID id){
         return productService.getProductById(id);
     }
 
-
     @PutMapping("/edit/{id}")
-    public HttpEntity<?>editProduct(@PathVariable Long id,@RequestBody ProductDto productDto){
+    public HttpEntity<?>editProduct(@PathVariable UUID id,@RequestBody ProductDto productDto){
         return productService.editProduct(id, productDto);
     }
 
     @DeleteMapping("/delete/{id}")
-    public HttpEntity<?> deleteById(@PathVariable Long id){
+    public HttpEntity<?> deleteById(@PathVariable UUID id){
         return productService.deleteById(id);
     }
 }

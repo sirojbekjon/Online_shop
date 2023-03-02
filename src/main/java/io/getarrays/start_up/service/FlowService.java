@@ -40,14 +40,18 @@ public class FlowService {
                     false,
                     0L
             );
-            flowRepository.save(flow);
+            Flow savedFlow = flowRepository.save(flow);
+            return ResponseEntity.status(202).body(savedFlow);
         }
-        return ResponseEntity.status(202).body("Saved successfully");
+        return ResponseEntity.status(409).body("Qayta urunib ko'ring");
     }
 
     public HttpEntity<?> getByFlowId(Long flowId) {
         Optional<Flow> optionalFlow = flowRepository.findById(flowId);
         if (optionalFlow.isPresent()){
+            Flow flow = optionalFlow.get();
+            Long visits_count = flow.getVisits_count();
+            flow.setVisits_count(++visits_count);
             return ResponseEntity.status(200).body(optionalFlow.get());
         }
         return ResponseEntity.status(404).body("Not Found");

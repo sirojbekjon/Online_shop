@@ -15,7 +15,7 @@ public class ProductDto {
 
     private String brand;
 
-    private TextArea about;
+    private String about;
 
     private String sale;
 

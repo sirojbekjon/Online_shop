@@ -5,15 +5,14 @@ import io.getarrays.start_up.entity.User;
 import lombok.Data;
 
 import javax.persistence.ManyToOne;
+import java.util.UUID;
 
 @Data
 public class FlowDto {
 
     private String name;
 
-    private Long product;
-
-    private User user;
+    private UUID product;
 
     private boolean archived;
 
@@ -28,6 +27,4 @@ public class FlowDto {
     private boolean onway;
 
     private boolean ready;
-
-    private Long visits_count;
 }

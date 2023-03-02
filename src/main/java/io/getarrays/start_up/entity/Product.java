@@ -1,6 +1,7 @@
 package io.getarrays.start_up.entity;
 
 import io.getarrays.start_up.entity.template.AbstractEntity;
+import io.getarrays.start_up.entity.template.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Product extends AbstractEntity {
+public class Product extends ProductEntity {
 
     @Column(nullable = false)
     private String name;
@@ -29,7 +30,7 @@ public class Product extends AbstractEntity {
     @Column(nullable = false)
     private String brand;
 
-    private TextArea about;
+    private String about;
 
     private String sale;
 

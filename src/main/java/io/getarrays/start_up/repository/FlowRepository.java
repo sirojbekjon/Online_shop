@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface FlowRepository extends JpaRepository<Flow,Long> {
 
+    List<Flow> findAllByUserId(Long user_id);
     List<Flow> findByUserId(Long user_id);
 
 }
