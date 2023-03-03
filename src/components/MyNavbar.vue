@@ -23,20 +23,40 @@
           outlined
       ></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn dark class="mr-2">
-        <v-icon left>fas fa-filter</v-icon>
-        Filtre
-      </v-btn>
-      <v-btn dark class="mr-2">
-        <v-icon left>fas fa-upload</v-icon>
-        Export
-      </v-btn>
-    </v-toolbar>
+
+
+
+      <v-menu offset-y>
+        <template #activator="{ on, attrs }">
+          <v-avatar v-bind="attrs" v-on="on" color="white" class="mb-4">
+            <img src="../assets/avatar2.png" alt="Avatar">
+          </v-avatar>
+        </template>
+        <v-list v-if="$store.state.status">
+          <v-list-item v-for="(item, index) in menuItems" :key="index" :to="item.path">
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+        <v-list v-else-if="!$store.state.status">
+          <v-list-item v-for="(log,index) in logout" :key="index" @click="logoutFunction" :to="log.path">
+            <v-list-item-icon>
+              <v-icon>{{ log.icon }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>{{ log.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+   </v-toolbar>
+
     <h1 class="white--text">Online_Shop</h1>
     <p class="grey--text">
       Ajoyib tanlov haridingiz uchun minnatdormiz
     </p>
-    <v-app-bar dark color="rgba(0,0,0,0)" flat class="">
+
+    <v-app-bar dark color="rgba(0,0,0,0)" flat>
       <v-tabs color="#6F0DFF">
         <v-tabs-slider color="#6F0DFF"></v-tabs-slider>
 
@@ -46,59 +66,69 @@
         <v-tab class="withoutupercase">Balances</v-tab>
         <v-tab class="withoutupercase">Transactions</v-tab>
         <v-tab class="withoutupercase">Engagement Rate</v-tab>
+        <v-tab class="withoutupercase">Fultillment Status View</v-tab>
+        <v-tab class="withoutupercase">Real-time Trackning</v-tab>
+        <v-tab class="withoutupercase">Sales View</v-tab>
+        <v-tab class="withoutupercase">Balances</v-tab>
+        <v-tab class="withoutupercase">Transactions</v-tab>
+        <v-tab class="withoutupercase">Engagement Rate</v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
-      <v-btn dark text class="d-none d-sm-flex">
-        <v-icon left>mdi-magnify</v-icon>
-        SEARCH
-      </v-btn>
-      <v-btn rounded color="white" class="black--text">
-        List
-        <v-icon right>mdi-format-list-bulleted</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-apps</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <v-divider color="grey"></v-divider>
-    <v-toolbar flat color="rgba(0,0,0,0)">
-      <v-divider vertical color="green" inset></v-divider>
-      <v-toolbar-title class="white--text ml-4">Alert</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-chip
-          class="ma-1 d-none d-sm-flex"
-          color=""
-          label
-          text-color="white"
-          dark
-      >
-        <v-avatar color="white" rounded class="mr-2">
-          <v-img src="1.png" contain></v-img>
-        </v-avatar>
-        Nike new golf
-      </v-chip>
-      <v-chip
-          class="ma-1 d-none d-sm-flex"
-          color=""
-          label
-          text-color="white"
-          dark
-      >
-        <v-avatar color="white" rounded class="mr-2">
-          <v-img src="2.png" contain></v-img>
-        </v-avatar>
-        Sneakers printemps
-      </v-chip>
 
-      <v-spacer></v-spacer>
-      <v-btn dark class="mr-2 withoutupercase d-none d-sm-flex">
-        See All (10)
-      </v-btn>
-      <v-btn dark class="mr-2" outlined>
-        <v-icon left>mdi-chevron-left</v-icon>
-        <v-icon right>mdi-chevron-right</v-icon>
-      </v-btn>
-    </v-toolbar>
+<!--      <v-btn dark text class="d-none d-sm-flex">-->
+<!--        <v-icon left>mdi-magnify</v-icon>-->
+<!--        SEARCH-->
+<!--      </v-btn>-->
+<!--      <v-btn rounded color="white" class="black&#45;&#45;text">-->
+<!--        List-->
+<!--        <v-icon right>mdi-format-list-bulleted</v-icon>-->
+<!--      </v-btn>-->
+<!--      <v-btn icon>-->
+<!--        <v-icon>mdi-apps</v-icon>-->
+<!--      </v-btn>-->
+
+    </v-app-bar>
+
+    <v-divider color="grey"></v-divider>
+
+<!--    <v-toolbar flat color="rgba(0,0,0,0)">-->
+<!--      <v-divider vertical color="green" inset></v-divider>-->
+<!--      <v-toolbar-title class="white&#45;&#45;text ml-4">Alert</v-toolbar-title>-->
+<!--      <v-spacer></v-spacer>-->
+<!--      <v-chip-->
+<!--          class="ma-1 d-none d-sm-flex"-->
+<!--          color=""-->
+<!--          label-->
+<!--          text-color="white"-->
+<!--          dark-->
+<!--      >-->
+<!--        <v-avatar color="white" rounded class="mr-2">-->
+<!--          <v-img src="1.png" contain></v-img>-->
+<!--        </v-avatar>-->
+<!--        Nike new golf-->
+<!--      </v-chip>-->
+<!--      <v-chip-->
+<!--          class="ma-1 d-none d-sm-flex"-->
+<!--          color=""-->
+<!--          label-->
+<!--          text-color="white"-->
+<!--          dark-->
+<!--      >-->
+<!--        <v-avatar color="white" rounded class="mr-2">-->
+<!--          <v-img src="2.png" contain></v-img>-->
+<!--        </v-avatar>-->
+<!--        Sneakers printemps-->
+<!--      </v-chip>-->
+
+<!--      <v-spacer></v-spacer>-->
+<!--      <v-btn dark class="mr-2 withoutupercase d-none d-sm-flex">-->
+<!--        See All (10)-->
+<!--      </v-btn>-->
+<!--      <v-btn dark class="mr-2" outlined>-->
+<!--        <v-icon left>mdi-chevron-left</v-icon>-->
+<!--        <v-icon right>mdi-chevron-right</v-icon>-->
+<!--      </v-btn>-->
+<!--    </v-toolbar>-->
   </v-container>
 </template>
 
@@ -107,12 +137,27 @@
 
 export default {
   data(){
-
+    return {
+      menuItems: [
+        {title: 'Kirish',icon:'fas fa-sign-in-alt',path:'/login'},
+        {title: 'Ro\'yxatdan o\'tish',icon: 'fas fa-address-card',path: '/register'}
+      ],
+      logout:[{title: 'Logout',icon: 'fas fa-sign-out-alt',path: '/login'}]
+    };
   },
   methods:{
     drawer(){
       this.$emit('drawe')
-    }
+    },
+    menuItemClicked() {
+      // handle menu item click here
+    },
+    logoutFunction(){
+      sessionStorage.clear()
+      this.$store.commit('setStatus',true)
+    },
+  },watch:{
+
   }
 }
 </script>

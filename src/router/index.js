@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import MyLogin from '../components/MyLogin.vue'
 import MyRegister from '../components/MyRegister.vue'
+import TypeProduct from '../views/TypeProduct.vue'
+import Upload from "@/views/Upload";
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,16 @@ const routes = [
     path: '/register',
     name: 'MyRegister',
     component: MyRegister
+  },
+  {
+    path: '/typeProduct',
+    name: 'TypeProduct',
+    component: TypeProduct
+  },
+  {
+    path: '/upload',
+    name: 'Upload',
+    component: Upload
   },
   {
     path: '/about',

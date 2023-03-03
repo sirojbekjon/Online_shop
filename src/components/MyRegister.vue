@@ -3,19 +3,19 @@
       <v-container class="fill-height" fluid>
         <v-row justify="center">
           <v-col cols="8">
-            <v-card class="elevation-12 mr-8">
+            <v-card class="elevation-12 mr-14">
               <v-window>
                   <v-window-item>
                   <v-row class="fill-height">
-                    <v-col cols="12" md="4" class="card_color">
-                      <v-card-text class="white--text mt-12 text">
-                        <h1 class="display-1">Foydalanuvchilarni ro'yxatdan o'tkazish oynasi</h1>
-                        <h5
-                            class="text-center"
-                        >kiritgan parolingizni yodda salqashni unutmang</h5>
-                      </v-card-text>
-                      </v-col>
-                    <v-col cols="12" md="8">
+<!--                    <v-col cols="12" md="4" class="card_color">-->
+<!--                      <v-card-text class="white&#45;&#45;text text">-->
+<!--                        <h1 class="display-1">Admin bo'lish uchun  ro'yxatdan o'ting</h1>-->
+<!--                        <h5-->
+<!--                            class="text-center"-->
+<!--                        >kiritgan parolingizni yodda salqashni unutmang</h5>-->
+<!--                      </v-card-text>-->
+<!--                      </v-col>-->
+                    <v-col cols="12" md="12" style="background-color: #635F68">
                       <v-card-text class="mt-12">
                         <div class="text-center mt-4">
                           <v-img
@@ -26,31 +26,37 @@
                               src="../assets/web-development-4439345-3726916.webp"
                           ></v-img>
                         </div>
-                        <h5 class="text-center display-1 blue-grey--text text--accent-3">Foydalanuvchi ma'lumotlarini kiriting</h5>
+                        <h5 class="text-center display-1 white--text">Ma'lumotlaringizni to'g'ri kiriting</h5>
                         <v-form ref="submit">
                           <v-text-field
                               label="Login"
                               v-model="data.username"
                               prepend-icon="person"
                               type="text"
-                              color="#27496D"
+                              color="#6F0DFF"
                           />
                           <v-text-field
                               label="Parol"
                               v-model="data.password"
                               prepend-icon="lock"
                               type="password"
-                              color="#27496D"
+                              color="#6F0DFF"
                           />
                           <v-text-field
                               label="Telefon raqam"
                               v-model="data.phoneNumber"
                               prepend-icon="lock"
                               type="text"
-                              color="#27496D"
+                              color="#6F0DFF"
                           />
-                          <div class="text-center mb-5">
-                            <v-btn @click.prevent="submit" color="#27496D" dark>SAQLASH</v-btn>
+                          <div class="text-center">
+                            <v-btn @click.prevent="submit" color="#6F0DFF" dark>Ro'yhatdan o'tish</v-btn>
+                          </div>
+                          <h5 class="text-center white--text">
+                            Iltimos profilngiz bo'lsa ro'yhatdan o'tmang! Profilingiz bo'lsa pastdagi tugmani bosing!
+                          </h5>
+                          <div class="text-center">
+                            <v-btn to="/login" color="#6F0DFF" dark>kirish</v-btn>
                           </div>
                         </v-form>
                       </v-card-text>

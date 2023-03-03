@@ -48,25 +48,22 @@
         text-align: center;
       "
     >
-      <v-avatar size="40">
-        <v-img
-          src="https://cdn.vuetifyjs.com/images/lists/1.jpg"
-          class="image"
-        ></v-img>
-      </v-avatar>
+<!--      <v-avatar size="40">-->
+<!--        <v-img-->
+<!--          src="https://cdn.vuetifyjs.com/images/lists/1.jpg"-->
+<!--          class="image"-->
+<!--        ></v-img>-->
+<!--      </v-avatar>-->
     </div>
   </v-navigation-drawer>
-    <RightSideBar />
   </v-container>
 </template>
 <script>
 import MyNavbar from "@/components/MyNavbar";
-import RightSideBar from "@/components/RightSideBar";
 
 export default {
   components:{
-    MyNavbar,
-    RightSideBar
+    MyNavbar
   },
   data: () => ({
     drawer:true,
@@ -76,8 +73,8 @@ export default {
       { icon: "mdi-home-outline",path:'/' },
       { icon: "mdi-cart-outline",path: '/register' },
       { icon: "mdi-store-outline",path: '/login'},
-      { icon: "mdi-calendar-check-outline" },
-      { icon: "mdi-apps" },
+      { icon: "mdi-calendar-check-outline",path: '/typeProduct' },
+      { icon: "mdi-apps",path: '/upload' },
     ],
   }),
 

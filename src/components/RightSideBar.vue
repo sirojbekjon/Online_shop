@@ -7,9 +7,10 @@
     mini-variant-width="110"
     right
   >
-    <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="80">
-      <v-btn class="ma-2" outlined large fab color="white"> SH </v-btn>
-    </v-avatar>
+<!--    <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="80">-->
+<!--      <v-btn class="ma-2" outlined large fab color="white"> SH </v-btn>-->
+<!--    </v-avatar>-->
+
 
     <v-card flat color="#6F0DFF" class="rounded-xl mx-4 py-10 text-center top">
       <v-btn icon dark class="mb-5">

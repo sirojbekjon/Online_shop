@@ -22,10 +22,12 @@ export default {
   },
 
   data: () => ({
-    token:'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlckFkbWluIiwiaWF0IjoxNjc3NzQwNzAxLCJleHAiOjE2Nzc3NzY3MDEsInJvbGUiOiJTVVBFUkFETUlOIn0.zGFFEiohC59AsxDXsvLiJh0e9MsmKYeZjk961vmkDOZVXd2zgjNqfKkJch8mcqQSZeHOsOtNsiCAqxr5AQnHNA'
   }),
 
   mounted: function () {
+      if (sessionStorage.getItem('token')){
+        this.$store.commit('setStatus',false)
+      }
       axios.get('client/get/1', {headers: {'authorization': this.token}}).then(response => {
         console.log(response)
       });
