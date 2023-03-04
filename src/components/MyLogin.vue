@@ -90,8 +90,9 @@ name:"MyLogin",
              if (response.data){
               sessionStorage.setItem('token',response.data);
                this.$store.commit('setStatus',false)
-               console.log(this.$store.state.status)
+               console.log("ishladiiii")
                this.$router.push('/');
+               window.location.reload()
              }else {
                alert("Login yoki parol noto'g'ri")
              }

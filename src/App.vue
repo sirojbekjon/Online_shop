@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import SideBar from './components/SideBar';
 
 
@@ -28,9 +28,9 @@ export default {
       if (sessionStorage.getItem('token')){
         this.$store.commit('setStatus',false)
       }
-      axios.get('client/get/1', {headers: {'authorization': this.token}}).then(response => {
-        console.log(response)
-      });
+      // axios.get('client/get/1', {headers: {'authorization': this.token}}).then(response => {
+      //   console.log(response)
+      // });
   }
 };
 </script>

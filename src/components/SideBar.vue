@@ -75,6 +75,7 @@ export default {
       { icon: "mdi-store-outline",path: '/login'},
       { icon: "mdi-calendar-check-outline",path: '/typeProduct' },
       { icon: "mdi-apps",path: '/upload' },
+      { icon: "mdi-apps",path: '/product' },
     ],
   }),
 

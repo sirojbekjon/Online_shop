@@ -5,6 +5,7 @@ import MyLogin from '../components/MyLogin.vue'
 import MyRegister from '../components/MyRegister.vue'
 import TypeProduct from '../views/TypeProduct.vue'
 import Upload from "@/views/Upload";
+import Product from "@/views/Product";
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/upload',
     name: 'Upload',
     component: Upload
+  },
+  {
+    path: '/product',
+    name: 'Product',
+    component: Product
   },
   {
     path: '/about',
