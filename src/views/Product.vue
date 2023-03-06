@@ -28,6 +28,20 @@
           sort-by="calories"
           class="myForm"
       >
+
+
+        <template v-slot:item.fileUpload="{ item }">
+          <v-card>
+            <v-card-title>
+            <v-img v-if="item.fileType!=='video/mp4'" contain :src="item.imagesUrl"   width="100px" height="100px"/>
+            <video controls v-else-if="item.fileType === 'video/mp4'" width="100px" height="100px">
+              <source  :src="item.imagesUrl" type="video/mp4">
+            </video>
+            </v-card-title>
+          </v-card>
+        </template>
+
+
         <template v-slot:top>
           <v-toolbar
               flat
@@ -120,26 +134,6 @@
             </v-dialog>
           </v-toolbar>
         </template>
-
-
-        <template v-slot:item.fileUpload="{ item }">
-          <img v-bind:content="getFileUrl(item.fileUpload.id,item)" :src="item.imagesUrl" width="100px" height="100px"/>
-        </template>
-
-
-
-
-<!--        <template v-slot:item.fileUpload.id="{}">-->
-<!--          <div>-->
-<!--           <img v-if="fileType!=='video/mp4'"  :src="imageUrl" width="100px" height="100px"/>-->
-<!--           <video controls v-else-if="fileType === 'video/mp4'" width="200px" height="200px">-->
-<!--            <source :src="imageUrl" type="video/mp4">-->
-<!--            </video>-->
-<!--          </div>-->
-<!--        </template>-->
-
-
-
 
         <template v-slot:item.actions="{ item }">
           <v-icon
@@ -243,17 +237,26 @@ export default {
       params: {page: this.page - 1, text: this.search},
       headers: {'authorization': this.token}
     })
-    console.log(response)
     if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
       this.desserts = response.data.content
       this.totalPages = response.data.totalPages
       this.loading = false
+
+      this.ordersWithIndex.forEach(item => {
+        this.getFileUrl(item.fileUpload.id,item);
+      });
     } else {
       this.desserts = response.data.content
       this.totalPages = response.data.totalPages
       this.loading = false
 
+      this.ordersWithIndex.forEach(item => {
+        this.getFileUrl(item.fileUpload.id,item);
+      });
+
     }
+
+
 
 
 
@@ -279,10 +282,10 @@ export default {
 
 
   },
-
-
   computed: {
+
     ordersWithIndex(){
+
       return this.desserts.map(
           (items, index) => ({
             ...items,
@@ -317,9 +320,9 @@ export default {
     },
   },
 
-  created () {
-    this.initialize()
-  },
+  // created () {
+  //   this.initialize()
+  // },
 
   methods: {
     getImageUrl(file) {
@@ -327,7 +330,7 @@ export default {
     },
 
 
-    getFileUrl(fileUploadId,item){
+   async getFileUrl(fileUploadId,item){
         console.log("FileId=" + fileUploadId)
         axios.get(`file/download/${fileUploadId}`, {
           headers: {
@@ -337,13 +340,16 @@ export default {
           responseType: 'blob' // set response type to blob
         })
             .then(response => {
-              const blobUrl = URL.createObjectURL(response.data); // create blob URL
-              item.imagesUrl = blobUrl
+               // create blob URL
+              item.imagesUrl = URL.createObjectURL(response.data)
+              item.fileType = response.data.type
             })
             .catch(error => {
               console.log(error);
             });
     },
+
+
 
 
 
