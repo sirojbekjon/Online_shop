@@ -20,7 +20,7 @@
           :headers="headers"
           :items="ordersWithIndex"
           :items-per-page="itemsPerPage"
-          item-key="desserts.index"
+          :item-key="desserts.index"
           single-expand
           :search="search"
           :hide-default-footer="true"
@@ -121,14 +121,22 @@
           </v-toolbar>
         </template>
 
-        <template v-slot:item.fileUpload_id="{}">
-          <div>
-           <img v-if="fileType!=='video/mp4'"  :src="getImageUrl(imageUrl)" width="100px" height="100px"/>
-           <video controls v-else-if="fileType === 'video/mp4'" width="200px" height="200px">
-            <source :src="imageUrl" type="video/mp4">
-            </video>
-          </div>
+
+        <template v-slot:item.fileUpload="{ item }">
+          <img v-bind:content="getFileUrl(item.fileUpload.id,item)" :src="item.imagesUrl" width="100px" height="100px"/>
         </template>
+
+
+
+
+<!--        <template v-slot:item.fileUpload.id="{}">-->
+<!--          <div>-->
+<!--           <img v-if="fileType!=='video/mp4'"  :src="imageUrl" width="100px" height="100px"/>-->
+<!--           <video controls v-else-if="fileType === 'video/mp4'" width="200px" height="200px">-->
+<!--            <source :src="imageUrl" type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+<!--        </template>-->
 
 
 
@@ -208,7 +216,7 @@ export default {
       { text: 'Ishlab chiqarilgan', value: 'produced' },
       { text: 'Chegirma', value: 'sale' },
       { text: 'Mavjudligi', value: 'status' },
-      { text: 'Surati', value: 'fileUpload_id' },
+      { text: 'Surati', value: 'fileUpload' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     desserts: [],
@@ -225,6 +233,7 @@ export default {
 
 
   mounted: async function () {
+
     this.setSearchIconColor('#6F0DFF');
     const typeProductResponse = await axios.get('typeProduct/get', {
       headers: {'authorization': this.token}
@@ -234,35 +243,39 @@ export default {
       params: {page: this.page - 1, text: this.search},
       headers: {'authorization': this.token}
     })
+    console.log(response)
     if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
       this.desserts = response.data.content
       this.totalPages = response.data.totalPages
       this.loading = false
     } else {
-      console.log(response.data.content[0].fileUpload.id)
       this.desserts = response.data.content
       this.totalPages = response.data.totalPages
       this.loading = false
 
     }
 
-    axios.get('file/download/1', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data',
-        'authorization': this.token
-      },
-      responseType: 'blob' // set response type to blob
-    })
-        .then(response => {
-          const blobUrl = URL.createObjectURL(response.data); // create blob URL
-          this.imageUrl = blobUrl;
-          this.fileType = response.data.type
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error);
-        });
+
+
+
+    //
+    // axios.get('file/download/1', {
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'multipart/form-data',
+    //     'authorization': this.token
+    //   },
+    //   responseType: 'blob' // set response type to blob
+    // })
+    //     .then(response => {
+    //       const blobUrl = URL.createObjectURL(response.data); // create blob URL
+    //       this.imageUrl = blobUrl;
+    //       this.fileType = response.data.type
+    //       // console.log(response)
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
 
 
   },
@@ -314,12 +327,36 @@ export default {
     },
 
 
+    getFileUrl(fileUploadId,item){
+        console.log("FileId=" + fileUploadId)
+        axios.get(`file/download/${fileUploadId}`, {
+          headers: {
+            'Accept': 'application/json',
+            'authorization': this.token
+          },
+          responseType: 'blob' // set response type to blob
+        })
+            .then(response => {
+              const blobUrl = URL.createObjectURL(response.data); // create blob URL
+              item.imagesUrl = blobUrl
+            })
+            .catch(error => {
+              console.log(error);
+            });
+    },
+
+
+
+
+
+
 
     async nextperson() {
       const response = await axios.get('personal/get', {
         params: {page: this.page-1,text:this.search},
         headers: {'authorization': this.token}
       })
+      console.log(response.data)
       this.totalElement = response.data.totalElements
       if (this.search!== '' && this.search.length > 3 && response.data.length!==0){
         this.desserts=response.data.content
