@@ -3,26 +3,39 @@
     <v-col cols="10">
       <v-card-title>
         <v-spacer></v-spacer>
+<!--        <v-text-field-->
+<!--            v-model="search"-->
+<!--            append-icon="mdi-magnify"-->
+<!--            label="Search.."-->
+<!--            single-line-->
+<!--            hide-details-->
+<!--            solo-inverted-->
+<!--            solo-->
+<!--            @input="this.nextperson"-->
+<!--        ></v-text-field>-->
         <v-text-field
+            background-color="#635F68"
             v-model="search"
             append-icon="mdi-magnify"
             label="Search"
             hide-details
             class="searchPanel"
             ref="searchField"
+            @input="this.nextperson"
             translate="yes"
+            solo
             solo-inverted
-            light
         >
         </v-text-field>
+
+
       </v-card-title>
       <v-data-table
           :headers="headers"
           :items="ordersWithIndex"
           :items-per-page="itemsPerPage"
-          :item-key="desserts.index"
+          item-key="desserts.index"
           single-expand
-          :search="search"
           :hide-default-footer="true"
           :loading="loading"
           sort-by="calories"
@@ -31,14 +44,14 @@
 
 
         <template v-slot:item.fileUpload="{ item }">
-          <v-card>
+<!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
             <v-card-title>
-            <v-img v-if="item.fileType!=='video/mp4'" contain :src="item.imagesUrl"   width="100px" height="100px"/>
-            <video controls v-else-if="item.fileType === 'video/mp4'" width="100px" height="100px">
-              <source  :src="item.imagesUrl" type="video/mp4">
+            <v-img v-if="item.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.fileUpload.name}`"   width="100px" height="auto"/>
+            <video  controls v-else-if="item.fileUpload.contentType === 'video/mp4'" width="100px" height="auto">
+              <source  :src="`http://192.168.202.23:8088/upload/${item.fileUpload.name}`" type="video/mp4">
             </video>
             </v-card-title>
-          </v-card>
+<!--          </v-card>-->
         </template>
 
 
@@ -77,6 +90,11 @@
                 <v-card-text>
                   <v-container>
                     <v-row>
+                      <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                      >
                       <v-select
                           :items="typeProduct"
                           item-text="name"
@@ -86,6 +104,7 @@
                           persistent-hint
                           single-line
                       ></v-select>
+                      </v-col>
                       <v-col
                           cols="12"
                           sm="6"
@@ -93,8 +112,74 @@
                       >
                         <v-text-field
                             v-model="editedItem.name"
-                            label="Mahsulot"
+                            label="Nomlanishi"
                         ></v-text-field>
+                      </v-col>
+                      <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                      >
+                        <v-text-field
+                            v-model="editedItem.produced"
+                            label="Firmasi"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                      >
+                        <v-text-field
+                            v-model="editedItem.about"
+                            label="Mahsulot haqida"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                      >
+                        <v-text-field
+                            v-model="editedItem.price"
+                            label="narxi"
+                        ></v-text-field>
+                      </v-col>       <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                      >
+                        <v-text-field
+                            v-model="editedItem.brand"
+                            label="Brand"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                      >
+                        <v-text-field
+                            v-model="editedItem.sale"
+                            label="sale"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                      >
+                        <v-text-field
+                            v-model="editedItem.status"
+                            label="Mavjudligi"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                      >
+                        <input type="file" ref="fileInput" @change="onFileSelected">
                       </v-col>
 
 
@@ -186,7 +271,7 @@ export default {
     imageUrl: '',
     search:'',
     totalElement:'',
-    typeProduct:'',
+    typeProduct:[],
     deleteId:'',
     loading: true,
     dialog: false,
@@ -196,7 +281,18 @@ export default {
     totalPages:0,
     itemsPerPage: 10,
     token: 'Bearer ' + sessionStorage.getItem('token'),
+
+    perPageChoices: [
+      {text:'5 records/page' , value: 5},
+      {text:'10 records/page' , value: 10},
+      {text:'20 records/page' , value: 20},
+    ],
+
     headers: [
+      {    text: 'T/R',
+        align: 'start',
+        sortable: true,
+        value: 'index',},
       {
         text: 'Mahsulot',
         align: 'start',
@@ -217,7 +313,15 @@ export default {
     editedIndex: -1,
     editedItem: {
       name: '',
-      typeProduct: '',
+      typeProduct: [],
+      brand:'',
+      about:'',
+      price:'',
+      produced:'',
+      sale:'',
+      status:'',
+      fileUpload:''
+
     },
     defaultItem: {
       name: '',
@@ -228,70 +332,25 @@ export default {
 
   mounted: async function () {
 
-    this.setSearchIconColor('#6F0DFF');
+    this.nextperson()
     const typeProductResponse = await axios.get('typeProduct/get', {
       headers: {'authorization': this.token}
     })
     this.typeProduct = typeProductResponse.data
-    const response = await axios.get('product/get', {
-      params: {page: this.page - 1, text: this.search},
-      headers: {'authorization': this.token}
-    })
-    if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
-      this.desserts = response.data.content
-      this.totalPages = response.data.totalPages
-      this.loading = false
-
-      this.ordersWithIndex.forEach(item => {
-        this.getFileUrl(item.fileUpload.id,item);
-      });
-    } else {
-      this.desserts = response.data.content
-      this.totalPages = response.data.totalPages
-      this.loading = false
-
-      this.ordersWithIndex.forEach(item => {
-        this.getFileUrl(item.fileUpload.id,item);
-      });
-
-    }
-
-
-
-
-
-
-    //
-    // axios.get('file/download/1', {
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'multipart/form-data',
-    //     'authorization': this.token
-    //   },
-    //   responseType: 'blob' // set response type to blob
-    // })
-    //     .then(response => {
-    //       const blobUrl = URL.createObjectURL(response.data); // create blob URL
-    //       this.imageUrl = blobUrl;
-    //       this.fileType = response.data.type
-    //       // console.log(response)
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
-
-
+    this.setSearchIconColor('#6F0DFF');
   },
+
+
   computed: {
-
     ordersWithIndex(){
-
       return this.desserts.map(
           (items, index) => ({
             ...items,
             index: (this.page-1)*10 + index + 1
           }))
     },
+
+
     totalRecords() {
       return this.desserts.length
     },
@@ -307,7 +366,7 @@ export default {
 
 
     formTitle () {
-      return this.editedIndex === -1 ? 'Create' : 'Edit'
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
   },
 
@@ -318,69 +377,84 @@ export default {
     dialogDelete (val) {
       val || this.closeDelete()
     },
+    '$route.query.page': {
+      handler() {
+        this.nextperson();
+      },
+      immediate: true
+    }
   },
-
-  // created () {
-  //   this.initialize()
-  // },
+  created () {
+    this.initialize()
+  },
 
   methods: {
     getImageUrl(file) {
       return file.imageUrl;
     },
 
+    onFileSelected() {
+      this.files = this.$refs.fileInput.files;
+      this.uploadFiles()
+    },
+    async uploadFiles() {
+      const formData = new FormData();
 
-   async getFileUrl(fileUploadId,item){
-        console.log("FileId=" + fileUploadId)
-        axios.get(`file/download/${fileUploadId}`, {
-          headers: {
-            'Accept': 'application/json',
-            'authorization': this.token
-          },
-          responseType: 'blob' // set response type to blob
-        })
-            .then(response => {
-               // create blob URL
-              item.imagesUrl = URL.createObjectURL(response.data)
-              item.fileType = response.data.type
-            })
-            .catch(error => {
-              console.log(error);
-            });
+      for (let i = 0; i < this.files.length; i++) {
+        formData.append('files', this.files[i], this.files[i].name);
+      }
+      const response = await axios.post("file/upload", formData,
+          {headers:{Accept:'application/json','Content-Type': 'multipart/form-data','authorization': this.token}});
+            this.editedItem.fileUpload = response.data.id
     },
 
 
-
-
-
-
-
+    // async getFileUrl(fileUploadId,item){
+    //  console.log(item)
+    //     console.log("FileId=" + fileUploadId)
+    //     axios.get(`file/download/${fileUploadId}`, {
+    //       headers: {
+    //         'Accept': 'application/json',
+    //         'authorization': this.token
+    //       },
+    //       responseType: 'blob' // set response type to blob
+    //     })
+    //         .then(response => {
+    //
+    //            // create blob URL
+    //           item.imagesUrl = URL.createObjectURL(response.data)
+    //           item.fileType = response.data.type
+    //           console.log(item)
+    //         })
+    //         .catch(error => {
+    //           console.log(error);
+    //         });
+    // },
 
 
     async nextperson() {
-      const response = await axios.get('personal/get', {
-        params: {page: this.page-1,text:this.search},
+      const response = await axios.get('product/get', {
+        params: {page: this.page - 1, text: this.search},
         headers: {'authorization': this.token}
       })
-      console.log(response.data)
       this.totalElement = response.data.totalElements
-      if (this.search!== '' && this.search.length > 3 && response.data.length!==0){
-        this.desserts=response.data.content
-        this.totalPages = response.data.totalPages
-        this.loading=false
-      }else {
+      if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
         this.desserts = response.data.content
         this.totalPages = response.data.totalPages
-        this.loading=false
+        this.loading = false
+      } else {
+        this.desserts = response.data.content
+        this.totalPages = response.data.totalPages
+        this.loading = false
       }
-    },
 
+    },
 
 
     initialize () {
     },
 
-    editItem (item) {
+    editItem(item) {
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
@@ -415,12 +489,17 @@ export default {
       })
     },
 
+
     async save() {
       if (this.editedIndex > -1) {
-        if (this.editedItem.region.name){this.editedItem.region = this.editedItem.region.id}
-         await axios.put('product/edit/' + this.editedItem.id, this.editedItem, {headers: {'authorization': this.token}})
+        if (isNaN(this.editedItem.typeProduct)){this.editedItem.typeProduct = this.editedItem.typeProduct.id}
+        if (isNaN(this.editedItem.fileUpload)){this.editedItem.fileUpload = this.editedItem.fileUpload.id}
+        await axios.put('product/edit/' + this.editedItem.id, this.editedItem, {headers: {'authorization': this.token}})
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        this.close()
+        this.nextperson()
       } else {
+        console.log(this.editedItem)
         await axios.post('product/add', this.editedItem, {headers: {'authorization': this.token}})
         this.desserts.push(this.editedItem)
       }
@@ -435,7 +514,6 @@ export default {
       );
       icon.style.color = color;
     }
-
   },
 }
 </script>
@@ -452,13 +530,15 @@ export default {
 }
 .searchPanel{
   text-shadow: 0 1px white !important;
-  color: white !important;
+  color: red !important;
   box-shadow: 0 1px #6F0DFF !important;
 
 }
 .searchPanel .v-input__icon--append .v-icon::before {
   color: blue !important;
 }
+
+
 
 
 

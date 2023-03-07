@@ -1,7 +1,7 @@
 <template>
   <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
     <v-main>
-        <SideBar :drawer="drawer" />
+        <SideBar />
       <router-view/>
     </v-main>
 

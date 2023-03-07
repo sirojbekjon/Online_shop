@@ -90,7 +90,6 @@ name:"MyLogin",
              if (response.data){
               sessionStorage.setItem('token',response.data);
                this.$store.commit('setStatus',false)
-               console.log("ishladiiii")
                this.$router.push('/');
                window.location.reload()
              }else {
