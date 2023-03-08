@@ -22,21 +22,21 @@ export default {
   },
 
   mounted() {
-    axios.get('file/download/7', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data',
-        'authorization': this.token
-      },
-      responseType: 'blob' // set response type to blob
-    })
-        .then(response => {
-          const blobUrl = URL.createObjectURL(response.data); // create blob URL
-          this.imageUrl = blobUrl;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    // axios.get('file/download/7', {
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'multipart/form-data',
+    //     'authorization': this.token
+    //   },
+    //   responseType: 'blob' // set response type to blob
+    // })
+    //     .then(response => {
+    //       const blobUrl = URL.createObjectURL(response.data); // create blob URL
+    //       this.imageUrl = blobUrl;
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
   },
 
 

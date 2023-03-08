@@ -21,7 +21,7 @@
             hide-details
             class="searchPanel"
             ref="searchField"
-            @input="this.nextperson"
+            @input="nextperson"
             translate="yes"
             solo
             solo-inverted
@@ -46,9 +46,9 @@
         <template v-slot:item.fileUpload="{ item }">
 <!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
             <v-card-title>
-            <v-img v-if="item.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.fileUpload.name}`"   width="100px" height="auto"/>
+            <v-img v-if="item.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.1.6:8088/upload/${item.fileUpload.name}`"   width="100px" height="auto"/>
             <video  controls v-else-if="item.fileUpload.contentType === 'video/mp4'" width="100px" height="auto">
-              <source  :src="`http://192.168.202.23:8088/upload/${item.fileUpload.name}`" type="video/mp4">
+              <source  :src="`http://192.168.1.6:8088/upload/${item.fileUpload.name}`" type="video/mp4">
             </video>
             </v-card-title>
 <!--          </v-card>-->
@@ -433,10 +433,13 @@ export default {
 
 
     async nextperson() {
+
+      console.log("ishlavotti")
       const response = await axios.get('product/get', {
         params: {page: this.page - 1, text: this.search},
         headers: {'authorization': this.token}
       })
+      console.log(response)
       this.totalElement = response.data.totalElements
       if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
         this.desserts = response.data.content
@@ -455,14 +458,14 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item)
+      this.editedIndex = this.ordersWithIndex.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem (item) {
       this.deleteId = item.id
-      this.editedIndex = this.desserts.indexOf(item)
+      this.editedIndex = this.ordersWithIndex.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
