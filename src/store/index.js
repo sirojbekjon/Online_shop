@@ -8,7 +8,8 @@ export default new Vuex.Store({
     token:sessionStorage.getItem('token'),
     role:'',
     username:'',
-    status:true
+    status:true,
+    typeId:1
   },
   getters: {
   },
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     setStatus(state,payload){
       return state.status = payload
+    },
+    setTypeId(state,payload){
+      return state.typeId = payload
     }
   },
   actions: {

@@ -149,11 +149,25 @@
 
 
 <script>
+// import axios from "axios";
+
 export default {
   name: "Home",
   data: () => ({
+    // page: 1,
+    // totalPages:0,
+    // itemsPerPage: 10,
+    //
+    // typeIds:this.$store.state.typeId,
     selection: 1,
     drawer: true,
+    //
+    // perPageChoices: [
+    //   {text:'5 records/page' , value: 5},
+    //   {text:'10 records/page' , value: 10},
+    //   {text:'20 records/page' , value: 20},
+    // ],
+
     shoes: [
       {
         image: "3.jpg",
@@ -221,6 +235,18 @@ export default {
   }),
   components: {
   },
+
+  // mounted: async function () {
+  //   const token = 'Bearer '+sessionStorage.getItem('token')
+  //   const products = await axios.get(`product/byType/${this.$store.state.typeId}`, {
+  //     params: {page: this.page, text: this.search},
+  //     headers: {'authorization': token}
+  //   })
+  //   this.shoes = products.data
+  //   this.setSearchIconColor('#6F0DFF');
+  // },
+
+
   methods: {},
 };
 </script>

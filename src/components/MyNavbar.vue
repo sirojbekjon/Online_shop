@@ -56,88 +56,32 @@
       Ajoyib tanlov haridingiz uchun minnatdormiz
     </p>
 
+
+
     <v-app-bar dark color="rgba(0,0,0,0)" flat>
       <v-tabs color="#6F0DFF">
         <v-tabs-slider color="#6F0DFF"></v-tabs-slider>
+        <v-tab class="withoutupercase" v-for="type in typeProduct" :key="type.id" @click="changeType(type.id)">
+          {{ type.name }}</v-tab>
 
-        <v-tab class="withoutupercase">Fultillment Status View</v-tab>
-        <v-tab class="withoutupercase">Real-time Trackning</v-tab>
-        <v-tab class="withoutupercase">Sales View</v-tab>
-        <v-tab class="withoutupercase">Balances</v-tab>
-        <v-tab class="withoutupercase">Transactions</v-tab>
-        <v-tab class="withoutupercase">Engagement Rate</v-tab>
-        <v-tab class="withoutupercase">Fultillment Status View</v-tab>
-        <v-tab class="withoutupercase">Real-time Trackning</v-tab>
-        <v-tab class="withoutupercase">Sales View</v-tab>
-        <v-tab class="withoutupercase">Balances</v-tab>
-        <v-tab class="withoutupercase">Transactions</v-tab>
-        <v-tab class="withoutupercase">Engagement Rate</v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
-
-<!--      <v-btn dark text class="d-none d-sm-flex">-->
-<!--        <v-icon left>mdi-magnify</v-icon>-->
-<!--        SEARCH-->
-<!--      </v-btn>-->
-<!--      <v-btn rounded color="white" class="black&#45;&#45;text">-->
-<!--        List-->
-<!--        <v-icon right>mdi-format-list-bulleted</v-icon>-->
-<!--      </v-btn>-->
-<!--      <v-btn icon>-->
-<!--        <v-icon>mdi-apps</v-icon>-->
-<!--      </v-btn>-->
-
     </v-app-bar>
 
     <v-divider color="grey"></v-divider>
-
-<!--    <v-toolbar flat color="rgba(0,0,0,0)">-->
-<!--      <v-divider vertical color="green" inset></v-divider>-->
-<!--      <v-toolbar-title class="white&#45;&#45;text ml-4">Alert</v-toolbar-title>-->
-<!--      <v-spacer></v-spacer>-->
-<!--      <v-chip-->
-<!--          class="ma-1 d-none d-sm-flex"-->
-<!--          color=""-->
-<!--          label-->
-<!--          text-color="white"-->
-<!--          dark-->
-<!--      >-->
-<!--        <v-avatar color="white" rounded class="mr-2">-->
-<!--          <v-img src="1.png" contain></v-img>-->
-<!--        </v-avatar>-->
-<!--        Nike new golf-->
-<!--      </v-chip>-->
-<!--      <v-chip-->
-<!--          class="ma-1 d-none d-sm-flex"-->
-<!--          color=""-->
-<!--          label-->
-<!--          text-color="white"-->
-<!--          dark-->
-<!--      >-->
-<!--        <v-avatar color="white" rounded class="mr-2">-->
-<!--          <v-img src="2.png" contain></v-img>-->
-<!--        </v-avatar>-->
-<!--        Sneakers printemps-->
-<!--      </v-chip>-->
-
-<!--      <v-spacer></v-spacer>-->
-<!--      <v-btn dark class="mr-2 withoutupercase d-none d-sm-flex">-->
-<!--        See All (10)-->
-<!--      </v-btn>-->
-<!--      <v-btn dark class="mr-2" outlined>-->
-<!--        <v-icon left>mdi-chevron-left</v-icon>-->
-<!--        <v-icon right>mdi-chevron-right</v-icon>-->
-<!--      </v-btn>-->
-<!--    </v-toolbar>-->
-  </v-container>
+      </v-container>
 </template>
 
 
 <script>
 
+import axios from "axios";
+
 export default {
   data(){
     return {
+      token: 'Bearer ' + sessionStorage.getItem('token'),
+      typeProduct:[],
       menuItems: [
         {title: 'Kirish',icon:'fas fa-sign-in-alt',path:'/login'},
         {title: 'Ro\'yxatdan o\'tish',icon: 'fas fa-address-card',path: '/register'}
@@ -145,8 +89,20 @@ export default {
       logout:[{title: 'Logout',icon: 'fas fa-sign-out-alt',path: '/login'}]
     };
   },
+  async mounted() {
+    await axios.get('typeProduct/get', {headers: {'authorization': this.token}}).then(response=>{
+      this.typeProduct = response.data;
+    })
+
+
+  },
+
   methods:{
-    drawer(){
+    changeType(typeId){
+      this.$store.commit('setTypeId',typeId)
+    },
+
+      drawer(){
       this.$emit('drawe')
     },
     menuItemClicked() {

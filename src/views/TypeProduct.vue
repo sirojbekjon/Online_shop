@@ -198,6 +198,7 @@ export default {
     },
 
     async deleteItemConfirm() {
+      console.log(this.deleteId)
       await axios.delete('typeProduct/delete/' + this.deleteId, {headers: {'authorization': this.token}})
       this.desserts.splice(this.editedIndex, 1)
       this.closeDelete()
@@ -224,7 +225,7 @@ export default {
         await axios.put('typeProduct/edit/' + this.editedItem.id, this.editedItem, {headers: {'authorization': this.token}})
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
       } else {
-        await axios.post('floor/add', this.editedItem, {headers: {'authorization': this.token}})
+        await axios.post('typeProduct/add', this.editedItem, {headers: {'authorization': this.token}})
         this.desserts.push(this.editedItem)
       }
       this.close()
