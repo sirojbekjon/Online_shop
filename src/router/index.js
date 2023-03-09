@@ -6,6 +6,7 @@ import MyRegister from '../components/MyRegister.vue'
 import TypeProduct from '../views/TypeProduct.vue'
 import Upload from "@/views/Upload";
 import Product from "@/views/Product";
+import Shoes from "@/views/Shoes";
 
 Vue.use(VueRouter)
 
@@ -41,6 +42,12 @@ const routes = [
     component: Product
   },
   {
+    path: '/shoes/:id',
+    name: 'Shoes',
+    component: Shoes,
+    props:true
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
@@ -49,11 +56,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
 
-  {
-    path:"/product/:id",
-    component: Product,
-    props:true,
-  }
+  // {
+  //   path:"/product/:id",
+  //   component: Product,
+  //   props:true,
+  // }
 
 ]
 

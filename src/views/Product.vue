@@ -46,9 +46,9 @@
         <template v-slot:item.fileUpload="{ item }">
 <!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
             <v-card-title>
-            <v-img v-if="item.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.1.2:8088/upload/${item.fileUpload.name}`"   width="100px" height="auto"/>
+            <v-img v-if="item.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.fileUpload.name}`"   width="100px" height="auto"/>
             <video  controls v-else-if="item.fileUpload.contentType === 'video/mp4'" width="100px" height="auto">
-              <source  :src="`http://192.168.1.2:8088/upload/${item.fileUpload.name}`" type="video/mp4">
+              <source  :src="`http://192.168.202.23:8088/upload/${item.fileUpload.name}`" type="video/mp4">
             </video>
             </v-card-title>
 <!--          </v-card>-->
@@ -264,6 +264,9 @@
 import axios from "axios";
 
 export default {
+  props:[
+      'selected_type_id'
+  ],
   name:'product',
   data: () => ({
     files:'',
@@ -331,6 +334,8 @@ export default {
 
 
   mounted: async function () {
+    console.log("typeIdchiqadiiiiiii")
+    console.log(this.selected_type_id)
 
     this.nextperson()
     const typeProductResponse = await axios.get('typeProduct/get', {
@@ -433,13 +438,10 @@ export default {
 
 
     async nextperson() {
-
-      console.log("ishlavotti")
       const response = await axios.get('product/get', {
         params: {page: this.page - 1, text: this.search},
         headers: {'authorization': this.token}
       })
-      console.log(response)
       this.totalElement = response.data.totalElements
       if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
         this.desserts = response.data.content
@@ -502,7 +504,6 @@ export default {
         this.close()
         this.nextperson()
       } else {
-        console.log(this.editedItem)
         await axios.post('product/add', this.editedItem, {headers: {'authorization': this.token}})
         this.desserts.push(this.editedItem)
       }

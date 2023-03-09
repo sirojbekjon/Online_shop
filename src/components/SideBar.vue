@@ -1,6 +1,6 @@
 <template>
   <v-container>
-  <MyNavbar @drawe="drawer = !drawer"/>
+  <MyNavbar @drawe="drawer = !drawer" @type_selected="handleTypeSelected"/>
   <v-navigation-drawer
     v-model="drawer"
     app
@@ -66,6 +66,9 @@ export default {
     MyNavbar
   },
   data: () => ({
+    props:[
+        'typeId'
+    ],
     drawer:true,
     selectedItem: 0,
 
@@ -84,6 +87,17 @@ export default {
       return value;
     },
   },
+
+  mounted() {
+    console.log(this.typeId)
+  },
+  methods:{
+    handleTypeSelected(typeId){
+      console.log("sudebar")
+      console.log(typeId)
+      this.$emit('changeTypeId', typeId)
+    }
+  }
 };
 </script>
 

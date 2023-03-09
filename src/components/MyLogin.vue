@@ -88,6 +88,7 @@ name:"MyLogin",
               sessionStorage.clear();
               axios.post('auth/login', this.data).then(response =>{
              if (response.data){
+               console.log(response)
               sessionStorage.setItem('token',response.data);
                this.$store.commit('setStatus',false)
                this.$store.commit('set',false)

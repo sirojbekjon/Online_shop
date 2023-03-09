@@ -61,7 +61,7 @@
     <v-app-bar dark color="rgba(0,0,0,0)" flat>
       <v-tabs color="#6F0DFF">
         <v-tabs-slider color="#6F0DFF"></v-tabs-slider>
-        <v-tab class="withoutupercase" v-for="type in typeProduct" :key="type.id" @click="changeType(type.id)">
+        <v-tab class="withoutupercase" v-for="type in typeProduct" :key="type.id" :to="{name: 'Shoes',params:{id: type.id}}" @click="selectTab(type.id)">
           {{ type.name }}</v-tab>
 
       </v-tabs>
@@ -80,6 +80,7 @@ import axios from "axios";
 export default {
   data(){
     return {
+      selectedTabId: null,
       token: 'Bearer ' + sessionStorage.getItem('token'),
       typeProduct:[],
       menuItems: [
@@ -89,25 +90,37 @@ export default {
       logout:[{title: 'Logout',icon: 'fas fa-sign-out-alt',path: '/login'}]
     };
   },
-  async mounted() {
+  mounted: async function () {
     await axios.get('typeProduct/get', {headers: {'authorization': this.token}}).then(response=>{
       this.typeProduct = response.data;
+
     })
 
 
   },
 
   methods:{
-    changeType(typeId){
-      this.$store.commit('setTypeId',typeId)
+
+    selectTab(tabId) {
+      this.selectedTabId = tabId;
     },
+    // changeType(typeId) {
+    //   const typeStore = useTypeStore()
+    //   typeStore.setCurrentType(typeId)
+    //
+    //   this.$store.commit('setTypeId',typeId)
+    //   console.log("MyNavbar")
+    //   console.log(this.$store.state.typeId)
+    //   this.selectedType = typeId
+    //   this.$emit('type_selected', typeId)
+    // },
 
       drawer(){
       this.$emit('drawe')
     },
-    menuItemClicked() {
-      // handle menu item click here
-    },
+    // menuItemClicked() {
+    //   // handle menu item click here
+    // },
     logoutFunction(){
       sessionStorage.clear()
       this.$store.commit('setStatus',true)

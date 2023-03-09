@@ -9,11 +9,18 @@ export default new Vuex.Store({
     role:'',
     username:'',
     status:true,
-    typeId:1
+    typeId:1,
+    count:0
+    // typeProduct:[]
   },
   getters: {
+    doubleCount: state => state.count * 2
   },
   mutations: {
+    increment (state) {
+      state.count++
+    },
+
     changeRole(state,payload){
       return state.role = payload
     },
@@ -26,8 +33,16 @@ export default new Vuex.Store({
     setTypeId(state,payload){
       return state.typeId = payload
     }
+    // setTypeProduct(state,payload){
+    //   return state.typeProduct = payload
+    // }
   },
   actions: {
+    // incrementAsync ({ commit }) {
+    //   setTimeout(() => {
+    //     commit('increment')
+    //   }, 10)
+    // }
   },
   modules: {
   }

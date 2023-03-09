@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
 import axios from "axios";
 
-axios.defaults.baseURL= 'http://192.168.1.2:8088/api/';
+axios.defaults.baseURL= 'http://192.168.202.23:8088/api/';
 
 // let refresh = false;
 //

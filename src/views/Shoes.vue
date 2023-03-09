@@ -149,7 +149,7 @@
 
 
 <script>
-// import axios from "axios";
+
 
 export default {
   name: "Home",
@@ -157,11 +157,11 @@ export default {
     // page: 1,
     // totalPages:0,
     // itemsPerPage: 10,
-    //
-    // typeIds:this.$store.state.typeId,
     selection: 1,
     drawer: true,
-    //
+    props:['id'],
+
+
     // perPageChoices: [
     //   {text:'5 records/page' , value: 5},
     //   {text:'10 records/page' , value: 10},
@@ -233,9 +233,9 @@ export default {
       },
     ],
   }),
-  components: {
-  },
 
+
+  //
   // mounted: async function () {
   //   const token = 'Bearer '+sessionStorage.getItem('token')
   //   const products = await axios.get(`product/byType/${this.$store.state.typeId}`, {
@@ -247,7 +247,23 @@ export default {
   // },
 
 
+
   methods: {},
+
+
+
+  mounted() {
+    console.log("shoess")
+    console.log(this.$route.params.id)
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    // Call next to allow the route to update
+    next();
+    // Log the new value of the route param
+    console.log("shoec");
+    console.log(to.params.id);
+  },
 };
 </script>
 <style scoped>
