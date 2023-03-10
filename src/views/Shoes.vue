@@ -227,6 +227,7 @@ export default {
   beforeRouteUpdate(to, from, next) {
     // Call next to allow the route to update
     next();
+    console.log("ishhhhhhhhhhhhhhhhhh")
     // Log the new value of the route param
     const token = 'Bearer '+sessionStorage.getItem('token')
     axios.get(`product/byType/${to.params.id}`, {
@@ -245,7 +246,7 @@ export default {
 
   methods:{
     async nextperson() {
-      console.log(this.typesId)
+      console.log("fhdjkhfjdhfjdhjfhdjfhdjfhdjfhdjfhdj")
       const token = 'Bearer ' + sessionStorage.getItem('token');
       const products = await axios.get(`product/byType/${this.$store.state.typeId}`, {
         params: {page: this.page-1, text: this.search},

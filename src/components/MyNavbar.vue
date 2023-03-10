@@ -96,7 +96,8 @@ export default {
   methods:{
 
     selectTab(tabId) {
-      this.selectedTabId = tabId;
+      console.log(tabId)
+      this.$store.commit('setTypeId',tabId);
     },
 
       drawer(){
