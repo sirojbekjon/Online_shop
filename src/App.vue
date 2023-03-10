@@ -1,36 +1,28 @@
 <template>
   <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
     <v-main>
-        <SideBar @changeTypeId="giveTypeId"/>
-<!--        <Navbar />-->
+        <SideBar />
       <router-view :selected_type_id="typeId2"/>
     </v-main>
+    <Footer style="z-index: 10"/>
   </v-app>
 </template>
 
 <script>
-// import axios from "axios";
+
 import SideBar from './components/SideBar';
-// import Navbar from './components/MyNavbar'
+import Footer from './components/Footer';
 
 export default {
   name: 'App',
   components:{
     SideBar,
-    // Navbar
+    Footer
   },
 
   data: () => ({
-    typeId2:null
-  }),
-  methods:{
-    giveTypeId(typeId){
-      console.log("Appp")
-      console.log(typeId)
-      this.typeId2 = typeId
-    }
-  },
 
+  }),
   mounted: function () {
     console.log(this.typeId)
       if (sessionStorage.getItem('token')){

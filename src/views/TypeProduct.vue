@@ -153,7 +153,7 @@ export default {
 
 
   mounted: async function () {
-    const response = await axios.get('typeProduct/get', {headers: { 'authorization': this.token }})
+    const response = await axios.get('typeProduct/get')
     this.desserts = response.data
     // this.$store.commit('setTypeProduct',this.desserts)
   },

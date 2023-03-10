@@ -3,16 +3,6 @@
     <v-col cols="10">
       <v-card-title>
         <v-spacer></v-spacer>
-<!--        <v-text-field-->
-<!--            v-model="search"-->
-<!--            append-icon="mdi-magnify"-->
-<!--            label="Search.."-->
-<!--            single-line-->
-<!--            hide-details-->
-<!--            solo-inverted-->
-<!--            solo-->
-<!--            @input="this.nextperson"-->
-<!--        ></v-text-field>-->
         <v-text-field
             background-color="#635F68"
             v-model="search"

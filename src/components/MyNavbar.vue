@@ -55,9 +55,6 @@
     <p class="grey--text">
       Ajoyib tanlov haridingiz uchun minnatdormiz
     </p>
-
-
-
     <v-app-bar dark color="rgba(0,0,0,0)" flat>
       <v-tabs color="#6F0DFF">
         <v-tabs-slider color="#6F0DFF"></v-tabs-slider>
@@ -93,10 +90,7 @@ export default {
   mounted: async function () {
     await axios.get('typeProduct/get', {headers: {'authorization': this.token}}).then(response=>{
       this.typeProduct = response.data;
-
     })
-
-
   },
 
   methods:{
@@ -104,23 +98,11 @@ export default {
     selectTab(tabId) {
       this.selectedTabId = tabId;
     },
-    // changeType(typeId) {
-    //   const typeStore = useTypeStore()
-    //   typeStore.setCurrentType(typeId)
-    //
-    //   this.$store.commit('setTypeId',typeId)
-    //   console.log("MyNavbar")
-    //   console.log(this.$store.state.typeId)
-    //   this.selectedType = typeId
-    //   this.$emit('type_selected', typeId)
-    // },
 
       drawer(){
       this.$emit('drawe')
     },
-    // menuItemClicked() {
-    //   // handle menu item click here
-    // },
+
     logoutFunction(){
       sessionStorage.clear()
       this.$store.commit('setStatus',true)

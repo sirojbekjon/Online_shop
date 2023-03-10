@@ -7,6 +7,7 @@ import TypeProduct from '../views/TypeProduct.vue'
 import Upload from "@/views/Upload";
 import Product from "@/views/Product";
 import Shoes from "@/views/Shoes";
+import Footer from "@/components/Footer";
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,11 @@ const routes = [
     path: '/product',
     name: 'Product',
     component: Product
+  },
+  {
+    path: '/footer',
+    name: 'Footer',
+    component: Footer
   },
   {
     path: '/shoes/:id',

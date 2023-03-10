@@ -1,6 +1,6 @@
 <template>
   <v-container>
-  <MyNavbar @drawe="drawer = !drawer" @type_selected="handleTypeSelected"/>
+  <MyNavbar @drawe="drawer = !drawer"/>
   <v-navigation-drawer
     v-model="drawer"
     app
@@ -36,26 +36,8 @@
         </v-list-item-group>
       </v-list>
     </v-card>
-
-    <div
-      style="
-        position: absolute;
-        bottom: 20px;
-        margin-left: auto;
-        margin-right: auto;
-        left: 0;
-        right: 0;
-        text-align: center;
-      "
-    >
-<!--      <v-avatar size="40">-->
-<!--        <v-img-->
-<!--          src="https://cdn.vuetifyjs.com/images/lists/1.jpg"-->
-<!--          class="image"-->
-<!--        ></v-img>-->
-<!--      </v-avatar>-->
-    </div>
   </v-navigation-drawer>
+
   </v-container>
 </template>
 <script>
@@ -87,17 +69,6 @@ export default {
       return value;
     },
   },
-
-  mounted() {
-    console.log(this.typeId)
-  },
-  methods:{
-    handleTypeSelected(typeId){
-      console.log("sudebar")
-      console.log(typeId)
-      this.$emit('changeTypeId', typeId)
-    }
-  }
 };
 </script>
 
