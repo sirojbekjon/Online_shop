@@ -12,11 +12,12 @@
       <v-spacer></v-spacer>
       <v-text-field
           label="Search on maufarm"
-          class="pt-5 d-none d-sm-flex"
+          class="pt-5 d-none d-flex"
           dark
           filled
           prepend-inner-icon="mdi-magnify"
           solo
+          color="#4BAE4F"
           flat
           background-color="transparent"
           rounded
