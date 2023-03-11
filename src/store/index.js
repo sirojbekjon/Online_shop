@@ -10,7 +10,8 @@ export default new Vuex.Store({
     username:'',
     status:true,
     typeId:1,
-    count:0
+    count:0,
+    searchQuery: ''
     // typeProduct:[]
   },
   getters: {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
     },
     setTypeId(state,payload){
       return state.typeId = payload
+    },
+    setSearchQuery(state, query) {
+      state.searchQuery = query
     }
     // setTypeProduct(state,payload){
     //   return state.typeProduct = payload

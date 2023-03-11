@@ -71,7 +71,7 @@
     <v-pagination
         v-model="page"
         :length="pageCount"
-        @input="nextperson"
+        @input="nextProductWithCurrentType"
         color="#6F0DFF"
     >
     </v-pagination>
@@ -221,43 +221,81 @@ export default {
 
 
   mounted: async function () {
-    this.nextperson()
-    this.setSearchIconColor('#6F0DFF');
-  },
-  beforeRouteUpdate(to, from, next) {
-    // Call next to allow the route to update
-    next();
-    console.log("ishhhhhhhhhhhhhhhhhh")
-    // Log the new value of the route param
-    const token = 'Bearer '+sessionStorage.getItem('token')
-    axios.get(`product/byType/${to.params.id}`, {
-      params: {page: this.page-1, text: this.search},
-      headers: {'authorization': token}
-    }).then(products=>{
-      this.$store.commit('setTypeId',to.params.id);
-      if (products.data.content.length>=1) {
-        this.shoes = products.data.content
-        this.totalPages = products.data.totalPages
-      }
-      this.totalElement = products.data.totalElements
-    })
+    this.nextProduct()
     this.setSearchIconColor('#6F0DFF');
   },
 
+
+  // beforeRouteUpdate(to, from, next) {
+  //   // Call next to allow the route to update
+  //   next();
+  //   console.log("beforeRouteUpdate")
+  //   // Log the new value of the route param
+  //   const token = 'Bearer '+sessionStorage.getItem('token')
+  //   axios.get(`product/byType/${to.params.id}`, {
+  //     params: {page: this.page-1, text: this.search},
+  //     headers: {'authorization': token}
+  //   }).then(products=>{
+  //     this.$store.commit('setTypeId',to.params.id);
+  //     if (products.data.content.length>=1) {
+  //       this.shoes = products.data.content
+  //       this.totalPages = products.data.totalPages
+  //     }
+  //     this.totalElement = products.data.totalElements
+  //   })
+  //   this.setSearchIconColor('#6F0DFF');
+  // },
+
+
+
+  watch:{
+    '$store.state.typeId': {
+      immediate: true,
+      async handler() {
+        await this.nextProduct(this.$store.state.typeId)
+      }
+    },
+    '$store.state.searchQuery':{
+      async handler() {
+        await this.searchProduct(this.$store.state.searchQuery)
+      }
+    }
+
+  },
+
   methods:{
-    async nextperson() {
-      console.log("fhdjkhfjdhfjdhjfhdjfhdjfhdjfhdjfhdj")
+    async nextProductWithCurrentType() {
+      await this.nextProduct(this.$store.state.typeId) // call nextProduct with current typeId
+    },
+    async nextProduct(typeId) {
       const token = 'Bearer ' + sessionStorage.getItem('token');
-      const products = await axios.get(`product/byType/${this.$store.state.typeId}`, {
-        params: {page: this.page-1, text: this.search},
+      const products = await axios.get(`product/byType/${typeId}`, {
+        params: {page: this.page-1, text: this.$store.state.searchQuery},
         headers: {'authorization': token}
       })
       this.totalElement = products.data.totalElements
-      if (products.data.content.length>=1) {
+      if (products.data.content.length >= 1) {
         this.shoes = products.data.content
         this.totalPages = products.data.totalPages
       }
     },
+
+
+    async searchProduct(text){
+      const token = 'Bearer ' + sessionStorage.getItem('token');
+      const response = await axios.get('product/get', {
+        params: {page: this.page - 1, text: text},
+        headers: {'authorization': token}
+      })
+      if (text !== '' && text.length > 3 && response.data.length !== 0) {
+        this.shoes = response.data.content
+        this.totalPages = response.data.totalPages
+      } else {
+        this.shoes = response.data.content
+        this.totalPages = response.data.totalPages
+      }
+      this.totalElement = response.data.totalElements
+    }
   },
 
   computed:{

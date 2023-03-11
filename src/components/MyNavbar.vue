@@ -21,6 +21,7 @@
           background-color="transparent"
           rounded
           outlined
+          v-model="searchText"
       ></v-text-field>
       <v-spacer></v-spacer>
 
@@ -58,8 +59,9 @@
     <v-app-bar dark color="rgba(0,0,0,0)" flat>
       <v-tabs color="#6F0DFF">
         <v-tabs-slider color="#6F0DFF"></v-tabs-slider>
-        <v-tab class="withoutupercase" v-for="type in typeProduct" :key="type.id" :to="{name: 'Shoes',params:{id: type.id}}" @click="selectTab(type.id)">
-          {{ type.name }}</v-tab>
+        <v-tab class="withoutupercase" @click="`${$store.commit('setTypeId',type.id)}`" v-for="type in typeProduct" :key="type.id" :to="{name: 'Shoes',params:{id: type.id}}">
+          {{ type.name }}
+        </v-tab>
 
       </v-tabs>
       <v-spacer></v-spacer>
@@ -77,6 +79,7 @@ import axios from "axios";
 export default {
   data(){
     return {
+      searchText:'',
       selectedTabId: null,
       token: 'Bearer ' + sessionStorage.getItem('token'),
       typeProduct:[],
@@ -94,12 +97,6 @@ export default {
   },
 
   methods:{
-
-    selectTab(tabId) {
-      console.log(tabId)
-      this.$store.commit('setTypeId',tabId);
-    },
-
       drawer(){
       this.$emit('drawe')
     },
@@ -108,9 +105,14 @@ export default {
       sessionStorage.clear()
       this.$store.commit('setStatus',true)
     },
-  },watch:{
+  },
 
-  }
+  watch: {
+    searchText(newVal) {
+      console.log(newVal)
+      this.$store.commit('setSearchQuery', newVal)
+    }
+  },
 }
 </script>
 
