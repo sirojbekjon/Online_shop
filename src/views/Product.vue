@@ -324,9 +324,6 @@ export default {
 
 
   mounted: async function () {
-    console.log("typeIdchiqadiiiiiii")
-    console.log(this.selected_type_id)
-
     this.nextperson()
     const typeProductResponse = await axios.get('typeProduct/get', {
       headers: {'authorization': this.token}

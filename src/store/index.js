@@ -11,7 +11,8 @@ export default new Vuex.Store({
     status:true,
     typeId:1,
     count:0,
-    searchQuery: ''
+    searchQuery: '',
+    themcolor:'#0000'
     // typeProduct:[]
   },
   getters: {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     setSearchQuery(state, query) {
       state.searchQuery = query
+    },
+    setThemeColor(state, payload) {
+      state.themcolor = payload
     }
     // setTypeProduct(state,payload){
     //   return state.typeProduct = payload

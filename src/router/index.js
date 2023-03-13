@@ -8,6 +8,10 @@ import Upload from "@/views/Upload";
 import Product from "@/views/Product";
 import Shoes from "@/views/Shoes";
 import Footer from "@/components/Footer";
+import ShowDetails from "@/views/ShowDetails";
+import Flow from "@/views/CreateFlow";
+import FlowUrl from "@/views/FlowUrl";
+import ShowFlow from "@/views/ShowFlow";
 
 Vue.use(VueRouter)
 
@@ -46,6 +50,31 @@ const routes = [
     path: '/footer',
     name: 'Footer',
     component: Footer
+  },
+  {
+    path: '/creatflow/:id',
+    name: 'Flow',
+    component: Flow,
+    props:true
+  },
+  {
+    path: '/flow_url',
+    name: 'FlowUrl',
+    component: FlowUrl,
+    props:true
+  },
+  // show details of product
+  {
+    path: '/product/show/:id',
+    name: 'ShowDetails',
+    component: ShowDetails,
+    props: true
+  },
+  {
+    path: '/flow/:id',
+    name: 'ShowFlow',
+    component: ShowFlow,
+    props: true
   },
   {
     path: '/shoes/:id',

@@ -57,9 +57,9 @@ export default {
     items: [
       { icon: "mdi-home-outline",path:'/' },
       { icon: "mdi-cart-outline",path: '/register' },
-      { icon: "mdi-store-outline",path: '/login'},
+      { icon: "mdi-store-outline",path: '/flow_url'},
       { icon: "mdi-calendar-check-outline",path: '/typeProduct' },
-      { icon: "mdi-apps",path: '/upload' },
+      { icon: "mdi-apps",path: '/flow' },
       { icon: "mdi-apps",path: '/product' },
     ],
   }),

@@ -15,8 +15,8 @@
             max-width="374"
             color="#151515"
         >
-          <v-img v-if="shoe.fileUpload.contentType!=='video/mp4'" height="250" :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`"></v-img>
-          <video  controls v-else-if="shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="250">
+          <v-img v-if="shoe.fileUpload.contentType!=='video/mp4'" height="350" :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`"></v-img>
+          <video  controls v-else-if="shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="350">
             <source  :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`" type="video/mp4">
           </video>
 
@@ -45,7 +45,7 @@
           <v-card-text class="green--text" style="font-size: 25px;font-family: 'Albertus MT'">
             {{shoe.name}}
           </v-card-text>
-          <v-card-title class="grey--text text-grey-darken-1 caption mt-n6">Kiritilgan vaqti: {{
+          <v-card-title class="grey--text text-grey-darken-1 caption mt-n6">Sotuvga chiqarilgan vaqti: {{
               shoe.createdAt.substring(0,10)
             }}</v-card-title>
 <!--          <v-card-text class="white&#45;&#45;text text-grey-darken-1 mt-n2">{{-->
@@ -56,8 +56,9 @@
                 active-class="deep-purple accent-4 white--text"
                 column
             >
-              <v-chip label color="gray" text-color="#883DEF" disabled>{{ shoe.produced }}</v-chip>
-              <v-chip label dark>{{ shoe.brand }}</v-chip>
+              <v-chip label color="black" text-color="white" disabled>{{ shoe.produced }}</v-chip>
+              <v-btn  color="green" width="30%" height="80%" class="mt-1" :to="{name: 'ShowDetails', params: {id : shoe.id}}">Sotib olish</v-btn>
+              <v-btn  color="orange" width="30%" height="80%" class="ml-1 mt-1" :to="{name: 'Flow', params: {id : shoe.id}}">Oqim</v-btn>
               <v-spacer></v-spacer>
               <v-avatar size="40">
                 <v-img :src="shoe.avatar"></v-img>
@@ -76,97 +77,6 @@
     >
     </v-pagination>
 
-<!--    <v-toolbar flat color="rgba(0,0,0,0) " class="mt-n14">-->
-<!--      <v-divider vertical color="orange" inset></v-divider>-->
-<!--      <v-toolbar-title class="white&#45;&#45;text ml-4"-->
-<!--      >Recent Orders</v-toolbar-title-->
-<!--      >-->
-<!--      <v-spacer></v-spacer>-->
-
-
-
-<!--      <v-chip-->
-<!--          class="ma-1 d-none d-sm-flex"-->
-<!--          color=""-->
-<!--          label-->
-<!--          text-color="white"-->
-<!--          dark-->
-<!--      >-->
-<!--        <v-avatar color="white" rounded class="mr-2">-->
-<!--          <v-img src="2.png" contain></v-img>-->
-<!--        </v-avatar>-->
-<!--        Nike new-->
-<!--      </v-chip>-->
-<!--      <v-chip-->
-<!--          class="ma-1 d-none d-sm-flex"-->
-<!--          color=""-->
-<!--          label-->
-<!--          text-color="white"-->
-<!--          dark-->
-<!--      >-->
-<!--        <v-avatar color="white" rounded class="mr-2">-->
-<!--          <v-img src="3.png" contain></v-img>-->
-<!--        </v-avatar>-->
-
-<!--        Zoom JO-->
-<!--      </v-chip>-->
-<!--      <v-chip-->
-<!--          class="ma-1 d-none d-sm-flex"-->
-<!--          color=""-->
-<!--          label-->
-<!--          text-color="white"-->
-<!--          dark-->
-<!--      >-->
-<!--        <v-avatar color="white" rounded class="mr-2">-->
-<!--          <v-img src="4.png" contain></v-img>-->
-<!--        </v-avatar>-->
-
-<!--        Jordon BZ-->
-<!--      </v-chip>-->
-<!--      <v-spacer></v-spacer>-->
-<!--&lt;!&ndash;      <v-btn dark class="mr-2 withoutupercase d-none d-sm-flex">&ndash;&gt;-->
-<!--&lt;!&ndash;        See All (129)&ndash;&gt;-->
-<!--&lt;!&ndash;      </v-btn>&ndash;&gt;-->
-<!--&lt;!&ndash;      <v-btn dark class="mr-2" outlined>&ndash;&gt;-->
-<!--&lt;!&ndash;        <v-icon left>mdi-chevron-left</v-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;        <v-icon right>mdi-chevron-right</v-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;      </v-btn>&ndash;&gt;-->
-
-<!--    </v-toolbar>-->
-
-<!--    <v-row class="mt-n10">-->
-<!--      <v-col-->
-<!--          cols="12"-->
-<!--          xs="12"-->
-<!--          sm="6"-->
-<!--          md="3"-->
-<!--          v-for="(order, i) in orders"-->
-<!--          :key="i"-->
-<!--      >-->
-<!--        <v-card-->
-<!--            class="mx-auto my-12 rounded-lg"-->
-<!--            max-width="374"-->
-<!--            color="#151515"-->
-<!--        >-->
-<!--          <v-toolbar color="transparent" class="mt-n6" flat>-->
-<!--            <v-avatar color="white" rounded class="mr-2">-->
-<!--              <v-img :src="order.pic" contain></v-img>-->
-<!--            </v-avatar>-->
-<!--            <v-spacer></v-spacer>-->
-<!--            <v-avatar color="black" rounded class="mr-2" dark>-->
-<!--              <div class="three">-->
-<!--                <div class="four">-->
-<!--                  <span class="white&#45;&#45;text caption">{{ order.price }}</span>-->
-<!--                </div>-->
-<!--                <div class="six">-->
-<!--                  <span class="orange&#45;&#45;text caption">Sotuvda</span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </v-avatar>-->
-<!--          </v-toolbar>-->
-<!--        </v-card>-->
-<!--      </v-col>-->
-<!--    </v-row>-->
   </v-container>
 </template>
 
@@ -198,24 +108,6 @@ export default {
 
 
     shoes: [''],
-    orders: [
-      {
-        pic: "5.png",
-        price: "$465",
-      },
-      {
-        pic: "6.png",
-        price: "$714",
-      },
-      {
-        pic: "7.png",
-        price: "$982",
-      },
-      {
-        pic: "8.png",
-        price: "$394",
-      },
-    ],
   }),
 
 
@@ -282,10 +174,8 @@ export default {
 
 
     async searchProduct(text){
-      const token = 'Bearer ' + sessionStorage.getItem('token');
       const response = await axios.get('product/get', {
-        params: {page: this.page - 1, text: text},
-        headers: {'authorization': token}
+        params: {page: this.page - 1, text: text}
       })
       if (text !== '' && text.length > 3 && response.data.length !== 0) {
         this.shoes = response.data.content
