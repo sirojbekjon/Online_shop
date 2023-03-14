@@ -17,10 +17,11 @@
     <v-card-item>
       <div>
         <div class="text-overline mb-1 ml-4">
-          Oqim yaratuvchisi: {{flow.user.username}}
+          Oqim yaratuvchisi: {{flow.user ? flow.user.username : 'n/A'}}
+
         </div>
         <div class="text-h6 mb-1 ml-4" style="color: darkslategray">
-          Oqim nomi: {{flow.name}}
+          Oqim nomi: {{flow ? flow.name : 'N/A'}}
         </div>
         <v-card-text class="urlbox" ref="urlbox">
           http://192.168.202.23:8080/flow/{{flow.id}}
@@ -40,15 +41,20 @@
 
 <script>
 import axios from "axios";
+import { VCard, VCardItem } from 'vuetify/lib'
+
 
 export default {
   name:"FlowUrl",
-
+  components: {
+    VCard,
+    VCardItem,
+  },
 
 
   data(){
     return{
-      flows:[''],
+      flows:[{name: '',username:null,id:''}],
       props:["id"],
       token: 'Bearer ' + sessionStorage.getItem('token'),
     }
@@ -77,7 +83,6 @@ export default {
   mounted() {
      axios.get('flow/get',{headers:{'authorization':this.token}}).then(response =>{
        this.flows = response.data
-       console.log(response.data)
      })
   }
 }

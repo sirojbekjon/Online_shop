@@ -9,7 +9,7 @@ export default new Vuex.Store({
     role:'',
     username:'',
     status:true,
-    typeId:1,
+    typeId:3,
     count:0,
     searchQuery: '',
     themcolor:'#0000'

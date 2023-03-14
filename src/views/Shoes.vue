@@ -15,15 +15,15 @@
             max-width="374"
             color="#151515"
         >
-          <v-img v-if="shoe.fileUpload.contentType!=='video/mp4'" height="350" :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`"></v-img>
-          <video  controls v-else-if="shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="350">
+          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="350" :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`"></v-img>
+          <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="350">
             <source  :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`" type="video/mp4">
           </video>
 
           <v-toolbar color="transparent" class="mt-n7" flat>
             <v-avatar color="white" rounded class="mr-2" style="background-color: #042a0f">
-              <v-img v-if="shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`"></v-img>
-              <video  controls v-else-if="shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="170">
+              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`"></v-img>
+              <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="170">
                 <source  :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`" type="video/mp4">
               </video>
             </v-avatar>
@@ -39,11 +39,11 @@
               </div>
             </v-avatar>
           </v-toolbar>
-          <v-card-title class="grey--text caption" :typesId="shoe.typeProduct.id"> {{
+          <v-card-title class="grey--text caption" > {{
               shoe.typeProduct.name
             }}</v-card-title>
           <v-card-text class="green--text" style="font-size: 25px;font-family: 'Albertus MT'">
-            {{shoe.name}}
+            {{shoe.name ? shoe.name : 'N/A' }}
           </v-card-text>
           <v-card-title class="grey--text text-grey-darken-1 caption mt-n6">Sotuvga chiqarilgan vaqti: {{
               shoe.createdAt.substring(0,10)
@@ -87,7 +87,7 @@
 import axios from "axios";
 
 export default {
-  name: "Home",
+  name: "Shoes",
   data: () => ({
     page: 1,
     totalPages:0,
@@ -107,36 +107,17 @@ export default {
     ],
 
 
-    shoes: [''],
+    shoes: [{name: '', fileUpload: null,price:'',typeProduct:'',createdAt:'' }],
   }),
 
 
 
   mounted: async function () {
-    this.nextProduct()
-    this.setSearchIconColor('#6F0DFF');
+    this.nextProduct(this.$store.state.typeId)
+    // this.setSearchIconColor('#6F0DFF');
   },
 
 
-  // beforeRouteUpdate(to, from, next) {
-  //   // Call next to allow the route to update
-  //   next();
-  //   console.log("beforeRouteUpdate")
-  //   // Log the new value of the route param
-  //   const token = 'Bearer '+sessionStorage.getItem('token')
-  //   axios.get(`product/byType/${to.params.id}`, {
-  //     params: {page: this.page-1, text: this.search},
-  //     headers: {'authorization': token}
-  //   }).then(products=>{
-  //     this.$store.commit('setTypeId',to.params.id);
-  //     if (products.data.content.length>=1) {
-  //       this.shoes = products.data.content
-  //       this.totalPages = products.data.totalPages
-  //     }
-  //     this.totalElement = products.data.totalElements
-  //   })
-  //   this.setSearchIconColor('#6F0DFF');
-  // },
 
 
 

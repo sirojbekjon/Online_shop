@@ -3,7 +3,7 @@
     <v-row class="mt-2" justify="center" no-gutters>
       <v-btn
           v-for="link in links"
-          :key="link"
+          :key="link.name"
           color="#999999"
           variant="text"
           class="ma-2"
