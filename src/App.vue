@@ -2,7 +2,7 @@
   <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
     <v-main>
       <SideBar />
-    <router-view />
+      <router-view />
     </v-main>
     <Footer style="z-index: 10"/>
   </v-app>

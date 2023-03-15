@@ -1,8 +1,7 @@
 <template>
   <v-container>
-    <v-row class="mt-n14">
+    <v-row>
       <v-col
-          cols="12"
           xs="12"
           sm="6"
           md="4"
@@ -32,7 +31,7 @@
             <v-avatar color="black" rounded class="mr-2" width="100px" dark>
               <div class="three">
                 <div class="four">
-                  <span class="white--text caption">{{ shoe.price }}</span>
+                  <span class="white--text caption" v-bind:class="{productprice:!shoe.status}">{{ shoe.status ? shoe.price : 'Qolmagan'}}</span>
                 </div>
                 <div class="five">
                   <span class="green--text caption">Sotuvda</span>
@@ -42,7 +41,7 @@
           </v-toolbar>
 
           <v-rating xs="12" sm="8" md="6" v-model="rating" :size="18" :dense="true" :half-increments="true" color="yellow" class="ml-3" background-color="grey lighten-2" ></v-rating>
-          <v-card-text class="white--text" style="font-size: 20px;font-family: 'Albertus MT',serif">
+          <v-card-text class="white--text" style="font-size: 20px;font-family: Bitstream Vera Sans Mono,serif">
             {{shoe.name ? shoe.name : 'N/A' }}
           </v-card-text>
 
@@ -216,6 +215,11 @@ export default {
   background-color: #6F0DFF !important;
   color: white;
   font-size: 12px;
-  font-family: "Bitstream Vera Sans Mono",serif;
+  font-family: "Bitstream Vera Sans Mono",serif !important;
+}
+.productprice{
+  color: red !important;
+  font-family: "Bitstream Vera Sans Mono",serif !important;
+  font-size: 18px !important;
 }
 </style>

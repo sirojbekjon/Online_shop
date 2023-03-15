@@ -25,9 +25,6 @@
           v-model="searchText"
       ></v-text-field>
       <v-spacer></v-spacer>
-
-
-
       <v-menu offset-y>
         <template #activator="{ on, attrs }">
           <v-avatar v-bind="attrs" v-on="on" color="white" class="mb-4">

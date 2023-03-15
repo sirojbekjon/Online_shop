@@ -6,6 +6,7 @@
     app
     clipped flat dark
     color="#151515"
+    fixed
   >
     <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="80">
       <v-btn class="ma-2" outlined large fab color="white">
@@ -33,8 +34,6 @@
                 <v-list-item>{{ item.name }}</v-list-item>
               </v-list-item-title>
             </v-list-item>
-
-
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -47,6 +46,7 @@
 import MyNavbar from "@/components/MyNavbar";
 
 export default {
+  name:'SideBar',
   components:{
     MyNavbar
   },
@@ -60,7 +60,7 @@ export default {
     items: [
       {name:'Home', icon: "mdi-home-outline",path:'/' },
       {name:'register', icon: "mdi-cart-outline",path: '/register' },
-      {name:'Oqim_market', icon: "mdi-store-outline",path: '/flow_url'},
+      {name:'Oqim', icon: "mdi-store-outline",path: '/flow_url'},
       {name:'Mahsulot turi', icon: "mdi-calendar-check-outline",path: '/typeProduct' },
       {name:'Oqim', icon: "mdi-apps",path: '/flow' },
       {name:'Mahsulotlar',icon: "mdi-apps",path: '/product' },

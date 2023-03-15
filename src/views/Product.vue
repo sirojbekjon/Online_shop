@@ -154,16 +154,6 @@
                             label="sale"
                         ></v-text-field>
                       </v-col>
-<!--                      <v-col-->
-<!--                          cols="12"-->
-<!--                          sm="6"-->
-<!--                          md="4"-->
-<!--                      >-->
-<!--                        <v-text-field-->
-<!--                            v-model="editedItem.status"-->
-<!--                            label="Mavjudligi"-->
-<!--                        ></v-text-field>-->
-<!--                      </v-col>-->
                       <v-col
                           cols="12"
                           sm="6"
@@ -211,8 +201,8 @@
         </template>
         <template v-slot:item.switch="{ item }">
           <v-switch
-              v-model="item.enabled"
-              :label="`holati : ${ item.enabled }`"
+              v-model="item.status"
+              :label="`${ item.status ? 'Mavjud' : 'Tugagan'}`"
               class="pa-3"
               @click="changedStatus(item)"
           ></v-switch>
@@ -305,9 +295,8 @@ export default {
       { text: 'Narxi', value: 'price' },
       { text: 'Ishlab chiqarilgan', value: 'produced' },
       { text: 'Chegirma', value: 'sale' },
-      { text: 'Mavjudligi', value: 'status' },
       { text: 'Surati', value: 'fileUpload' },
-      { text: 'Faollik', value: 'switch', sortable: false },
+      { text: 'Faollik', value: 'switch'},
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     desserts: [],

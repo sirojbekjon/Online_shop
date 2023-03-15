@@ -19,7 +19,6 @@ return{
     Shoes
   },
   mounted() {
-    console.log("Home")
     console.log(this.selected_type_id)
   },
   methods: {},
