@@ -209,7 +209,14 @@
             </v-dialog>
           </v-toolbar>
         </template>
-
+        <template v-slot:item.switch="{ item }">
+          <v-switch
+              v-model="item.enabled"
+              :label="`holati : ${ item.enabled }`"
+              class="pa-3"
+              @click="changedStatus(item)"
+          ></v-switch>
+        </template>
         <template v-slot:item.actions="{ item }">
           <v-icon
               small
@@ -300,6 +307,7 @@ export default {
       { text: 'Chegirma', value: 'sale' },
       { text: 'Mavjudligi', value: 'status' },
       { text: 'Surati', value: 'fileUpload' },
+      { text: 'Faollik', value: 'switch', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     desserts: [],
@@ -383,6 +391,10 @@ export default {
   methods: {
     getImageUrl(file) {
       return file.imageUrl;
+    },
+
+    async changedStatus(item) {
+      await axios.put(`product/edit/status/${item.id}`,this.editedItem, {headers: {'authorization': this.token}})
     },
 
     onFileSelected() {

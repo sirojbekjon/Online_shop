@@ -4,9 +4,8 @@
   <v-navigation-drawer
     v-model="drawer"
     app
-    color="#000000"
-    mini-variant
-    mini-variant-width="110"
+    clipped flat dark
+    color="#151515"
   >
     <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="80">
       <v-btn class="ma-2" outlined large fab color="white">
@@ -14,24 +13,28 @@
       </v-btn>
     </v-avatar>
 
-    <v-card flat color="#151515" class="rounded-xl mx-4 py-10">
+    <v-card flat color="#151515" class="py-md-12 mx-xl-n2">
       <v-list flat class="dark">
         <v-list-item-group v-model="selectedItem">
           <v-list-item
             v-for="(item, i) in items"
             :to="item.path"
             :key="i"
-            active-class="border"
+            active-class="green"
+            dark
             v-slot="{ active }"
-            :ripple="false"
-          >
-            <v-list-item-content>
-              <v-icon
-                v-text="item.icon"
-                :color="active ? 'white' : 'grey lighten-1'"
 
-              ></v-icon>
-            </v-list-item-content>
+          >
+            <v-list-item :to="item.path" >
+              <v-list-item-icon class="mr-2">
+                <v-icon :color="active ? 'red' : 'white '">{{ item.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>
+                <v-list-item>{{ item.name }}</v-list-item>
+              </v-list-item-title>
+            </v-list-item>
+
+
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -55,12 +58,12 @@ export default {
     selectedItem: 0,
 
     items: [
-      { icon: "mdi-home-outline",path:'/' },
-      { icon: "mdi-cart-outline",path: '/register' },
-      { icon: "mdi-store-outline",path: '/flow_url'},
-      { icon: "mdi-calendar-check-outline",path: '/typeProduct' },
-      { icon: "mdi-apps",path: '/flow' },
-      { icon: "mdi-apps",path: '/product' },
+      {name:'Home', icon: "mdi-home-outline",path:'/' },
+      {name:'register', icon: "mdi-cart-outline",path: '/register' },
+      {name:'Oqim_market', icon: "mdi-store-outline",path: '/flow_url'},
+      {name:'Mahsulot turi', icon: "mdi-calendar-check-outline",path: '/typeProduct' },
+      {name:'Oqim', icon: "mdi-apps",path: '/flow' },
+      {name:'Mahsulotlar',icon: "mdi-apps",path: '/product' },
     ],
   }),
 

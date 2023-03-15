@@ -11,6 +11,7 @@
       :key="i"
   >
   <v-card
+      v-if="flow.user.username"
       max-width="344"
       variant="outlined"
   >

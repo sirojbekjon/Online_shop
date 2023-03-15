@@ -2,8 +2,8 @@
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row justify="center">
-          <v-col cols="8">
-            <v-card class="elevation-12 mr-14">
+          <v-col xs="12" sm="8" md="6" lg="4">
+            <v-card class="elevation-24 mr-lg-16">
               <v-window>
                   <v-window-item>
                   <v-row class="fill-height">
