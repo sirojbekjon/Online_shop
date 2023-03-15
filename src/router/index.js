@@ -12,6 +12,8 @@ import ShowDetails from "@/views/ShowDetails";
 import Flow from "@/views/CreateFlow";
 import FlowUrl from "@/views/FlowUrl";
 import ShowFlow from "@/views/ShowFlow";
+import Saller from "@/views/Saller";
+import OrderProduct from "@/views/OrderProduct";
 
 Vue.use(VueRouter)
 
@@ -50,6 +52,16 @@ const routes = [
     path: '/footer',
     name: 'Footer',
     component: Footer
+  },
+  {
+    path: '/saller',
+    name: 'Saller',
+    component: Saller
+  },
+  {
+    path: '/order',
+    name: 'OrderProduct',
+    component: OrderProduct
   },
   {
     path: '/creatflow/:id',

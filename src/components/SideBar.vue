@@ -62,8 +62,9 @@ export default {
       {name:'register', icon: "mdi-cart-outline",path: '/register' },
       {name:'Oqim', icon: "mdi-store-outline",path: '/flow_url'},
       {name:'Mahsulot turi', icon: "mdi-calendar-check-outline",path: '/typeProduct' },
-      {name:'Oqim', icon: "mdi-apps",path: '/flow' },
+      {name:'OqimProduct', icon: "mdi-apps",path: '/flow' },
       {name:'Mahsulotlar',icon: "mdi-apps",path: '/product' },
+      {name:'Sotuvchilar',icon: "mdi-pencil",path: '/saller' },
     ],
   }),
 

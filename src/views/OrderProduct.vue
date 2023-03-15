@@ -31,18 +31,24 @@
           sort-by="calories"
           class="myForm"
       >
-
-
-        <template v-slot:item.fileUpload="{ item }">
-<!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
-            <v-card-title>
-            <v-img v-if="item.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.fileUpload.name}`"   width="100px" height="auto"/>
-            <video  controls v-else-if="item.fileUpload.contentType === 'video/mp4'" width="100px" height="auto">
-              <source  :src="`http://192.168.202.23:8088/upload/${item.fileUpload.name}`" type="video/mp4">
-            </video>
-            </v-card-title>
-<!--          </v-card>-->
+        <template v-slot:item.flow="{ item }">
+          <v-card-title>
+          <h5>
+            {{item.flow !==null ? item.flow.name : 'N/A'}}
+          </h5>
+          </v-card-title>
         </template>
+        <template v-slot:item.product="{ item }">
+          <!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
+          <v-card-title>
+            <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`"   width="100px" height="auto"/>
+            <video  controls v-else-if="item.product.fileUpload.contentType === 'video/mp4'" width="100px" height="auto">
+              <source  :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`" type="video/mp4">
+            </video>
+          </v-card-title>
+          <!--          </v-card>-->
+        </template>
+
 
 
         <template v-slot:top>
@@ -85,15 +91,15 @@
                           sm="6"
                           md="4"
                       >
-                      <v-select
-                          :items="typeProduct"
-                          item-text="name"
-                          item-value="id"
-                          v-model="editedItem.typeProduct"
-                          label="Mahsulot turi"
-                          persistent-hint
-                          single-line
-                      ></v-select>
+                        <v-select
+                            :items="typeProduct"
+                            item-text="name"
+                            item-value="id"
+                            v-model="editedItem.typeProduct"
+                            label="Mahsulot turi"
+                            persistent-hint
+                            single-line
+                        ></v-select>
                       </v-col>
                       <v-col
                           cols="12"
@@ -135,15 +141,15 @@
                             label="narxi"
                         ></v-text-field>
                       </v-col>       <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                      >
-                        <v-text-field
-                            v-model="editedItem.brand"
-                            label="Brand"
-                        ></v-text-field>
-                      </v-col>
+                        cols="12"
+                        sm="6"
+                        md="4"
+                    >
+                      <v-text-field
+                          v-model="editedItem.brand"
+                          label="Brand"
+                      ></v-text-field>
+                    </v-col>
                       <v-col
                           cols="12"
                           sm="6"
@@ -242,7 +248,7 @@
         >
         </v-pagination>
 
-    </v-col>
+      </v-col>
     </v-col>
   </v-row>
 </template>
@@ -252,9 +258,9 @@ import axios from "axios";
 
 export default {
   props:[
-      'selected_type_id'
+    'selected_type_id'
   ],
-  name:'product',
+  name:'OrderProduct',
   data: () => ({
     files:'',
     fileType:'',
@@ -289,21 +295,22 @@ export default {
         sortable: false,
         value: 'name',
       },
-      { text: 'Mahsulot Turi', value: 'typeProduct.name' },
-      { text: 'Mahsulot haqida', value: 'about' },
-      { text: 'Brand', value: 'brand' },
-      { text: 'Narxi', value: 'price' },
-      { text: 'Ishlab chiqarilgan', value: 'produced' },
-      { text: 'Chegirma', value: 'sale' },
-      { text: 'Surati', value: 'fileUpload' },
-      { text: 'Faollik', value: 'switch'},
+      { text: 'Telefon nomeri', value: 'phoneNumber' },
+      { text: 'Buyurtma berilgan', value: 'createdAt' },
+      { text: 'Oqim nomi', value: 'flow' },
+      { text: 'sotuvchisi', value: 'user.phoneNumber' },
+      { text: 'Mahsulot', value: 'product.name' },
+      { text: 'Narxi', value: 'product.price' },
+      { text: 'surati', value: 'product' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
+    flow:null,
     desserts: [],
     editedIndex: -1,
     editedItem: {
       name: '',
       typeProduct: [],
+      flow:[],
       brand:'',
       about:'',
       price:'',
@@ -383,7 +390,7 @@ export default {
     },
 
     async changedStatus(item) {
-      await axios.put(`product/edit/status/${item.id}`,this.editedItem, {headers: {'authorization': this.token}})
+      await axios.put(`client/edit/status/${item.id}`,this.editedItem, {headers: {'authorization': this.token}})
     },
 
     onFileSelected() {
@@ -398,14 +405,15 @@ export default {
       }
       const response = await axios.post("file/upload", formData,
           {headers:{Accept:'application/json','Content-Type': 'multipart/form-data','authorization': this.token}});
-            this.editedItem.fileUpload = response.data.id
+      this.editedItem.fileUpload = response.data.id
     },
 
     async nextperson() {
-      const response = await axios.get('product/get', {
+      const response = await axios.get('client/getAll', {
         params: {page: this.page - 1, text: this.search},
         headers: {'authorization': this.token}
       })
+      console.log(response.data.content)
       this.totalElement = response.data.totalElements
       if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
         this.desserts = response.data.content
@@ -469,7 +477,7 @@ export default {
         this.nextperson()
       } else {
         await axios.post('product/add', this.editedItem, {headers: {'authorization': this.token}})
-        this.nextperson()
+        this.desserts.push(this.editedItem)
       }
       this.close()
     },
