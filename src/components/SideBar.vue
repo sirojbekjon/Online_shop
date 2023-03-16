@@ -65,6 +65,7 @@ export default {
       {name:'OqimProduct', icon: "mdi-apps",path: '/flow' },
       {name:'Mahsulotlar',icon: "mdi-apps",path: '/product' },
       {name:'Sotuvchilar',icon: "mdi-pencil",path: '/saller' },
+      {name:'Buyurtmalar',icon: "mdi-cart",path: '/order' },
     ],
   }),
 

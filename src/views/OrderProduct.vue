@@ -409,22 +409,22 @@ export default {
     },
 
     async nextperson() {
-      const response = await axios.get('client/getAll', {
+       await axios.get('client/getAll', {
         params: {page: this.page - 1, text: this.search},
         headers: {'authorization': this.token}
-      })
-      console.log(response.data.content)
-      this.totalElement = response.data.totalElements
-      if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
-        this.desserts = response.data.content
-        this.totalPages = response.data.totalPages
-        this.loading = false
-      } else {
-        this.desserts = response.data.content
-        this.totalPages = response.data.totalPages
-        this.loading = false
-      }
-
+      }).then(response=>{
+         console.log(response.data.content)
+         this.totalElement = response.data.totalElements
+         if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
+           this.desserts = response.data.content
+           this.totalPages = response.data.totalPages
+           this.loading = false
+         } else {
+           this.desserts = response.data.content
+           this.totalPages = response.data.totalPages
+           this.loading = false
+         }
+       })
     },
 
 

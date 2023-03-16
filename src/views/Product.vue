@@ -416,7 +416,6 @@ export default {
         this.totalPages = response.data.totalPages
         this.loading = false
       }
-
     },
 
 
