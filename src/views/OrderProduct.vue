@@ -31,10 +31,59 @@
           sort-by="calories"
           class="myForm"
       >
+        <template v-slot:item.createdAt="{ item }">
+          <v-card-title>
+          <h5>
+            {{item.createdAt !==null ? item.createdAt.substring(0,10) : 'N/A'}}
+          </h5>
+          </v-card-title>
+        </template>
         <template v-slot:item.flow="{ item }">
           <v-card-title>
           <h5>
-            {{item.flow !==null ? item.flow.name : 'N/A'}}
+            {{item.flow !==null ? item.flow.archived : 'N/A'}}
+          </h5>
+          </v-card-title>
+        </template>
+        <template v-slot:item.flow="{ item }">
+          <v-card-title>
+          <h5>
+            {{item.flow !==null ? item.flow.hold : 'N/A'}}
+          </h5>
+          </v-card-title>
+        </template>
+        <template v-slot:item.flow="{ item }">
+          <v-card-title>
+          <h5>
+            {{item.flow !==null ? item.flow.canceled : 'N/A'}}
+          </h5>
+          </v-card-title>
+        </template>
+        <template v-slot:item.flow="{ item }">
+          <v-card-title>
+          <h5>
+            {{item.flow !==null ? item.flow.ready : 'N/A'}}
+          </h5>
+          </v-card-title>
+        </template>
+        <template v-slot:item.flow="{ item }">
+          <v-card-title>
+          <h5>
+            {{item.flow !==null ? item.flow.onway : 'N/A'}}
+          </h5>
+          </v-card-title>
+        </template>
+        <template v-slot:item.flow="{ item }">
+          <v-card-title>
+          <h5>
+            {{item.flow !==null ? item.flow.delivered : 'N/A'}}
+          </h5>
+          </v-card-title>
+        </template>
+        <template v-slot:item.flow.user="{ item }">
+          <v-card-title>
+          <h5>
+            {{item.flow !==null ? item.flow.user.phoneNumber : ''}} | {{item.flow !==null ? item.flow.user.username : 'Sotuvchisiz'}}
           </h5>
           </v-card-title>
         </template>
@@ -48,9 +97,6 @@
           </v-card-title>
           <!--          </v-card>-->
         </template>
-
-
-
         <template v-slot:top>
           <v-toolbar
               flat
@@ -205,14 +251,29 @@
             </v-dialog>
           </v-toolbar>
         </template>
+
+        <template v-slot:item.onway="{ item }">
+          <v-switch
+              v-model="item.onway"
+              :label="`${item.flow && item.flow.onway ? 'Yo\'lda' : ''}`"
+              :value="item.flow && item.flow.onway"
+              class="pa-3"
+              @click="changedOnway(item,'onway')"
+          ></v-switch>
+        </template>
+
+
+
         <template v-slot:item.switch="{ item }">
           <v-switch
               v-model="item.status"
-              :label="`${ item.status ? 'Mavjud' : 'Tugagan'}`"
+              :label="`${ item.status ? 'Yetkazildi' : 'Yetkazilmadi'}`"
               class="pa-3"
               @click="changedStatus(item)"
           ></v-switch>
         </template>
+
+
         <template v-slot:item.actions="{ item }">
           <v-icon
               small
@@ -264,6 +325,7 @@ export default {
   data: () => ({
     files:'',
     fileType:'',
+    onway:false,
     imageUrl: '',
     search:'',
     totalElement:'',
@@ -290,22 +352,30 @@ export default {
         sortable: true,
         value: 'index',},
       {
-        text: 'Mahsulot',
+        text: 'Buyurtmachi',
         align: 'start',
         sortable: false,
         value: 'name',
       },
       { text: 'Telefon nomeri', value: 'phoneNumber' },
       { text: 'Buyurtma berilgan', value: 'createdAt' },
-      { text: 'Oqim nomi', value: 'flow' },
-      { text: 'sotuvchisi', value: 'user.phoneNumber' },
+      { text: 'Oqim nomi', value: 'flow.name' },
+      { text: 'sotuvchisi', value: 'flow.user' },
       { text: 'Mahsulot', value: 'product.name' },
       { text: 'Narxi', value: 'product.price' },
+      { text: 'Arxivda', value: 'flow.archived' },
+      { text: 'Ushlab turilipti', value: 'flow.hold' },
+      { text: 'Bekor qilindi', value: 'flow.canceled' },
+      { text: 'Tayyor', value: 'flow.ready' },
+      { text: 'Yo\'lda', value: 'onway' },
+      // { text: 'Yetkazib berildi', value: 'flow.delivered' },
+      // { text: 'Yetkazib berildi', value: 'status'},
+      { text: 'Yetkazib berildi', value: 'switch'},
       { text: 'surati', value: 'product' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     flow:null,
-    desserts: [],
+    desserts: [''],
     editedIndex: -1,
     editedItem: {
       name: '',
@@ -392,6 +462,11 @@ export default {
     async changedStatus(item) {
       await axios.put(`client/edit/status/${item.id}`,this.editedItem, {headers: {'authorization': this.token}})
     },
+   async changedOnway(item,text) {
+     console.log(item.flow)
+     console.log(text)
+      await axios.put(`flow/edit/${item.flow.id}`,item.flow, {params:{type:text},headers: {'authorization': this.token}})
+    },
 
     onFileSelected() {
       this.files = this.$refs.fileInput.files;
@@ -413,7 +488,6 @@ export default {
         params: {page: this.page - 1, text: this.search},
         headers: {'authorization': this.token}
       }).then(response=>{
-         console.log(response.data.content)
          this.totalElement = response.data.totalElements
          if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
            this.desserts = response.data.content

@@ -66,6 +66,7 @@ export default {
       {name:'Mahsulotlar',icon: "mdi-apps",path: '/product' },
       {name:'Sotuvchilar',icon: "mdi-pencil",path: '/saller' },
       {name:'Buyurtmalar',icon: "mdi-cart",path: '/order' },
+      {name:'Statistika',icon: "mdi-cart",path: '/statistic' },
     ],
   }),
 

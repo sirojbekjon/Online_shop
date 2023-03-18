@@ -37,6 +37,16 @@
   </v-card>
   </v-col>
     </v-row>
+    <v-col cols="12" md="6">
+      <v-pagination
+          v-model="page"
+          :length="pageCount"
+          @input="nextperson"
+          color="#6F0DFF"
+      >
+      </v-pagination>
+
+    </v-col>
   </v-container>
 </template>
 
@@ -46,6 +56,7 @@ import { VCard, VCardItem } from 'vuetify/lib'
 
 
 export default {
+
   name:"FlowUrl",
   components: {
     VCard,
@@ -58,6 +69,17 @@ export default {
       flows:[{name: '',username:null,id:''}],
       props:["id"],
       token: 'Bearer ' + sessionStorage.getItem('token'),
+
+      page: 1,
+      totalPages:0,
+      itemsPerPage: 10,
+
+      perPageChoices: [
+        {text:'5 records/page' , value: 5},
+        {text:'10 records/page' , value: 10},
+        {text:'20 records/page' , value: 20},
+      ],
+
     }
   },
   methods: {
@@ -78,14 +100,39 @@ export default {
         console.error('Failed to copy URL: ', error);
       }
       document.body.removeChild(input);
-    }
+    },
+
+
+    async nextperson() {
+      const response = await axios.get('flow/get', {
+        params: {page: this.page - 1},
+        headers: {'authorization': this.token}
+      })
+      console.log(response)
+      this.totalElement = response.data.totalElements
+      if (response.data.length !== 0) {
+        this.flows = response.data.content
+        this.totalPages = response.data.totalPages
+        this.loading = false
+      } else {
+        this.flows = response.data.content
+        this.totalPages = response.data.totalPages
+        this.loading = false
+      }
+
+    },
   },
 
-  mounted() {
-     axios.get('flow/get',{headers:{'authorization':this.token}}).then(response =>{
-       this.flows = response.data
-     })
-  }
+  computed:{
+    pageCount() {
+      return this.totalPages
+      // this.totalRecords / this.itemsPerPage
+    },
+  },
+
+  mounted: async function () {
+    this.nextperson()
+  },
 }
 
 

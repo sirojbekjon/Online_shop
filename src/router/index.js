@@ -4,7 +4,6 @@ import Home from '../views/Home.vue'
 import MyLogin from '../components/MyLogin.vue'
 import MyRegister from '../components/MyRegister.vue'
 import TypeProduct from '../views/TypeProduct.vue'
-import Upload from "@/views/Upload";
 import Product from "@/views/Product";
 import Shoes from "@/views/Shoes";
 import Footer from "@/components/Footer";
@@ -14,6 +13,7 @@ import FlowUrl from "@/views/FlowUrl";
 import ShowFlow from "@/views/ShowFlow";
 import Saller from "@/views/Saller";
 import OrderProduct from "@/views/OrderProduct";
+import Statistic from "@/views/Statistic";
 
 Vue.use(VueRouter)
 
@@ -38,11 +38,7 @@ const routes = [
     name: 'TypeProduct',
     component: TypeProduct
   },
-  {
-    path: '/upload',
-    name: 'Upload',
-    component: Upload
-  },
+
   {
     path: '/product',
     name: 'Product',
@@ -62,6 +58,11 @@ const routes = [
     path: '/order',
     name: 'OrderProduct',
     component: OrderProduct
+  },
+  {
+    path: '/statistic',
+    name: 'Statistic',
+    component: Statistic
   },
   {
     path: '/creatflow/:id',
