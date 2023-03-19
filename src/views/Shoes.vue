@@ -41,7 +41,11 @@
           </v-toolbar>
 
           <v-rating xs="12" sm="8" md="6" v-model="rating" :size="18" :dense="true" :half-increments="true" color="yellow" class="ml-3" background-color="grey lighten-2" ></v-rating>
-          <v-card-text class="white--text" style="font-size: 20px;font-family: Bitstream Vera Sans Mono,serif">
+          <span v-if="$store.state.role==='SUPERADMIN' || $store.state.role==='ADMIN'" class="white--text caption" >Admin uchun: {{shoe.salary}}</span>
+          <span v-if="shoe.sale" style="font-size: 15px;font-family: 'Arial Black'; margin-left: 30%" class="red--text" >SALE: {{shoe.sale}}</span>
+
+
+          <v-card-text class="white--text"  style="font-size: 20px; color: orange; font-family: Bitstream Vera Sans Mono,serif">
             {{shoe.name ? shoe.name : 'N/A' }}
           </v-card-text>
 

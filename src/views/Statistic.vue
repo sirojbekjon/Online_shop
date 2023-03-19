@@ -70,6 +70,59 @@
             Reset
           </v-btn>
         </template>
+
+
+        <template v-slot:item.ready="{ item }">
+          <v-checkbox
+              v-model="item.ready"
+              class="pa-3"
+              :style="checkboxStyle"
+              readonly
+              color="orange"
+          ></v-checkbox>
+        </template>
+        <template v-slot:item.hold="{ item }">
+          <v-checkbox
+              v-model="item.hold"
+              class="pa-3"
+              readonly
+              color="orange"
+          ></v-checkbox>
+        </template>
+        <template v-slot:item.onway="{ item }">
+          <v-checkbox
+              v-model="item.onway"
+              class="pa-3"
+              readonly
+              color="orange"
+          ></v-checkbox>
+        </template>
+        <template v-slot:item.delivered="{ item }">
+          <v-checkbox
+              v-model="item.delivered"
+              class="pa-3"
+              readonly
+              color="orange"
+          ></v-checkbox>
+        </template>
+        <template v-slot:item.canceled="{ item }">
+          <v-checkbox
+              v-model="item.canceled"
+              class="pa-3"
+              readonly
+              color="red"
+          ></v-checkbox>
+        </template>
+        <template v-slot:item.archived="{ item }">
+          <v-checkbox
+              v-model="item.archived"
+              class="pa-3"
+              readonly
+              color="blue"
+          ></v-checkbox>
+        </template>
+
+
       </v-data-table>
       <v-col cols="12" md="6">
         <v-pagination
@@ -125,11 +178,11 @@ export default {
       { text: 'Tayyor', value: 'ready' },
       { text: 'Ushlab turilibti', value: 'hold' },
       { text: 'Yo\'lda', value: 'onway' },
-      { text: 'Olib borib berildi', value: 'delivered' },
+      { text: 'Yetkazib berildi', value: 'delivered' },
       { text: 'Bekorqilindi', value: 'canceled' },
       { text: 'Ko\'rishlar soni', value: 'visits_count' },
       { text: 'Surati', value: 'product' },
-      { text: 'Ish haqqi', value: 'archived' },
+      { text: 'Admin haqqi', value: 'archived' },
 
     ],
     desserts: [],
@@ -142,6 +195,10 @@ export default {
 
 
   computed: {
+
+
+
+
     ordersWithIndex(){
       return this.desserts.map(
           (items, index) => ({

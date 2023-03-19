@@ -253,13 +253,49 @@
         </template>
 
         <template v-slot:item.onway="{ item }">
-          <v-switch
-              v-model="item.onway"
-              :label="`${item.flow && item.flow.onway ? 'Yo\'lda' : ''}`"
-              :value="item.flow && item.flow.onway"
+          <v-checkbox
+              success
+              v-model="item.flow.onway"
+              :label="item.flow.onway ? 'Yo\'lda' : ''"
               class="pa-3"
               @click="changedOnway(item,'onway')"
-          ></v-switch>
+          ></v-checkbox>
+        </template>
+        <template v-slot:item.ready="{ item }">
+          <v-checkbox
+              success
+              v-model="item.flow.ready"
+              :label="item.flow.ready ? 'Tayyor' : ''"
+              class="pa-3"
+              @click="changedOnway(item,'ready')"
+          ></v-checkbox>
+        </template>
+        <template v-slot:item.canceled="{ item }">
+          <v-checkbox
+              error
+              v-model="item.flow.canceled"
+              :label="item.flow.canceled ? 'Bekor qilindi' : ''"
+              class="pa-3"
+              @click="changedOnway(item,'canceled')"
+          ></v-checkbox>
+        </template>
+        <template v-slot:item.hold="{ item }">
+          <v-checkbox
+              success
+              v-model="item.flow.hold"
+              :label="item.flow.hold ? 'Saqlab turilipti' : ''"
+              class="pa-3"
+              @click="changedOnway(item,'hold')"
+          ></v-checkbox>
+        </template>
+        <template v-slot:item.archived="{ item }">
+          <v-checkbox
+              yellow
+              v-model="item.flow.archived"
+              :label="item.flow.archived ? 'To\'landi' : ''"
+              class="pa-3"
+              @click="changedOnway(item,'archived')"
+          ></v-checkbox>
         </template>
 
 
@@ -329,7 +365,6 @@ export default {
     imageUrl: '',
     search:'',
     totalElement:'',
-    typeProduct:[],
     deleteId:'',
     loading: true,
     dialog: false,
@@ -363,15 +398,15 @@ export default {
       { text: 'sotuvchisi', value: 'flow.user' },
       { text: 'Mahsulot', value: 'product.name' },
       { text: 'Narxi', value: 'product.price' },
-      { text: 'Ushlab turilipti', value: 'flow.hold' },
-      { text: 'Bekor qilindi', value: 'flow.canceled' },
-      { text: 'Tayyor', value: 'flow.ready' },
+      { text: 'Tayyor', value: 'ready' },
+      { text: 'Ushlab turilipti', value: 'hold'},
       { text: 'Yo\'lda', value: 'onway' },
+      { text: 'Bekor qilindi', value: 'canceled' },
       { text: 'Yetkazib berildi', value: 'switch'},
       // { text: 'Yetkazib berildi', value: 'flow.delivered' },
       // { text: 'Yetkazib berildi', value: 'status'},
       { text: 'surati', value: 'product' },
-      { text: 'To\'landi', value: 'flow.archived' },
+      { text: 'Admin haqqi', value: 'archived' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     flow:null,
@@ -398,11 +433,21 @@ export default {
 
 
   mounted: async function () {
-    this.nextperson()
-    const typeProductResponse = await axios.get('typeProduct/get', {
+    await axios.get('client/getAll', {
+      params: {page: this.page - 1, text: this.search},
       headers: {'authorization': this.token}
+    }).then(response=>{
+      this.totalElement = response.data.totalElements
+      if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
+        this.desserts = response.data.content
+        this.totalPages = response.data.totalPages
+        this.loading = false
+      } else {
+        this.desserts = response.data.content
+        this.totalPages = response.data.totalPages
+        this.loading = false
+      }
     })
-    this.typeProduct = typeProductResponse.data
     this.setSearchIconColor('#6F0DFF');
   },
 
@@ -487,21 +532,7 @@ export default {
     },
 
     async nextperson() {
-       await axios.get('client/getAll', {
-        params: {page: this.page - 1, text: this.search},
-        headers: {'authorization': this.token}
-      }).then(response=>{
-         this.totalElement = response.data.totalElements
-         if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
-           this.desserts = response.data.content
-           this.totalPages = response.data.totalPages
-           this.loading = false
-         } else {
-           this.desserts = response.data.content
-           this.totalPages = response.data.totalPages
-           this.loading = false
-         }
-       })
+
     },
 
 

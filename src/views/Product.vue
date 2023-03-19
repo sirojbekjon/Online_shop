@@ -141,7 +141,7 @@
                       >
                         <v-text-field
                             v-model="editedItem.salary"
-                            label="salary"
+                            label="Admin to'lovi"
                         ></v-text-field>
                       </v-col>
                       <v-col
@@ -151,7 +151,7 @@
                       >
                         <v-text-field
                             v-model="editedItem.sale"
-                            label="sale"
+                            label="chegirma"
                         ></v-text-field>
                       </v-col>
                       <v-col
@@ -291,7 +291,7 @@ export default {
       },
       { text: 'Mahsulot Turi', value: 'typeProduct.name' },
       { text: 'Mahsulot haqida', value: 'about' },
-      { text: 'salary', value: 'salary' },
+      { text: 'Admin to\'lovi', value: 'salary' },
       { text: 'Narxi', value: 'price' },
       { text: 'Ishlab chiqarilgan', value: 'produced' },
       { text: 'Chegirma', value: 'sale' },
