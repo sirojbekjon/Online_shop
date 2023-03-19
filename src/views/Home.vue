@@ -1,6 +1,6 @@
 <template>
   <v-container>
-      <Shoes :typedId="selected_type_id"/>
+      <Shoes />
   </v-container>
 </template>
 <script>

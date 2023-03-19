@@ -25,7 +25,7 @@
           Oqim nomi: {{flow ? flow.name : 'N/A'}}
         </div>
         <v-card-text class="urlbox" ref="urlbox">
-          http://192.168.202.23:8080/flow/{{flow.id}}
+          http://192.168.1.4:8080/flow/{{flow.id}}
         </v-card-text>
       </div>
     </v-card-item>

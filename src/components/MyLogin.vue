@@ -85,6 +85,7 @@ name:"MyLogin",
   },
         methods:{
            submit () {
+             console.log("login")
               sessionStorage.clear();
               axios.post('auth/login', this.data).then(response =>{
              if (response.data){
@@ -99,6 +100,7 @@ name:"MyLogin",
                alert("Login yoki parol noto'g'ri")
              }
             })
+
           },
         },
       };

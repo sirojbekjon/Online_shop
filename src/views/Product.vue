@@ -36,9 +36,9 @@
         <template v-slot:item.fileUpload="{ item }">
 <!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
             <v-card-title>
-            <v-img v-if="item.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.fileUpload.name}`"   width="100px" height="auto"/>
+            <v-img v-if="item.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.1.4:8088/upload/${item.fileUpload.name}`"   width="100px" height="auto"/>
             <video  controls v-else-if="item.fileUpload.contentType === 'video/mp4'" width="100px" height="auto">
-              <source  :src="`http://192.168.202.23:8088/upload/${item.fileUpload.name}`" type="video/mp4">
+              <source  :src="`http://192.168.1.4:8088/upload/${item.fileUpload.name}`" type="video/mp4">
             </video>
             </v-card-title>
 <!--          </v-card>-->
@@ -140,8 +140,8 @@
                           md="4"
                       >
                         <v-text-field
-                            v-model="editedItem.brand"
-                            label="Brand"
+                            v-model="editedItem.salary"
+                            label="salary"
                         ></v-text-field>
                       </v-col>
                       <v-col
@@ -291,7 +291,7 @@ export default {
       },
       { text: 'Mahsulot Turi', value: 'typeProduct.name' },
       { text: 'Mahsulot haqida', value: 'about' },
-      { text: 'Brand', value: 'brand' },
+      { text: 'salary', value: 'salary' },
       { text: 'Narxi', value: 'price' },
       { text: 'Ishlab chiqarilgan', value: 'produced' },
       { text: 'Chegirma', value: 'sale' },
@@ -304,7 +304,7 @@ export default {
     editedItem: {
       name: '',
       typeProduct: [],
-      brand:'',
+      salary:'',
       about:'',
       price:'',
       produced:'',

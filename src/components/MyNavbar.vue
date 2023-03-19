@@ -102,6 +102,7 @@ export default {
     logoutFunction(){
       sessionStorage.clear()
       this.$store.commit('setStatus',true)
+      this.$store.commit('changeRole','')
     },
   },
 

@@ -90,9 +90,9 @@
         <template v-slot:item.product="{ item }">
           <!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
           <v-card-title>
-            <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`"   width="100px" height="auto"/>
+            <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.1.4:8088/upload/${item.product.fileUpload.name}`"   width="100px" height="auto"/>
             <video  controls v-else-if="item.product.fileUpload.contentType === 'video/mp4'" width="100px" height="auto">
-              <source  :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`" type="video/mp4">
+              <source  :src="`http://192.168.1.4:8088/upload/${item.product.fileUpload.name}`" type="video/mp4">
             </video>
           </v-card-title>
           <!--          </v-card>-->
@@ -192,8 +192,8 @@
                         md="4"
                     >
                       <v-text-field
-                          v-model="editedItem.brand"
-                          label="Brand"
+                          v-model="editedItem.salary"
+                          label="salary"
                       ></v-text-field>
                     </v-col>
                       <v-col
@@ -269,7 +269,7 @@
               v-model="item.status"
               :label="`${ item.status ? 'Yetkazildi' : 'Yetkazilmadi'}`"
               class="pa-3"
-              @click="changedStatus(item)"
+              @click="changedStatus(item,'delivered')"
           ></v-switch>
         </template>
 
@@ -363,15 +363,15 @@ export default {
       { text: 'sotuvchisi', value: 'flow.user' },
       { text: 'Mahsulot', value: 'product.name' },
       { text: 'Narxi', value: 'product.price' },
-      { text: 'Arxivda', value: 'flow.archived' },
       { text: 'Ushlab turilipti', value: 'flow.hold' },
       { text: 'Bekor qilindi', value: 'flow.canceled' },
       { text: 'Tayyor', value: 'flow.ready' },
       { text: 'Yo\'lda', value: 'onway' },
+      { text: 'Yetkazib berildi', value: 'switch'},
       // { text: 'Yetkazib berildi', value: 'flow.delivered' },
       // { text: 'Yetkazib berildi', value: 'status'},
-      { text: 'Yetkazib berildi', value: 'switch'},
       { text: 'surati', value: 'product' },
+      { text: 'To\'landi', value: 'flow.archived' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     flow:null,
@@ -381,7 +381,7 @@ export default {
       name: '',
       typeProduct: [],
       flow:[],
-      brand:'',
+      salary:'',
       about:'',
       price:'',
       produced:'',
@@ -459,8 +459,11 @@ export default {
       return file.imageUrl;
     },
 
-    async changedStatus(item) {
+    async changedStatus(item,text) {
       await axios.put(`client/edit/status/${item.id}`,this.editedItem, {headers: {'authorization': this.token}})
+      if (text==='delivered'){
+        this.changedOnway(item,text);
+      }
     },
    async changedOnway(item,text) {
      console.log(item.flow)
@@ -587,10 +590,4 @@ export default {
 .searchPanel .v-input__icon--append .v-icon::before {
   color: blue !important;
 }
-
-
-
-
-
-
 </style>

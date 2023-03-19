@@ -4,9 +4,9 @@
       <div class="col-md-1"></div>
       <!--            display image-->
       <div class="col-md-4 col-8">
-        <v-img v-if="product.fileUpload.contentType!=='video/mp4'" width="100%" height="auto" :src="`http://192.168.202.23:8088/upload/${product.fileUpload.name}`"></v-img>
+        <v-img v-if="product.fileUpload.contentType!=='video/mp4'" width="100%" height="auto" :src="`http://192.168.1.4:8088/upload/${product.fileUpload.name}`"></v-img>
         <video  controls v-else-if="product.fileUpload.contentType === 'video/mp4'" width="100%"  height="auto">
-          <source  :src="`http://192.168.202.23:8088/upload/${product.fileUpload.name}`" type="video/mp4">
+          <source  :src="`http://192.168.1.4:8088/upload/${product.fileUpload.name}`" type="video/mp4">
         </video>
       </div>
       <!--            display product details-->

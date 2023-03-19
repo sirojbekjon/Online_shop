@@ -36,6 +36,26 @@
             </v-list-item>
           </v-list-item>
         </v-list-item-group>
+        <v-list-item-group v-if="$store.state.role==='SUPERADMIN'" v-model="selectedItem">
+          <v-list-item
+              v-for="(item, i) in items2"
+              :to="item.path"
+              :key="i"
+              active-class="green"
+              dark
+              v-slot="{ active }"
+
+          >
+            <v-list-item :to="item.path" >
+              <v-list-item-icon class="mr-2">
+                <v-icon :color="active ? 'red' : 'white '">{{ item.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>
+                <v-list-item>{{ item.name }}</v-list-item>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-card>
   </v-navigation-drawer>
@@ -56,24 +76,27 @@ export default {
     ],
     drawer:true,
     selectedItem: 0,
-
     items: [
       {name:'Home', icon: "mdi-home-outline",path:'/' },
-      {name:'register', icon: "mdi-cart-outline",path: '/register' },
       {name:'Oqim', icon: "mdi-store-outline",path: '/flow_url'},
-      {name:'Mahsulot turi', icon: "mdi-calendar-check-outline",path: '/typeProduct' },
-      {name:'OqimProduct', icon: "mdi-apps",path: '/flow' },
-      {name:'Mahsulotlar',icon: "mdi-apps",path: '/product' },
-      {name:'Sotuvchilar',icon: "mdi-pencil",path: '/saller' },
-      {name:'Buyurtmalar',icon: "mdi-cart",path: '/order' },
-      {name:'Statistika',icon: "mdi-cart",path: '/statistic' },
+      // {name:'OqimProduct', icon: "mdi-apps",path: '/flow' },
+      {name:'Statistika',icon: "mdi-cart",path: '/statistic'},
     ],
+    items2:[
+      {name:'Mahsulot turi', icon: "mdi-calendar-check-outline",path: '/typeProduct'},
+      {name:'Mahsulotlar',icon: "mdi-apps",path: '/product'},
+      {name:'Sotuvchilar',icon: "mdi-pencil",path: '/saller'},
+      {name:'Buyurtmalar',icon: "mdi-cart",path: '/order'},
+    ]
   }),
 
   watch: {
     drawer(value) {
       return value;
     },
+    role(){
+      return this.role();
+    }
   },
 };
 </script>
