@@ -15,16 +15,16 @@
             color="#151515"
             xs="12" sm="8" md="6" lg="4"
         >
-          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="350" :src="`http://192.168.1.4:8088/upload/${shoe.fileUpload.name}`"></v-img>
+          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="350" :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`"></v-img>
           <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="350">
-            <source  :src="`http://192.168.1.4:8088/upload/${shoe.fileUpload.name}`" type="video/mp4">
+            <source  :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`" type="video/mp4">
           </video>
 
           <v-toolbar color="transparent" class="mt-n7" flat>
             <v-avatar color="white" rounded class="mr-2" style="background-color: #042a0f">
-              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`http://192.168.1.4:8088/upload/${shoe.fileUpload.name}`"></v-img>
+              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`"></v-img>
               <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="170">
-                <source  :src="`http://192.168.1.4:8088/upload/${shoe.fileUpload.name}`" type="video/mp4">
+                <source  :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`" type="video/mp4">
               </video>
             </v-avatar>
             <v-spacer></v-spacer>

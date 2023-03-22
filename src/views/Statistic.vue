@@ -54,9 +54,9 @@
         <template v-slot:item.product="{ item }">
           <!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
           <v-card-title>
-            <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.1.4:8088/upload/${item.product.fileUpload.name}`"   width="70px" height="auto"/>
+            <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`"   width="70px" height="auto"/>
             <video  controls v-else-if="item.product.fileUpload.contentType === 'video/mp4'" width="70px" height="auto">
-              <source  :src="`http://192.168.1.4:8088/upload/${item.product.fileUpload.name}`" type="video/mp4">
+              <source  :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`" type="video/mp4">
             </video>
           </v-card-title>
           <!--          </v-card>-->
@@ -87,6 +87,14 @@
               class="pa-3"
               readonly
               color="orange"
+          ></v-checkbox>
+        </template>
+        <template v-slot:item.neww="{ item }">
+          <v-checkbox
+              v-model="item.neww"
+              class="pa-3"
+              readonly
+              color="green"
           ></v-checkbox>
         </template>
         <template v-slot:item.onway="{ item }">
@@ -120,6 +128,12 @@
               readonly
               color="blue"
           ></v-checkbox>
+        </template>
+
+        <template v-slot:item.adminname="{item}">
+          <v-tab>
+            {{ item.flow.user.username }}
+          </v-tab>
         </template>
 
 
@@ -172,15 +186,16 @@ export default {
         text: 'Oqim nomi',
         align: 'start',
         sortable: false,
-        value: 'name',
+        value: 'flow.name',
       },
-      { text: 'sotuvchisi ismi', value: 'user.username' },
+      { text: 'sotuvchisi ismi', value: 'adminname' },
+      { text: 'Yangi', value: 'neww' },
       { text: 'Tayyor', value: 'ready' },
       { text: 'Ushlab turilibti', value: 'hold' },
       { text: 'Yo\'lda', value: 'onway' },
       { text: 'Yetkazib berildi', value: 'delivered' },
       { text: 'Bekorqilindi', value: 'canceled' },
-      { text: 'Ko\'rishlar soni', value: 'visits_count' },
+      { text: 'Ko\'rishlar soni', value: 'flow.visits_count' },
       { text: 'Surati', value: 'product' },
       { text: 'Admin haqqi', value: 'archived' },
 
@@ -221,7 +236,7 @@ export default {
 
   methods: {
     async nextperson() {
-      const response = await axios.get('flow/get', {
+      const response = await axios.get('client/get/userId', {
         params: {page: this.page - 1},
         headers: {'authorization': this.token}
       })

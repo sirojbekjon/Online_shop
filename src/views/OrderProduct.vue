@@ -62,13 +62,6 @@
         <template v-slot:item.flow="{ item }">
           <v-card-title>
           <h5>
-            {{item.flow !==null ? item.flow.ready : 'N/A'}}
-          </h5>
-          </v-card-title>
-        </template>
-        <template v-slot:item.flow="{ item }">
-          <v-card-title>
-          <h5>
             {{item.flow !==null ? item.flow.onway : 'N/A'}}
           </h5>
           </v-card-title>
@@ -90,9 +83,9 @@
         <template v-slot:item.product="{ item }">
           <!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
           <v-card-title>
-            <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.1.4:8088/upload/${item.product.fileUpload.name}`"   width="100px" height="auto"/>
+            <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`"   width="100px" height="auto"/>
             <video  controls v-else-if="item.product.fileUpload.contentType === 'video/mp4'" width="100px" height="auto">
-              <source  :src="`http://192.168.1.4:8088/upload/${item.product.fileUpload.name}`" type="video/mp4">
+              <source  :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`" type="video/mp4">
             </video>
           </v-card-title>
           <!--          </v-card>-->
@@ -255,8 +248,8 @@
         <template v-slot:item.onway="{ item }">
           <v-checkbox
               success
-              v-model="item.flow.onway"
-              :label="item.flow.onway ? 'Yo\'lda' : ''"
+              v-model="item.onway"
+              :label="item.onway ? 'Yo\'lda' : ''"
               class="pa-3"
               @click="changedOnway(item,'onway')"
           ></v-checkbox>
@@ -264,8 +257,8 @@
         <template v-slot:item.ready="{ item }">
           <v-checkbox
               success
-              v-model="item.flow.ready"
-              :label="item.flow.ready ? 'Tayyor' : ''"
+              v-model="item.ready"
+              :label="item.ready ? 'Tayyor' : ''"
               class="pa-3"
               @click="changedOnway(item,'ready')"
           ></v-checkbox>
@@ -273,8 +266,8 @@
         <template v-slot:item.canceled="{ item }">
           <v-checkbox
               error
-              v-model="item.flow.canceled"
-              :label="item.flow.canceled ? 'Bekor qilindi' : ''"
+              v-model="item.canceled"
+              :label="item.canceled ? 'Bekor qilindi' : ''"
               class="pa-3"
               @click="changedOnway(item,'canceled')"
           ></v-checkbox>
@@ -282,8 +275,8 @@
         <template v-slot:item.hold="{ item }">
           <v-checkbox
               success
-              v-model="item.flow.hold"
-              :label="item.flow.hold ? 'Saqlab turilipti' : ''"
+              v-model="item.hold"
+              :label="item.hold ? 'Saqlab turilipti' : ''"
               class="pa-3"
               @click="changedOnway(item,'hold')"
           ></v-checkbox>
@@ -291,8 +284,8 @@
         <template v-slot:item.archived="{ item }">
           <v-checkbox
               yellow
-              v-model="item.flow.archived"
-              :label="item.flow.archived ? 'To\'landi' : ''"
+              v-model="item.archived"
+              :label="item.archived ? 'To\'landi' : ''"
               class="pa-3"
               @click="changedOnway(item,'archived')"
           ></v-checkbox>
@@ -302,10 +295,10 @@
 
         <template v-slot:item.switch="{ item }">
           <v-switch
-              v-model="item.status"
-              :label="`${ item.status ? 'Yetkazildi' : 'Yetkazilmadi'}`"
+              v-model="item.delivered"
+              :label="`${ item.delivered ? 'Yetkazildi' : 'Yetkazilmadi'}`"
               class="pa-3"
-              @click="changedStatus(item,'delivered')"
+              @click="changedOnway(item,'delivered')"
           ></v-switch>
         </template>
 
@@ -437,6 +430,7 @@ export default {
       params: {page: this.page - 1, text: this.search},
       headers: {'authorization': this.token}
     }).then(response=>{
+      console.log(response.data.content)
       this.totalElement = response.data.totalElements
       if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
         this.desserts = response.data.content
@@ -504,16 +498,11 @@ export default {
       return file.imageUrl;
     },
 
-    async changedStatus(item,text) {
-      await axios.put(`client/edit/status/${item.id}`,this.editedItem, {headers: {'authorization': this.token}})
-      if (text==='delivered'){
-        this.changedOnway(item,text);
-      }
-    },
+
    async changedOnway(item,text) {
-     console.log(item.flow)
+     console.log(item)
      console.log(text)
-      await axios.put(`flow/edit/${item.flow.id}`,item.flow, {params:{type:text},headers: {'authorization': this.token}})
+      await axios.put(`client/edit/${item.id}`,item, {params:{type:text},headers: {'authorization': this.token}})
     },
 
     onFileSelected() {
@@ -575,20 +564,20 @@ export default {
     },
 
 
-    async save() {
-      if (this.editedIndex > -1) {
-        if (isNaN(this.editedItem.typeProduct)){this.editedItem.typeProduct = this.editedItem.typeProduct.id}
-        if (isNaN(this.editedItem.fileUpload)){this.editedItem.fileUpload = this.editedItem.fileUpload.id}
-        await axios.put('product/edit/' + this.editedItem.id, this.editedItem, {headers: {'authorization': this.token}})
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        this.close()
-        this.nextperson()
-      } else {
-        await axios.post('product/add', this.editedItem, {headers: {'authorization': this.token}})
-        this.desserts.push(this.editedItem)
-      }
-      this.close()
-    },
+    // async save() {
+    //   if (this.editedIndex > -1) {
+    //     if (isNaN(this.editedItem.typeProduct)){this.editedItem.typeProduct = this.editedItem.typeProduct.id}
+    //     if (isNaN(this.editedItem.fileUpload)){this.editedItem.fileUpload = this.editedItem.fileUpload.id}
+    //     await axios.put('product/edit/' + this.editedItem.id, this.editedItem, {headers: {'authorization': this.token}})
+    //     Object.assign(this.desserts[this.editedIndex], this.editedItem)
+    //     this.close()
+    //     this.nextperson()
+    //   } else {
+    //     await axios.post('product/add', this.editedItem, {headers: {'authorization': this.token}})
+    //     this.desserts.push(this.editedItem)
+    //   }
+    //   this.close()
+    // },
 
 
 
