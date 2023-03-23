@@ -31,6 +31,9 @@
           sort-by="calories"
           class="myForm"
       >
+
+
+
         <template v-slot:item.createdAt="{ item }">
           <v-card-title>
           <h5>
@@ -245,6 +248,16 @@
           </v-toolbar>
         </template>
 
+        <template v-slot:item.neww="{ item }">
+          <v-checkbox
+              color="orange"
+              v-model="item.neww"
+              :label="item.neww ? 'Yangi' : 'Eski'"
+              class="pa-3"
+              @click="changedOnway(item,'neww')"
+          ></v-checkbox>
+        </template>
+
         <template v-slot:item.onway="{ item }">
           <v-checkbox
               success
@@ -254,6 +267,7 @@
               @click="changedOnway(item,'onway')"
           ></v-checkbox>
         </template>
+
         <template v-slot:item.ready="{ item }">
           <v-checkbox
               success
@@ -378,7 +392,8 @@ export default {
       {    text: 'T/R',
         align: 'start',
         sortable: true,
-        value: 'index',},
+        value: 'index',
+      },
       {
         text: 'Buyurtmachi',
         align: 'start',
@@ -391,6 +406,7 @@ export default {
       { text: 'sotuvchisi', value: 'flow.user' },
       { text: 'Mahsulot', value: 'product.name' },
       { text: 'Narxi', value: 'product.price' },
+      { text: 'buyurtma', value: 'neww' },
       { text: 'Tayyor', value: 'ready' },
       { text: 'Ushlab turilipti', value: 'hold'},
       { text: 'Yo\'lda', value: 'onway' },

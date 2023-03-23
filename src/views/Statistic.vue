@@ -92,6 +92,7 @@
         <template v-slot:item.neww="{ item }">
           <v-checkbox
               v-model="item.neww"
+              :label="item.neww ? 'Yangi' : 'Eski'"
               class="pa-3"
               readonly
               color="green"
