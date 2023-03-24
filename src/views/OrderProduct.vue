@@ -41,41 +41,6 @@
           </h5>
           </v-card-title>
         </template>
-        <template v-slot:item.flow="{ item }">
-          <v-card-title>
-          <h5>
-            {{item.flow !==null ? item.flow.archived : 'N/A'}}
-          </h5>
-          </v-card-title>
-        </template>
-        <template v-slot:item.flow="{ item }">
-          <v-card-title>
-          <h5>
-            {{item.flow !==null ? item.flow.hold : 'N/A'}}
-          </h5>
-          </v-card-title>
-        </template>
-        <template v-slot:item.flow="{ item }">
-          <v-card-title>
-          <h5>
-            {{item.flow !==null ? item.flow.canceled : 'N/A'}}
-          </h5>
-          </v-card-title>
-        </template>
-        <template v-slot:item.flow="{ item }">
-          <v-card-title>
-          <h5>
-            {{item.flow !==null ? item.flow.onway : 'N/A'}}
-          </h5>
-          </v-card-title>
-        </template>
-        <template v-slot:item.flow="{ item }">
-          <v-card-title>
-          <h5>
-            {{item.flow !==null ? item.flow.delivered : 'N/A'}}
-          </h5>
-          </v-card-title>
-        </template>
         <template v-slot:item.flow.user="{ item }">
           <v-card-title>
           <h5>
@@ -109,130 +74,6 @@
                 v-model="dialog"
                 max-width="500px"
             >
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    color="#6F0DFF"
-                    dark
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                >
-                  Create
-                </v-btn>
-              </template>
-              <v-card>
-                <v-card-title>
-                  <span class="text-h5">{{ formTitle }}</span>
-                </v-card-title>
-
-                <v-card-text>
-                  <v-container>
-                    <v-row>
-                      <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                      >
-                        <v-select
-                            :items="typeProduct"
-                            item-text="name"
-                            item-value="id"
-                            v-model="editedItem.typeProduct"
-                            label="Mahsulot turi"
-                            persistent-hint
-                            single-line
-                        ></v-select>
-                      </v-col>
-                      <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                      >
-                        <v-text-field
-                            v-model="editedItem.name"
-                            label="Nomlanishi"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                      >
-                        <v-text-field
-                            v-model="editedItem.produced"
-                            label="Firmasi"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                      >
-                        <v-text-field
-                            v-model="editedItem.about"
-                            label="Mahsulot haqida"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                      >
-                        <v-text-field
-                            v-model="editedItem.price"
-                            label="narxi"
-                        ></v-text-field>
-                      </v-col>       <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                    >
-                      <v-text-field
-                          v-model="editedItem.salary"
-                          label="salary"
-                      ></v-text-field>
-                    </v-col>
-                      <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                      >
-                        <v-text-field
-                            v-model="editedItem.sale"
-                            label="sale"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                      >
-                        <input type="file" ref="fileInput" @change="onFileSelected">
-                      </v-col>
-
-
-                    </v-row>
-                  </v-container>
-                </v-card-text>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                      color="#6F0DFF"
-                      text
-                      @click="close"
-                  >
-                    Close
-                  </v-btn>
-                  <v-btn
-                      color="#6F0DFF"
-                      text
-                      @click="save"
-                  >
-                    Save
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
             </v-dialog>
             <v-dialog v-model="dialogDelete" max-width="500px">
               <v-card>
@@ -295,13 +136,13 @@
               @click="changedOnway(item,'hold')"
           ></v-checkbox>
         </template>
-        <template v-slot:item.archived="{ item }">
+        <template v-slot:item.salary="{ item }">
           <v-checkbox
               yellow
-              v-model="item.archived"
-              :label="item.archived ? 'To\'landi' : ''"
+              v-model="item.salary"
+              :label="item.salary ? 'To\'landi' : ''"
               class="pa-3"
-              @click="changedOnway(item,'archived')"
+              @click="changedOnway(item,'salary')"
           ></v-checkbox>
         </template>
 
@@ -318,14 +159,6 @@
 
 
         <template v-slot:item.actions="{ item }">
-          <v-icon
-              small
-              class="mr-2"
-              @click="editItem(item)"
-              color="green"
-          >
-            mdi-pencil
-          </v-icon>
           <v-icon
               small
               @click="deleteItem(item)"
@@ -415,7 +248,7 @@ export default {
       // { text: 'Yetkazib berildi', value: 'flow.delivered' },
       // { text: 'Yetkazib berildi', value: 'status'},
       { text: 'surati', value: 'product' },
-      { text: 'Admin haqqi', value: 'archived' },
+      // { text: 'Admin haqqi', value: 'salary' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     flow:null,

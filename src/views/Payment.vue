@@ -1,0 +1,105 @@
+<template >
+  <v-content>
+    <v-container class="fill-height" fluid>
+      <v-row justify="center">
+        <v-col xs="12" sm="8" md="6" lg="4">
+          <v-card class="elevation-24 mr-lg-16">
+            <v-window>
+              <v-window-item>
+                <v-row class="fill-height">
+                  <v-col cols="12" md="12" style="background-color: #635F68" >
+                    <v-col v-for="(user2,i) in user1" :key="i">
+                    <v-card>
+                      <v-card-text>ID raqamingiz: <span style="font-size: 20px; color: black">{{user2.id ? user2.id : 'N/A'}}</span></v-card-text>
+                      <v-card-text>Ismingiz: <span style="font-size: 20px;color: black">{{user2.username ? user2.username : 'N/A'}}</span></v-card-text>
+                      <v-card-text><v-icon>money</v-icon>Hisobingizda: <span style="font-size: 20px;color: black">{{user2.salary ? user2.salary +' so\'m' : '0 so\'m'}}</span></v-card-text>
+                      <v-card-text>To'lab berildi: <span style="font-size: 20px;color: black">{{user2.paid ? user2.paid +' so\'m' : '0 so\'m'}}</span></v-card-text>
+                    </v-card>
+                    </v-col>
+                    <v-card-text class="mt-2">
+                      <h2 class="text-center mt-4 white--text">To'lovga so'rov yuborish</h2>
+                      <v-form ref="submit">
+                        <v-text-field
+                            label="Karta raqamingizni kiriting"
+                            v-model="data.cardNumber"
+                            v-mask="'#### #### #### ####'"
+                            prepend-icon="list"
+                            type="text"
+                            color="#6F0DFF"
+                        />
+                        <v-text-field
+                            label="Summani kiriting"
+                            v-model="data.partSalary"
+                            prepend-icon="money"
+                            type="number"
+                            color="#6F0DFF"
+                        />
+                        <div class="text-center">
+                          <h5 class="white--text mb-4">Iltimos tasdiqlashdan oldin ma'lumotlarizni diqqat bilan ko'rib chiqing</h5>
+                          <v-btn @click.prevent="submit" color="#6F0DFF" dark>Tasdiqlash</v-btn>
+                        </div>
+                      </v-form>
+                    </v-card-text>
+                  </v-col>
+                </v-row>
+              </v-window-item>
+            </v-window>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-content>
+</template>
+
+<script>
+import axios from 'axios';
+export default {
+  name:"myregister",
+  data(){
+    return {
+      user1:[],
+      data: {
+        partSalary: '',
+        cardNumber:''
+      },
+      token: 'Bearer ' + sessionStorage.getItem('token'),
+
+    }
+  },
+  props: {
+    source: String
+  },
+
+  mounted: async function () {
+    try {
+    axios.get("user",{headers:{'authorization':this.token}}).then(response => {
+      console.log(response.data)
+      this.user1.push(response.data)
+      console.log(this.user1)
+    })}catch (error){
+      console.log(error)
+    }
+
+
+  },
+  methods:{
+    submit(){
+      console.log(this.data)
+      axios.post('user/paid',this.data,{headers:{'authorization': this.token}});
+      this.data=''
+    },
+  },
+};
+</script>
+<style>
+.text h1{
+  text-align: center;
+  color: aquamarine;
+  margin-top: 200px;
+}
+.text h5{
+  color: yellow;
+  margin-top: 50px;
+  font-size: 20px;
+}
+</style>

@@ -49,13 +49,13 @@
                               type="text"
                               color="#6F0DFF"
                           />
-                          <div class="text-center">
+                          <div class="text-center" style="height: 40px">
                             <v-btn @click.prevent="submit" color="#6F0DFF" dark>Ro'yhatdan o'tish</v-btn>
                           </div>
                           <h5 class="text-center white--text">
                             Iltimos profilngiz bo'lsa ro'yhatdan o'tmang! Profilingiz bo'lsa pastdagi tugmani bosing!
                           </h5>
-                          <div class="text-center">
+                          <div class="text-center"  style="height: 30px">
                             <v-btn to="/login" color="#6F0DFF" dark>kirish</v-btn>
                           </div>
                         </v-form>
@@ -95,6 +95,7 @@ export default {
       console.log(this.data)
       axios.post('auth/register',this.data);
       this.data=''
+      this.$router.push('/login');
     },
   },
 };

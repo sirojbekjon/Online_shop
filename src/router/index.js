@@ -11,9 +11,12 @@ import ShowDetails from "@/views/ShowDetails";
 import Flow from "@/views/CreateFlow";
 import FlowUrl from "@/views/FlowUrl";
 import ShowFlow from "@/views/ShowFlow";
-import Saller from "@/views/Saller";
+import Flows from "@/views/Flows";
 import OrderProduct from "@/views/OrderProduct";
 import Statistic from "@/views/Statistic";
+import Payment from "@/views/Payment";
+import AdminUser from "@/views/AdminUser";
+import Market from "@/views/Market";
 
 Vue.use(VueRouter)
 
@@ -50,9 +53,9 @@ const routes = [
     component: Footer
   },
   {
-    path: '/saller',
-    name: 'Saller',
-    component: Saller
+    path: '/flows',
+    name: 'Flows',
+    component: Flows
   },
   {
     path: '/order',
@@ -63,6 +66,21 @@ const routes = [
     path: '/statistic',
     name: 'Statistic',
     component: Statistic
+  },
+  {
+    path: '/payment',
+    name: 'Payment',
+    component: Payment
+  },
+  {
+    path: '/market',
+    name: 'Market',
+    component: Market
+  },
+  {
+    path: '/user',
+    name: 'AdminUser',
+    component: AdminUser
   },
   {
     path: '/creatflow/:id',

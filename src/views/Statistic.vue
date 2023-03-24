@@ -59,7 +59,6 @@
               <source  :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`" type="video/mp4">
             </video>
           </v-card-title>
-          <!--          </v-card>-->
         </template>
 
         <template v-slot:no-data>
@@ -120,14 +119,6 @@
               class="pa-3"
               readonly
               color="red"
-          ></v-checkbox>
-        </template>
-        <template v-slot:item.archived="{ item }">
-          <v-checkbox
-              v-model="item.archived"
-              class="pa-3"
-              readonly
-              color="blue"
           ></v-checkbox>
         </template>
 
@@ -198,7 +189,7 @@ export default {
       { text: 'Bekorqilindi', value: 'canceled' },
       { text: 'Ko\'rishlar soni', value: 'flow.visits_count' },
       { text: 'Surati', value: 'product' },
-      { text: 'Admin haqqi', value: 'archived' },
+      // { text: 'Admin haqqi', value: 'archived' },
 
     ],
     desserts: [],
