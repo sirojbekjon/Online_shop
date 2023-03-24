@@ -33,17 +33,6 @@
                 v-model="dialog"
                 max-width="500px"
             >
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    color="#6F0DFF"
-                    dark
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                >
-                  Create
-                </v-btn>
-              </template>
               <v-card>
                 <v-card-title>
                   <span class="text-h5">{{ formTitle }}</span>
@@ -100,14 +89,6 @@
           </v-toolbar>
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-icon
-              small
-              class="mr-2"
-              @click="editItem(item)"
-              color="green"
-          >
-            mdi-pencil
-          </v-icon>
           <v-icon
               small
               @click="deleteItem(item)"

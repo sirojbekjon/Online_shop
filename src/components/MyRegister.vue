@@ -44,6 +44,7 @@
                           />
                           <v-text-field
                               label="Telefon raqam"
+                              v-mask="'+998 ## ### ## ##'"
                               v-model="data.phoneNumber"
                               prepend-icon="lock"
                               type="text"
@@ -80,7 +81,7 @@ export default {
        data: {
         username: "",
         password: "",
-         phoneNumber: ""
+         phoneNumber: '+998'
       },
     }
   },

@@ -34,7 +34,7 @@
               prepend-icon="phone"
               type="tel"
               color="white"
-              v-mask="'+998 (##) ###-##-##'"
+              v-mask="'+998 ## ###-##-##'"
               label="Telifon raqamingizni kiriting"
           />
           <div class="text-center mb-5">
@@ -76,7 +76,7 @@ export default {
       token: 'Bearer ' + sessionStorage.getItem('token'),
       data: {
         name: "",
-        phoneNumber: '+998()',
+        phoneNumber: '+998',
       },
       alert: false,
       alert_color:'',

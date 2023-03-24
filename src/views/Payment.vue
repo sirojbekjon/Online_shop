@@ -10,14 +10,39 @@
                   <v-col cols="12" md="12" style="background-color: #635F68" >
                     <v-col v-for="(user2,i) in user1" :key="i">
                     <v-card>
-                      <v-card-text>ID raqamingiz: <span style="font-size: 20px; color: black">{{user2.id ? user2.id : 'N/A'}}</span></v-card-text>
-                      <v-card-text>Ismingiz: <span style="font-size: 20px;color: black">{{user2.username ? user2.username : 'N/A'}}</span></v-card-text>
-                      <v-card-text><v-icon>money</v-icon>Hisobingizda: <span style="font-size: 20px;color: black">{{user2.salary ? user2.salary +' so\'m' : '0 so\'m'}}</span></v-card-text>
-                      <v-card-text>To'lab berildi: <span style="font-size: 20px;color: black">{{user2.paid ? user2.paid +' so\'m' : '0 so\'m'}}</span></v-card-text>
+                      <h4 style="margin-left: 20px;font-family:'Arial'">ID raqamingiz: <span style="font-size: 20px; color: black">{{user2.id ? user2.id : 'N/A'}}</span></h4>
+                      <h4 style="margin-left: 20px;font-family:'Arial'">Ismingiz: <strong style="font-size: 20px;color: #6F0DFF">{{user2.username ? user2.username.toUpperCase() : 'N/A'}}</strong></h4>
+
+                      <v-card-text>
+                        <h4 class="card_travel">
+                          <img
+                              alt
+                              :src="require('@/assets/mony.png')"
+                              width="30px"
+                              height="auto"
+                          >
+                              Hisobingizda:
+                            <strong  style="font-size: 20px; color: black">
+                              {{ user2.salary ? user2.salary + ' so\'m' : '0 so\'m' }}
+                            </strong>
+                        </h4>
+                      </v-card-text>
+                      <v-card-text style="margin-top: -25px">
+                        <h4>
+                          <img
+                              alt
+                              :src="require('@/assets/coin.png')"
+                              width="30px"
+                              height="auto"
+                          >
+
+                        To'lab berildi: <strong style="font-size: 20px;color: black">{{user2.paid ? user2.paid +' so\'m' : '0 so\'m'}}</strong>
+                        </h4>
+                      </v-card-text>
                     </v-card>
                     </v-col>
-                    <v-card-text class="mt-2">
-                      <h2 class="text-center mt-4 white--text">To'lovga so'rov yuborish</h2>
+                    <v-card-text class="mb-1">
+                      <h2 class="text-center white--text">To'lovga so'rov yuborish</h2>
                       <v-form ref="submit">
                         <v-text-field
                             label="Karta raqamingizni kiriting"
