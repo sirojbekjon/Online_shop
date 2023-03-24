@@ -37,20 +37,20 @@
         <template v-slot:item.createdAt="{ item }">
           <v-card-title>
           <h5>
-            {{item.createdAt !==null ? item.createdAt.substring(0,10) : 'N/A'}}
+            {{item.createdAt ? item.createdAt.substring(0,10) : 'N/A'}}
           </h5>
           </v-card-title>
         </template>
         <template v-slot:item.flow.user="{ item }">
           <v-card-title>
           <h5>
-            {{item.flow !==null ? item.flow.user.phoneNumber : ''}} | {{item.flow !==null ? item.flow.user.username : 'Sotuvchisiz'}}
+            {{item.flow ? item.flow.user.phoneNumber : ''}} | {{item.flow ? item.flow.user.username : 'Sotuvchisiz'}}
           </h5>
           </v-card-title>
         </template>
         <template v-slot:item.product="{ item }">
           <!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
-          <v-card-title>
+          <v-card-title >
             <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`"   width="100px" height="auto"/>
             <video  controls v-else-if="item.product.fileUpload.contentType === 'video/mp4'" width="100px" height="auto">
               <source  :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`" type="video/mp4">
@@ -279,7 +279,6 @@ export default {
       params: {page: this.page - 1, text: this.search},
       headers: {'authorization': this.token}
     }).then(response=>{
-      console.log(response.data.content)
       this.totalElement = response.data.totalElements
       if (this.search !== '' && this.search.length > 3 && response.data.length !== 0) {
         this.desserts = response.data.content

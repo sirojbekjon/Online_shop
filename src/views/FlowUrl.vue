@@ -11,7 +11,6 @@
       :key="i"
   >
   <v-card
-      v-if="flow.user.username"
       max-width="344"
       variant="outlined"
   >
@@ -95,7 +94,6 @@ export default {
 
       try {
         document.execCommand("copy");
-        console.log('URL copied to clipboard');
       } catch (error) {
         console.error('Failed to copy URL: ', error);
       }
@@ -108,7 +106,6 @@ export default {
         params: {page: this.page - 1},
         headers: {'authorization': this.token}
       })
-      console.log(response)
       this.totalElement = response.data.totalElements
       if (response.data.length !== 0) {
         this.flows = response.data.content

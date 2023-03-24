@@ -98,9 +98,7 @@ export default {
   mounted: async function () {
     try {
     axios.get("user",{headers:{'authorization':this.token}}).then(response => {
-      console.log(response.data)
       this.user1.push(response.data)
-      console.log(this.user1)
     })}catch (error){
       console.log(error)
     }
@@ -109,7 +107,6 @@ export default {
   },
   methods:{
     submit(){
-      console.log(this.data)
       axios.post('user/paid',this.data,{headers:{'authorization': this.token}});
       this.data=''
     },

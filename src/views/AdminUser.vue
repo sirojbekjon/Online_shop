@@ -145,10 +145,8 @@ export default {
 
   mounted: async function () {
     await axios.get('users',{headers:{'Authorization':this.token}}).then(response =>{
-      console.log(response.data)
       this.desserts = response.data
     })
-    // this.$store.commit('setTypeProduct',this.desserts)
   },
 
 
@@ -173,7 +171,6 @@ export default {
 
   methods: {
     async changedOnway(item) {
-      console.log(item)
       await axios.put(`user/salary/${item.id}`,item,{headers:{'Authorization':this.token}})
     },
 
@@ -200,7 +197,6 @@ export default {
       console.log(this.deleteId)
       await axios.delete('typeProduct/delete/' + this.deleteId, {headers: {'authorization': this.token}})
       this.desserts.splice(this.editedIndex, 1)
-      // this.$store.commit('setTypeProduct',this.desserts)
       this.closeDelete()
     },
 
@@ -224,11 +220,9 @@ export default {
       if (this.editedIndex > -1) {
         await axios.put('typeProduct/edit/' + this.editedItem.id, this.editedItem, {headers: {'authorization': this.token}})
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        // this.$store.commit('setTypeProduct',this.desserts)
       } else {
         await axios.post('typeProduct/add', this.editedItem, {headers: {'authorization': this.token}})
         this.desserts.push(this.editedItem)
-        // this.$store.commit('setTypeProduct',this.desserts)
       }
       this.close()
     },
