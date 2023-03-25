@@ -241,7 +241,6 @@
             color="#6F0DFF"
         >
         </v-pagination>
-
     </v-col>
     </v-col>
   </v-row>
@@ -269,7 +268,7 @@ export default {
     i:1,
     page: 1,
     totalPages:0,
-    itemsPerPage: 10,
+    itemsPerPage: 12,
     token: 'Bearer ' + sessionStorage.getItem('token'),
 
     perPageChoices: [

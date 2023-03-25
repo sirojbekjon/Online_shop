@@ -10,6 +10,7 @@
         <v-icon>mdi-menu</v-icon>
       </v-btn>
       <v-spacer></v-spacer>
+
       <v-text-field
           label="Search on maufarm"
           class="pt-5 d-none d-flex"
@@ -24,6 +25,7 @@
           outlined
           v-model="searchText"
       ></v-text-field>
+
       <v-spacer></v-spacer>
       <v-menu offset-y>
         <template #activator="{ on, attrs }">
@@ -49,7 +51,6 @@
         </v-list>
       </v-menu>
    </v-toolbar>
-
     <h1 class="white--text">Online_Shop</h1>
     <p class="grey--text">
       Ajoyib tanlov haridingiz uchun minnatdormiz
