@@ -31,7 +31,7 @@
             <v-avatar color="black" rounded class="mr-2" width="100px" dark>
               <div class="three">
                 <div class="four">
-                  <span class="white--text caption" v-bind:class="{productprice:!shoe.status}">{{ shoe.status ? shoe.price : 'Qolmagan'}}</span>
+                  <span class="white--text caption" v-bind:class="{productprice:!shoe.status}">{{ shoe.status ? shoe.price+ ' so\'m' : 'Qolmagan'}}</span>
                 </div>
                 <div class="five">
                   <span class="green--text caption">Sotuvda</span>
@@ -41,8 +41,8 @@
           </v-toolbar>
 
           <v-rating xs="12" sm="8" md="6" v-model="rating" :size="18" :dense="true" :half-increments="true" color="yellow" class="ml-3" background-color="grey lighten-2" ></v-rating>
-          <span v-if="$store.state.role==='SUPERADMIN' || $store.state.role==='ADMIN'" class="white--text caption" >Admin uchun: {{shoe.salary}}</span>
-          <span v-if="shoe.sale" style="font-size: 15px;font-family: 'Arial Black'; margin-left: 30%" class="red--text" >SALE: {{shoe.sale}}</span>
+          <span v-if="$store.state.role==='SUPERADMIN' || $store.state.role==='ADMIN'" class="white--text caption" >Admin uchun: {{shoe.salary}} so'm</span>
+          <span v-if="shoe.sale" style="font-size: 15px;font-family: 'Arial Black'; margin-left: 30%" class="red--text" >SALE: {{shoe.sale}} %</span>
 
 
           <v-card-text class="white--text"  style="font-size: 20px; color: orange; font-family: Bitstream Vera Sans Mono,serif">
