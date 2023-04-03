@@ -117,13 +117,13 @@
                       </v-col>
                       <v-col
                           cols="12"
-                          sm="6"
-                          md="4"
+                          sm="12"
+                          md="12"
                       >
-                        <v-text-field
+                        <v-textarea
                             v-model="editedItem.about"
                             label="Mahsulot haqida"
-                        ></v-text-field>
+                        ></v-textarea>
                       </v-col>
                       <v-col
                           cols="12"
@@ -247,13 +247,20 @@
 </template>
 
 <script>
+
+
 import axios from "axios";
 
+
 export default {
+  components: {
+
+  },
   props:[
       'selected_type_id'
   ],
   name:'product',
+
   data: () => ({
     files:'',
     fileType:'',

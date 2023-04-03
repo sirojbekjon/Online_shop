@@ -39,9 +39,32 @@
                               color="#6F0DFF"
 
                           />
-                          <div class="text-center mb-5">
+                          <div class="text-center mb-2">
                             <v-btn @click.prevent="submit" color="#6F0DFF" dark>KIRISH</v-btn>
                           </div>
+                          <v-alert
+                              class="mt-6 col-md-12"
+                              :value="alert"
+                              :color="alert_color"
+                              dark
+                              border="left"
+                              transition="scale-transition"
+                              @input="alert = false"
+                          >
+                            <div class="d-flex align-center">
+                              <v-icon class="mr-2">mdi-alert-circle-outline</v-icon>
+                              <span>{{ message }}</span>
+                            </div>
+                          </v-alert>
+                          <h4 class="text-center white--text mb-2">
+                            Iltimos profilngiz bo'lmasa ro'yhatdan o'ting!
+                          </h4>
+                          <div class="text-center"  style="height: 30px;margin-bottom: 5px">
+                            <v-btn to="/register" color="#6F0DFF" dark>Ro'yhatdan o'tish</v-btn>
+                          </div>
+
+
+
                         </v-form>
 
                       </v-card-text>
@@ -57,7 +80,6 @@
                      </v-col>
                   </v-row>
                 </v-window-item>
-
               </v-window>
             </v-card>
           </v-col>
@@ -74,9 +96,12 @@ export default {
 name:"MyLogin",
   data(){
    return {
+     alert: false,
+     alert_color:'',
+     message: '',
      data: {
        username: "",
-       password: ""
+       password: "",
      },
    }
   },
@@ -85,22 +110,24 @@ name:"MyLogin",
   },
         methods:{
            submit () {
-             console.log("login")
               sessionStorage.clear();
-              axios.post('auth/login', this.data).then(response =>{
-             if (response.data){
-               console.log(response)
+            axios.post('auth/login', this.data).then(response =>{
+              if (response.status===202){
               sessionStorage.setItem('token',response.data);
                this.$store.commit('setStatus',false)
                this.$store.commit('set',false)
-               this.$store.commit('setToken',response.data)
-               this.$router.push('/');
-               window.location.reload()
-             }else {
-               alert("Login yoki parol noto'g'ri")
+                this.$router.push('/market');
+                window.location.reload()
              }
+            }
+            ).catch(()=>{
+              this.alert = true
+              this.alert_color='red'
+              this.message = 'Parol yoki login noto\'g\'ri'
+              setTimeout(() => {
+                this.alert = false;
+              }, 5000);
             })
-
           },
         },
       };

@@ -12,7 +12,7 @@
       <!--            display product details-->
       <div class="col-md-6 col-12 pt-3 pt-md-0">
         <h1>{{ product.name }}</h1>
-        <h4 class="font-weight-bold" style="color: green;font-size: 20px">Mahsulot: {{ product.price }}</h4>
+        <h4 class="font-weight-bold" style="color: green;font-size: 20px">Mahsulot: {{ product.price }} so'm</h4>
         <div class="features pt-3">
           <h3><strong>Mahsulot haqida</strong></h3>
           <h4>{{product.about}}</h4>

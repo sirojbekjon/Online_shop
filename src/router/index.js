@@ -20,6 +20,11 @@ const routes = [
     component: ()=> import("@/components/MyRegister")
   },
   {
+    path: '/myform',
+    name: 'MyForm',
+    component: ()=> import("@/views/UsersForm")
+  },
+  {
     path: '/typeProduct',
     name: 'TypeProduct',
     component: ()=> import("@/views/TypeProduct")

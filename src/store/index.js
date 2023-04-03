@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token:sessionStorage.getItem('token'),
+    token: sessionStorage.getItem('token'),
     role:'',
     username:'',
     status:true,

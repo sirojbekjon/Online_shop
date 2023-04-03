@@ -94,9 +94,14 @@ export default {
   methods:{
     submit(){
       console.log(this.data)
-      axios.post('auth/register',this.data);
-      this.data=''
-      this.$router.push('/login');
+      axios.post('auth/register',this.data).then(response=>{
+        console.log(response.data)
+        sessionStorage.setItem('token',response.data);
+        this.$store.commit('setStatus',false)
+        this.$store.commit('set',false)
+        this.$router.push('/market');
+        window.location.reload()
+      });
     },
   },
 };

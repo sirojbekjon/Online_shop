@@ -10,7 +10,7 @@
   >
     <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="80">
       <v-btn class="ma-2" outlined large fab color="white">
-        <v-icon color="" x-large>mdi-basket</v-icon>
+        <v-icon color="" x-large>mdi-shopping-search-outline</v-icon>
       </v-btn>
     </v-avatar>
 
@@ -97,20 +97,20 @@ export default {
     selectedItem: 0,
     items: [
       {name:'Home', icon: "mdi-home-outline",path:'/' },
-      {name:'Market', icon: "mdi-home-outline",path:'/market' },
-
+      {name:'Market', icon: "mdi-cart",path:'/market' },
     ],
     items2:[
-      {name:'Mahsulot turi', icon: "mdi-calendar-check-outline",path: '/typeProduct'},
-      {name:'Mahsulotlar',icon: "mdi-apps",path: '/product'},
+      {name:'Mahsulot turi', icon: "mdi-basket",path: '/typeProduct'},
+      {name:'Mahsulotlar',icon: "shopping",path: '/product'},
       {name:'Yaratilgan oqimlar',icon: "mdi-pencil",path: '/flows'},
-      {name:'Buyurtmalar',icon: "mdi-cart",path: '/order'},
-      {name:'Adminlar',icon: "mdi-human",path: '/user'},
+      {name:'Buyurtmalar',icon: "mdi-cart-variant",path: '/order'},
+      {name:'Adminlar',icon: "people",path: '/user'},
+      {name:'Shaxsiy Ma\'lumotlarim',icon: "person",path: '/myform'},
 
     ],
     items3:[
-      {name:'Oqim', icon: "mdi-store-outline",path: '/flow_url'},
-      {name:'Statistika',icon: "mdi-cart",path: '/statistic'},
+      {name:'Oqim', icon: "mdi-clipboard-flow-outline",path: '/flow_url'},
+      {name:'Statistika',icon: "mdi-finance",path: '/statistic'},
       {name:'To\'lov',icon: "money",path: '/payment'},
     ],
   }),
