@@ -1,5 +1,5 @@
 <template>
-  <v-footer style="background-color: #151515" class="white--text">
+  <v-footer  :class="{'darkCard': darkMode}" outlined padless>
     <v-row class="mt-2" justify="center" no-gutters>
       <v-btn
           v-for="link in links"
@@ -17,7 +17,7 @@
       </v-btn>
 
       <v-col class="text-center mt-4" cols="12">
-        {{ new Date().getFullYear() }} — <strong>Online_shop</strong>
+        {{ new Date().getFullYear() }} - <strong>Arzongina.uz</strong>
       </v-col>
     </v-row>
   </v-footer>
@@ -32,8 +32,14 @@
           {name:'Instagram',icon: 'mdi-instagram'},
           {name:'Contact Us',icon:'mdi-phone'},
         ],
+        darkMode: false,
 
 
+      }
+    },
+    watch:{
+      darkMode(newVal) {
+        this.$vuetify.theme.dark = newVal; // update the Vuetify theme
       }
     }
 
@@ -42,6 +48,11 @@
 
 
 <style scoped>
+
+.darkCard {
+  background-color: #121212;
+  color: #6F0DFF;
+}
 
 .text{
   color: white;

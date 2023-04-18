@@ -1,9 +1,13 @@
 <template>
-  <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
+  <v-app  :class="{ 'darkCard': darkMode }">
     <v-main>
-      <SideBar />
+      <SideBar/>
       <router-view />
     </v-main>
+    <template>
+<!--      <v-switch v-model="darkMode" label="Dark Mode"></v-switch>-->
+      <!-- your other application content goes here -->
+    </template>
     <Footer style="z-index: 10"/>
   </v-app>
 </template>
@@ -19,9 +23,18 @@ export default {
   name: 'App',
   data(){
     return{
+
+      darkMode: false,
       token: 'Bearer ' + sessionStorage.getItem('token'),
     }
   },
+
+  watch: {
+    darkMode(newVal) {
+      this.$vuetify.theme.dark = newVal; // update the Vuetify theme
+    }
+  },
+
   components:{
     SideBar,
     Footer
@@ -37,3 +50,11 @@ export default {
       })}}
 };
 </script>
+
+
+<style scoped>
+.darkCard {
+  background-color: #F5F5FB;
+  color: #000;
+}
+</style>

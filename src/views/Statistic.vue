@@ -40,9 +40,9 @@
         <template v-slot:item.product="{ item }">
           <!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
           <v-card-title>
-            <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`"   width="70px" height="auto"/>
+            <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`https://arzongina.uz/upload/${item.product.fileUpload.name}`"   width="70px" height="auto"/>
             <video  controls v-else-if="item.product.fileUpload.contentType === 'video/mp4'" width="70px" height="auto">
-              <source  :src="`http://192.168.202.23:8088/upload/${item.product.fileUpload.name}`" type="video/mp4">
+              <source  :src="`https://arzongina.uz/upload/${item.product.fileUpload.name}`" type="video/mp4">
             </video>
           </v-card-title>
         </template>

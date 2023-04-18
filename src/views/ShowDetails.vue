@@ -4,9 +4,9 @@
       <div class="col-md-1"></div>
       <!--            display image-->
       <div class="col-md-4 col-8">
-        <v-img v-if="product.fileUpload.contentType!=='video/mp4'" xs="12" ml="12" sm="8" md="6" lg="4" width="100%" height="auto" :src="`http://192.168.202.23:8088/upload/${product.fileUpload.name}`"></v-img>
+        <v-img v-if="product.fileUpload.contentType!=='video/mp4'" xs="12" ml="12" sm="8" md="6" lg="4" width="100%" height="auto" :src="`http://arzongina.uz/upload/${product.fileUpload.name}`"></v-img>
         <video controls v-else-if="product.fileUpload.contentType === 'video/mp4'" is="12" sm="8" id="6" lg="4" width="100%" height="auto">
-          <source  :src="`http://192.168.202.23:8088/upload/${product.fileUpload.name}`" type="video/mp4">
+          <source  :src="`http://arzongina.uz/upload/${product.fileUpload.name}`" type="video/mp4">
         </video>
       </div>
       <!--            display product details-->

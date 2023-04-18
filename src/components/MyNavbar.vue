@@ -3,8 +3,7 @@
     <v-toolbar flat color="rgba(0,0,0,0)">
       <v-btn
           icon
-          dark
-          class="d-lg-none d-xl-flex"
+          :class="{ 'darkCard': darkMode }"
           @click="drawer"
       >
         <v-icon>mdi-menu</v-icon>
@@ -13,8 +12,8 @@
 
       <v-text-field
           label="Search on maufarm"
-          class="pt-5 d-none d-flex"
-          dark
+          class="pt-5 px-2  d-none d-flex"
+          :class="{ 'darkCard': darkMode }"
           filled
           prepend-inner-icon="mdi-magnify"
           solo
@@ -24,15 +23,17 @@
           rounded
           outlined
           v-model="searchText"
-      ></v-text-field>
+      />
 
       <v-spacer></v-spacer>
       <v-menu offset-y>
         <template #activator="{ on, attrs }">
-          <v-avatar v-bind="attrs" v-on="on" color="white" class="mb-4">
+          <v-avatar v-bind="attrs" v-on="on" color="white" class="ml-3 mb-2">
             <img src="../assets/avatar2.png" alt="Avatar">
           </v-avatar>
+            <v-icon @click="toggleDarkMode" dark-mode="darkMode">{{ darkMode ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
         </template>
+
         <v-list v-if="$store.state.status">
           <v-list-item v-for="(item, index) in menuItems" :key="index" :to="item.path">
             <v-list-item-icon>
@@ -51,14 +52,17 @@
         </v-list>
       </v-menu>
    </v-toolbar>
-    <h1 class="white--text">Online_Shop</h1>
+
+
+    <h1 :class="{ 'darkCard': darkMode }" class="mt-4">ArzonginaUz</h1>
+
     <p class="grey--text">
       Ajoyib tanlov haridingiz uchun minnatdormiz
     </p>
-    <v-app-bar dark color="rgba(0,0,0,0)" flat>
+    <v-app-bar color="transparent" flat :class="{'darkCard': darkMode}">
       <v-tabs color="#6F0DFF">
         <v-tabs-slider color="#6F0DFF"></v-tabs-slider>
-        <v-tab class="withoutupercase" @click="`${$store.commit('setTypeId',type.id)}`" v-for="type in typeProduct" :key="type.id" :to="{name: 'Shoes',params:{id: type.id}}">
+        <v-tab :class="{'darkCard': darkMode}" @click="`${$store.commit('setTypeId',type.id)}`" v-for="type in typeProduct" :key="type.id" :to="{name: 'Shoes',params:{id: type.id}}">
           {{ type.name }}
         </v-tab>
 
@@ -78,6 +82,7 @@ import axios from "axios";
 export default {
   data(){
     return {
+      darkMode: false,
       searchText:'',
       selectedTabId: null,
       token: 'Bearer ' + sessionStorage.getItem('token'),
@@ -96,6 +101,10 @@ export default {
   },
 
   methods:{
+    toggleDarkMode() {
+      this.darkMode = !this.darkMode;
+      // Perform any other actions you want to happen when the icon is clicked
+    },
       drawer(){
       this.$emit('drawe')
     },
@@ -111,6 +120,9 @@ export default {
     searchText(newVal) {
       console.log(newVal)
       this.$store.commit('setSearchQuery', newVal)
+    },
+    darkMode(newVal) {
+      this.$vuetify.theme.dark = newVal; // update the Vuetify theme
     }
   },
 }
@@ -118,6 +130,10 @@ export default {
 
 
 <style scoped>
+.darkCard {
+  background-color: #121212;
+  color: #6F0DFF;
+}
 .v-tab.withoutupercase {
   text-transform: none !important;
 }
@@ -154,4 +170,5 @@ export default {
   height: 25px;
   background: #2c2107;
 }
+
 </style>

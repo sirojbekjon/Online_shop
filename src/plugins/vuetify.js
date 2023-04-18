@@ -4,8 +4,21 @@ import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
 import axios from "axios";
 
-axios.defaults.baseURL= 'http://192.168.202.23:8088/api/';
 
+//
+// axios.create({
+//     baseURL: '/api',
+//     withCredentials: true,
+//     headers: {
+//         Accept: 'application/json',
+//         'Content-Type': 'application/json'
+//     }
+// })
+
+axios.defaults.baseURL= 'https://arzongina.uz/api/';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Accept'] = 'application/json';
+//108088
 // let refresh = false;
 //
 // axios.interceptors.response.use(resp=>resp,async error => {
@@ -39,3 +52,5 @@ export default new Vuetify({
         }
     }
 });
+
+

@@ -10,28 +10,29 @@
           :key="i"
       >
         <v-card
+            :class="{ 'darkCard': darkMode }"
             class="mx-auto my-12 rounded-xl"
             max-width="374"
-            color="#151515"
+
             xs="12" sm="8" md="6" lg="4"
         >
-          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="350" :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`"></v-img>
+          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="350" :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`"></v-img>
           <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="350">
-            <source  :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`" type="video/mp4">
+            <source  :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`" type="video/mp4">
           </video>
 
           <v-toolbar color="transparent" class="mt-n7" flat>
             <v-avatar color="white" rounded class="mr-2" style="background-color: #042a0f">
-              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`"></v-img>
+              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`"></v-img>
               <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="170">
-                <source  :src="`http://192.168.202.23:8088/upload/${shoe.fileUpload.name}`" type="video/mp4">
+                <source  :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`" type="video/mp4">
               </video>
             </v-avatar>
             <v-spacer></v-spacer>
             <v-avatar color="black" rounded class="mr-2" width="100px" dark>
               <div class="three">
                 <div class="four">
-                  <span class="white--text caption" v-bind:class="{productprice:!shoe.status}">{{ shoe.status ? shoe.price+' so\'m' : 'Qolmagan'}}</span>
+                  <span class="white--text caption"  v-bind:class="{productprice:!shoe.status}">{{ shoe.status ? shoe.price+' so\'m' : 'Qolmagan'}}</span>
                 </div>
                 <div class="five">
                   <span class="green--text caption">Sotuvda</span>
@@ -41,11 +42,11 @@
           </v-toolbar>
 
           <v-rating xs="12" sm="8" md="6" v-model="rating" :size="18" :dense="true" :half-increments="true" color="yellow" class="ml-3" background-color="grey lighten-2" ></v-rating>
-          <span v-if="$store.state.role==='SUPERADMIN' || $store.state.role==='ADMIN'" class="white--text caption" >Admin uchun: {{shoe.salary}} so'm</span>
-          <span v-if="shoe.sale" style="font-size: 15px;font-family: 'Arial Black'; margin-left: 30%" class="red--text" >SALE: {{shoe.sale}} %</span>
+          <span v-if="$store.state.role==='SUPERADMIN' || $store.state.role==='ADMIN'" :class="{ 'darkCard': darkMode }" >Admin uchun: {{shoe.salary}} so'm</span>
+          <span v-if="shoe.sale" style="font-size: 15px;font-family: 'Arial Black'; margin-left: 20%" class="red--text" >SALE: {{shoe.sale}} %</span>
 
 
-          <v-card-text class="white--text"  style="font-size: 20px; color: orange; font-family: Bitstream Vera Sans Mono,serif">
+          <v-card-text :class="{ 'darkCard': darkMode }"  style="font-size: 20px; color: orange; font-family: Bitstream Vera Sans Mono,serif">
             {{shoe.name ? shoe.name : 'N/A' }}
           </v-card-text>
 
@@ -55,7 +56,7 @@
                 column
             >
               <v-btn xs="12" sm="8" md="6" lg="4"  width="32%" height="100%" class="bybutton" :to="{name: 'ShowDetails', params: {id : shoe.id}}">Sotib olish</v-btn>
-              <v-btn v-if="$store.state.role==='ADMIN' || $store.state.role==='SUPERADMIN'" xs="12" sm="8" md="6" lg="4"  width="32%" height="100%" class="oqimbutton ml-1" :to="{name: 'Flow', params: {id : shoe.id}}">Oqim</v-btn>
+              <v-btn v-if="$store.state.role==='ADMIN' || $store.state.role==='SUPERADMIN'" xs="12" sm="8" md="6" lg="4"  width="32%" height="100%" :class="{ 'darkCard': darkMode }" class="oqimbutton ml-1" :to="{name: 'Flow', params: {id : shoe.id}}">Oqim</v-btn>
               <v-spacer></v-spacer>
               <h4 class="green--text mt-4" > {{
                   shoe.typeProduct.name
@@ -86,6 +87,7 @@ import axios from "axios";
 export default {
   name: "Shoes",
   data: () => ({
+    darkMode: false,
     page: 1,
     totalPages:0,
     itemsPerPage: 10,
@@ -126,7 +128,10 @@ export default {
       async handler() {
         await this.searchProduct(this.$store.state.searchQuery)
       }
-    }
+    },
+    darkMode(newVal) {
+      this.$vuetify.theme.dark = newVal; // update the Vuetify theme
+    },
 
   },
 
@@ -181,7 +186,10 @@ export default {
 };
 </script>
 <style scoped>
-
+.darkCard {
+  background-color: #222;
+  color: #000;
+}
 
 .three {
   width: 100px;
@@ -204,8 +212,6 @@ export default {
   background: #2c2107;
 }
 .oqimbutton{
-  color: black;
-  background-color: #b9b9b9;
   transition: 0.5s;
   font-size: 12px;
   font-family: "Bitstream Vera Sans Mono",serif;

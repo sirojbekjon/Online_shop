@@ -1,16 +1,3 @@
-module.exports = ({
-    transpileDependencies: [
-        'vuetify'
-    ]
-})
-
-
-
-
-// module.exports = {
-//
-//     devServer: {
-//         host: 'localhost'
-//     }
-// }
-
+module.exports = {
+    "runtimeCompiler": true
+};

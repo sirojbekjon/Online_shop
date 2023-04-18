@@ -117,7 +117,7 @@ name:"MyLogin",
                this.$store.commit('setStatus',false)
                this.$store.commit('set',false)
                 this.$router.push('/market');
-                window.location.reload()
+                // window.location.reload()
              }
             }
             ).catch(()=>{

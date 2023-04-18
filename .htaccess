@@ -1,11 +1,13 @@
-<IfModule mod_negotiation.c>
-  Options -MultiViews
-</IfModule>
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
-</IfModule>
+# Enable RewriteEngine
+RewriteEngine On
+
+# Set the base URL path
+RewriteBase /
+
+# Forward API requests to the backend
+RewriteRule ^api/(.*)$ https://arzongina.uz/api/$1 [P]
+
+# Serve static files from the public directory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/$1 [L]
