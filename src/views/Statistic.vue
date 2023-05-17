@@ -1,10 +1,11 @@
 <template>
   <v-row v-if="$store.state.token" justify="center">
-    <v-col cols="10">
+    <v-col cols="10" >
       <v-card-title>
         <v-spacer></v-spacer>
       </v-card-title>
       <v-data-table
+          :class="{ 'darkCard': darkMode }"
           :headers="headers"
           :items="ordersWithIndex"
           :items-per-page="itemsPerPage"
@@ -12,15 +13,12 @@
           single-expand
           :hide-default-footer="true"
           :loading="loading"
-          sort-by="calories"
-          class="myForm"
       >
         <template v-slot:top>
           <v-toolbar
-              flat
-              style="background-color: #1D1D26"
+              style="background-color: #e7e2e2"
           >
-            <v-toolbar-title style="color: white">Oqimlar</v-toolbar-title>
+            <v-toolbar-title :class="{ 'darkCard': darkMode }">Oqimlar</v-toolbar-title>
             <v-divider
                 class="mx-4"
                 inset
@@ -37,7 +35,7 @@
           </v-toolbar>
         </template>
 
-        <template v-slot:item.product="{ item }">
+        <template v-slot:item.product="{ item }" >
           <!--          <v-card :key="item.id" style="width: 100%; height: auto; background-color: darkblue; margin: 10px">-->
           <v-card-title>
             <v-img v-if="item.product.fileUpload.contentType!=='video/mp4'"  contain :src="`https://arzongina.uz/upload/${item.product.fileUpload.name}`"   width="70px" height="auto"/>
@@ -137,6 +135,7 @@ export default {
   ],
   name:'product',
   data: () => ({
+    darkMode: false,
     totalElement:'',
     loading: true,
     dialog: false,
@@ -210,6 +209,12 @@ export default {
     },
   },
 
+  watch:{
+    darkMode(newVal) {
+      this.$vuetify.theme.dark = newVal; // update the Vuetify theme
+    },
+  },
+
   methods: {
     async nextperson() {
       const response = await axios.get('client/get/userId', {
@@ -236,9 +241,13 @@ export default {
 
 
 <style scoped>
+.darkCard {
+  background-color: #222;
+  color: #000;
+}
 .myForm{
   color: white !important;
-  background-color: #635F68!important;
+  background-color: #f6f8f6 !important;
 }
 .myForm:hover{
   color: #1D1D26 !important;

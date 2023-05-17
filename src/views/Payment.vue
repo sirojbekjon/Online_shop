@@ -7,10 +7,10 @@
             <v-window>
               <v-window-item>
                 <v-row class="fill-height">
-                  <v-col cols="12" md="12" style="background-color: #635F68" >
+                  <v-col cols="12" md="12" :class="{ 'darkCard': darkMode }">
                     <v-col v-for="(user2,i) in user1" :key="i">
                     <v-card>
-                      <h4 style="margin-left: 20px;font-family:'Arial'">ID raqamingiz: <span style="font-size: 20px; color: black">{{user2.id ? user2.id : 'N/A'}}</span></h4>
+                      <h4 style="margin-left: 20px;font-family:'Arial'">ID raqamingiz: <span style="font-size: 20px; color: #9b9696">{{user2.id ? user2.id : 'N/A'}}</span></h4>
                       <h4 style="margin-left: 20px;font-family:'Arial'">Ismingiz: <strong style="font-size: 20px;color: #6F0DFF">{{user2.username ? user2.username.toUpperCase() : 'N/A'}}</strong></h4>
 
                       <v-card-text>
@@ -22,7 +22,7 @@
                               height="auto"
                           >
                               Hisobingizda:
-                            <strong  style="font-size: 20px; color: black">
+                            <strong  style="font-size: 20px; color: #9b9696">
                               {{ user2.salary ? user2.salary + ' so\'m' : '0 so\'m' }}
                             </strong>
                         </h4>
@@ -36,7 +36,7 @@
                               height="auto"
                           >
 
-                        To'lab berildi: <strong style="font-size: 20px;color: black">{{user2.paid ? user2.paid +' so\'m' : '0 so\'m'}}</strong>
+                        To'lab berildi: <strong style="font-size: 20px;color: #9b9696">{{user2.paid ? user2.paid +' so\'m' : '0 so\'m'}}</strong>
                         </h4>
                       </v-card-text>
                     </v-card>
@@ -114,6 +114,11 @@ export default {
 };
 </script>
 <style>
+
+.darkCard {
+  background-color: #222;
+  color: #000;
+}
 .text h1{
   text-align: center;
   color: aquamarine;

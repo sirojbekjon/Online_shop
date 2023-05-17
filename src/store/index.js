@@ -12,7 +12,8 @@ export default new Vuex.Store({
     typeId:3,
     count:0,
     searchQuery: '',
-    themcolor:'#0000'
+    themcolor:'#0000',
+    isSidebarOpen:false
     // typeProduct:[]
   },
   getters: {
@@ -40,6 +41,9 @@ export default new Vuex.Store({
     },
     setThemeColor(state, payload) {
       state.themcolor = payload
+    },
+    setSidebarState(state, payload) {
+      state.isSidebarOpen = payload
     }
     // setTypeProduct(state,payload){
     //   return state.typeProduct = payload

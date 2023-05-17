@@ -37,11 +37,11 @@
 
       }
     },
-    watch:{
-      darkMode(newVal) {
-        this.$vuetify.theme.dark = newVal; // update the Vuetify theme
-      }
-    }
+    // watch:{
+    //   darkMode(newVal) {
+    //     this.$vuetify.theme.dark = newVal; // update the Vuetify theme
+    //   }
+    // }
 
   }
 </script>

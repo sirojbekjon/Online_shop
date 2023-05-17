@@ -106,8 +106,8 @@ export default {
       // Perform any other actions you want to happen when the icon is clicked
     },
       drawer(){
-      this.$emit('drawe')
-    },
+        this.$emit('drawe')
+      },
 
     logoutFunction(){
       sessionStorage.clear()

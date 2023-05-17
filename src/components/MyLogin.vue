@@ -3,7 +3,7 @@
       <v-container class="fill-height" fluid>
         <v-row justify="center">
           <v-col xs="12" sm="8" md="6" lg="4">
-            <v-card class="elevation-12 mr-lg-16">
+            <v-card class="elevation-12 mr-lg-16"  :class="{ 'centered-form': this.$store.state.isSidebarOpen}">
               <v-window>
                 <v-window-item>
                   <v-row>
@@ -91,11 +91,15 @@
 
 <script>
 import axios from 'axios';
+
 export default {
 
 name:"MyLogin",
+
   data(){
    return {
+     isSidebarOpen: false,
+     drawer:false,
      alert: false,
      alert_color:'',
      message: '',
@@ -117,7 +121,7 @@ name:"MyLogin",
                this.$store.commit('setStatus',false)
                this.$store.commit('set',false)
                 this.$router.push('/market');
-                // window.location.reload()
+                window.location.reload()
              }
             }
             ).catch(()=>{
@@ -130,6 +134,12 @@ name:"MyLogin",
             })
           },
         },
+
+  // watch: {
+  //   drawer(value) {
+  //     return value;
+  //   }
+  // },
       };
     </script>
 
@@ -137,4 +147,11 @@ name:"MyLogin",
 .card_color{
   background-color: #1D1D26;
 }
+.centered-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 </style>

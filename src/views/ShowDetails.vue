@@ -18,7 +18,7 @@
           <h3><strong>Mahsulot haqida</strong></h3>
           <h4>{{product.about}}</h4>
         </div>
-        <v-form ref="submit"  class="mt-6 col-md-6" style="background-color: #635F68;border-radius: 5px">
+        <v-form ref="submit"  :class="{ 'darkCard': darkMode }"  class="mt-6 col-md-6" style="background-color: #d7d7d7;border-radius: 5px">
           <v-text-field
               label="Ism familyangizni kiriting"
               v-model="data.name"
@@ -70,6 +70,7 @@ export default {
   data() {
 
     return {
+      darkMode: false,
       product: {},
       category: {},
       quantity: 1,
@@ -134,6 +135,12 @@ export default {
 };
 </script>
 <style>
+.darkCard {
+  background-color: #222;
+  color: #000;
+}
+
+
 .scale-transition-enter-active {
   animation: scale-in 0.6s;
 }

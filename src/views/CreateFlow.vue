@@ -17,7 +17,7 @@
           <h3><strong>Mahsulot haqida</strong></h3>
           <h4>{{product.about}}</h4>
         </div>
-        <v-form ref="submit"  class="mt-6 col-md-6" style="background-color: #635F68;border-radius: 5px">
+        <v-form ref="submit"  class="mt-6 col-md-6" style="background-color: #D7D7D7;border-radius: 5px">
           <v-text-field
               label="Oqimga nom bering"
               v-model="data.name"
