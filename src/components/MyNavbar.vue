@@ -118,7 +118,6 @@ export default {
 
   watch: {
     searchText(newVal) {
-      console.log(newVal)
       this.$store.commit('setSearchQuery', newVal)
     },
     darkMode(newVal) {
@@ -143,12 +142,6 @@ export default {
 .v-btn.withoutupercase {
   text-transform: none !important;
 }
-/*div{
-  display:inline-block;
-  float:left;
-  color:#fff;
-  font-size:10px;
-}*/
 
 .three {
   width: 50px;

@@ -16,16 +16,16 @@
 
             xs="12" sm="8" md="6" lg="4"
         >
-          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="350" :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`"></v-img>
+          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="350" :src="`http:/192.168.202.23:5000/upload/${shoe.fileUpload.name}`"></v-img>
           <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="350">
-            <source  :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`" type="video/mp4">
+            <source  :src="`http:/192.168.202.23:5000/upload/${shoe.fileUpload.name}`" type="video/mp4">
           </video>
 
           <v-toolbar color="transparent" class="mt-n7" flat>
             <v-avatar color="white" rounded class="mr-2" style="background-color: #042a0f">
-              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`"></v-img>
+              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`http:/192.168.202.23:5000/upload/${shoe.fileUpload.name}`"></v-img>
               <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="170">
-                <source  :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`" type="video/mp4">
+                <source  :src="`http:/192.168.202.23:5000/upload/${shoe.fileUpload.name}`" type="video/mp4">
               </video>
             </v-avatar>
             <v-spacer></v-spacer>
@@ -42,8 +42,9 @@
           </v-toolbar>
 
           <v-rating xs="12" sm="8" md="6" v-model="rating" :size="18" :dense="true" :half-increments="true" color="yellow" class="ml-3" background-color="grey lighten-2" ></v-rating>
-          <span v-if="$store.state.role==='SUPERADMIN' || $store.state.role==='ADMIN'" :class="{ 'darkCard': darkMode }" >Admin uchun: {{shoe.salary}} so'm</span>
-          <span v-if="shoe.sale" style="font-size: 15px;font-family: 'Arial Black'; margin-left: 20%" class="red--text" >SALE: {{shoe.sale}} %</span>
+          <span v-if="shoe.sale" style="font-size: 20px;font-family: 'Arial Black';" class="red--text ml-4" >SALE: {{shoe.sale}} %</span>
+          <v-spacer></v-spacer>
+          <span v-if="$store.state.role==='SUPERADMIN' || $store.state.role==='ADMIN'" :class="{'darcCard': darkMode }" class="ml-4">Admin uchun: {{shoe.salary}} so'm</span>
 
 
           <v-card-text :class="{ 'darkCard': darkMode }"  style="font-size: 20px; color: orange; font-family: Bitstream Vera Sans Mono,serif">
@@ -55,12 +56,23 @@
                 active-class="deep-purple accent-4 white--text"
                 column
             >
-              <v-btn xs="12" sm="8" md="6" lg="4"  width="32%" height="100%" class="bybutton" :to="{name: 'ShowDetails', params: {id : shoe.id}}">Sotib olish</v-btn>
-              <v-btn v-if="$store.state.role==='ADMIN' || $store.state.role==='SUPERADMIN'" xs="12" sm="8" md="6" lg="4"  width="32%" height="100%" :class="{ 'darkCard': darkMode }" class="oqimbutton ml-1" :to="{name: 'Flow', params: {id : shoe.id}}">Oqim</v-btn>
-              <v-spacer></v-spacer>
-              <h4 class="green--text mt-4" > {{
-                  shoe.typeProduct.name
-                }}</h4>
+              <div class="container">
+                <div class="row">
+                  <div>
+                    <v-btn class="bybutton" :to="{ name: 'ShowDetails', params: { id: shoe.id } }">Sotib olish</v-btn>
+                  </div>
+                  <div v-if="$store.state.role==='ADMIN' || $store.state.role==='SUPERADMIN'">
+                    <v-btn class="oqimbutton ml-1" :class="{ 'darkCard': darkMode }" :to="{ name: 'Flow', params: { id: shoe.id } }">Oqim</v-btn>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <h4 class="green--text mt-4" > {{
+                        shoe.typeProduct.name
+                      }}</h4>
+
+                  </div>
+                </div>
+              </div>
             </v-chip-group>
           </v-card-text>
         </v-card>
@@ -110,11 +122,16 @@ export default {
 
     shoes: [{name: '', fileUpload: null,price:'',typeProduct:'',createdAt:'' }],
   }),
+   //990595959 Qibray
+  //990501881
+  //soliq.uz
+  //tolov gosudarsstvinniy nalog davlat soliq turi pnfl 1700.000
 
 
-
-  mounted: async function () {
-    this.nextProduct()
+  mounted: function() {
+    // setInterval(() => {
+      this.nextProduct();
+    // }, 10000000000); // Replace 1000 with the desired interval in milliseconds
   },
 
   watch:{
@@ -132,7 +149,6 @@ export default {
     darkMode(newVal) {
       this.$vuetify.theme.dark = newVal; // update the Vuetify theme
     },
-
   },
 
   methods:{
@@ -224,7 +240,6 @@ export default {
 .bybutton{
   background-color: #6F0DFF !important;
   color: white;
-  font-size: 12px;
   font-family: "Bitstream Vera Sans Mono",serif !important;
 }
 .productprice{

@@ -41,8 +41,9 @@
           </v-toolbar>
 
           <v-rating xs="12" sm="8" md="6" v-model="rating" :size="18" :dense="true" :half-increments="true" color="yellow" class="ml-3" background-color="grey lighten-2" ></v-rating>
-          <span v-if="$store.state.role==='SUPERADMIN' || $store.state.role==='ADMIN'" :class="{'darcCard': darkMode }" >Admin uchun: {{shoe.salary}} so'm</span>
-          <span v-if="shoe.sale" style="font-size: 15px;font-family: 'Arial Black'; margin-left: 20%" class="red--text" >SALE: {{shoe.sale}} %</span>
+          <span v-if="shoe.sale" style="font-size: 15px;font-family: 'Arial Black';" class="red--text ml-4" >SALE: {{shoe.sale}} %</span>
+          <v-spacer></v-spacer>
+          <span v-if="$store.state.role==='SUPERADMIN' || $store.state.role==='ADMIN'" :class="{'darcCard': darkMode }" class="ml-4">Admin uchun: {{shoe.salary}} so'm</span>
 
 
           <v-card-text :class="{'darcCard': darkMode }"  style="font-size: 20px; color: orange; font-family: Bitstream Vera Sans Mono,serif">
@@ -51,15 +52,26 @@
 
           <v-card-text class="mt-n4">
             <v-chip-group
-            active-class="deep-purple accent-4 white--text"
-            column
+                active-class="deep-purple accent-4 white--text"
+                column
             >
-              <v-btn xs="12" sm="8" md="6" lg="4"  width="32%" height="100%" class="bybutton" :to="{name: 'ShowDetails', params: {id : shoe.id}}">Sotib olish</v-btn>
-              <v-btn v-if="$store.state.role==='ADMIN' || $store.state.role==='SUPERADMIN'" xs="12" sm="8" md="6" lg="4"  width="32%" height="100%" :class="{'darcCard': darkMode }" class="oqimbutton ml-1" :to="{name: 'Flow', params: {id : shoe.id}}">Oqim</v-btn>
-              <v-spacer></v-spacer>
-              <h4 class="green--text mt-4" > {{
-                  shoe.typeProduct.name
-                }}</h4>
+              <div class="container">
+                <div class="row">
+                  <div>
+                    <v-btn class="bybutton" :to="{ name: 'ShowDetails', params: { id: shoe.id } }">Sotib olish</v-btn>
+                  </div>
+                  <div v-if="$store.state.role==='ADMIN' || $store.state.role==='SUPERADMIN'">
+                    <v-btn class="oqimbutton ml-1" :class="{ 'darkCard': darkMode }" :to="{ name: 'Flow', params: { id: shoe.id } }">Oqim</v-btn>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <h4 class="green--text mt-4" > {{
+                        shoe.typeProduct.name
+                      }}</h4>
+
+                  </div>
+                </div>
+              </div>
             </v-chip-group>
           </v-card-text>
         </v-card>
