@@ -8,7 +8,7 @@
                 <v-window-item>
                   <v-row>
                     <v-col cols="12" md="8" style="background-color: #635F68">
-                      <v-card-text class="mt-3">
+                      <v-card-text class="mx-auto my-2 rounded-xl"  xs="12" sm="8" md="6" lg="4">
                         <h4
                             class="text-center display-2 teal--text text--accent-3"
                         ></h4>
@@ -21,51 +21,47 @@
                               src="../assets/web-development-4439345-3726916.webp"
                           ></v-img>
                         </div>
-                        <v-form ref="submit" class="mt-3">
-                          <v-text-field
-                              label="Username"
-                              v-model="data.username"
-                              prepend-icon="email"
-                              type="text"
-                              color="#6F0DFF"
-                          />
 
-                          <v-text-field
-                              id="password"
-                              label="Password"
-                              v-model="data.password"
-                              prepend-icon="lock"
-                              type="password"
-                              color="#6F0DFF"
-
-                          />
-                          <div class="text-center mb-2">
-                            <v-btn @click.prevent="submit" color="#6F0DFF" dark>KIRISH</v-btn>
-                          </div>
-                          <v-alert
-                              class="mt-6 col-md-12"
-                              :value="alert"
-                              :color="alert_color"
-                              dark
-                              border="left"
-                              transition="scale-transition"
-                              @input="alert = false"
-                          >
-                            <div class="d-flex align-center">
-                              <v-icon class="mr-2">mdi-alert-circle-outline</v-icon>
-                              <span>{{ message }}</span>
-                            </div>
-                          </v-alert>
-                          <h4 class="text-center white--text mb-2">
-                            Iltimos profilngiz bo'lmasa ro'yhatdan o'ting!
-                          </h4>
-                          <div class="text-center"  style="height: 30px;margin-bottom: 5px">
-                            <v-btn to="/register" color="#6F0DFF" dark>Ro'yhatdan o'tish</v-btn>
-                          </div>
-
-
-
-                        </v-form>
+                        <v-container>
+                              <v-form ref="submit">
+                                <v-text-field
+                                    label="Username"
+                                    v-model="data.username"
+                                    prepend-icon="email"
+                                    type="text"
+                                    color="#6F0DFF"
+                                />
+                                <v-text-field
+                                    id="password"
+                                    label="Password"
+                                    v-model="data.password"
+                                    prepend-icon="lock"
+                                    type="password"
+                                    color="#6F0DFF"
+                                />
+                                <div class="text-center mt-4">
+                                  <v-btn @click.prevent="submit" color="#6F0DFF" dark>KIRISH</v-btn>
+                                <v-alert
+                                    class="mt-6"
+                                    :value="alert"
+                                    :color="alert_color"
+                                    dark
+                                    border="left"
+                                    transition="scale-transition"
+                                    @input="alert = false"
+                                >
+                                  <div class="d-flex align-center">
+                                    <v-icon class="mr-2">mdi-alert-circle-outline</v-icon>
+                                    <span>{{ message }}</span>
+                                  </div>
+                                </v-alert>
+                                <h4 class="text-center white--text mt-6 mb-2">
+                                  Iltimos profilngiz bo'lmasa ro'yhatdan o'ting!
+                                </h4>
+                                  <v-btn   class="pl-6 pr-6 pa-4 ma-2" to="/register" color="#6F0DFF" dark v-text="registertext"/>
+                                </div>
+                              </v-form>
+                        </v-container>
 
                       </v-card-text>
 
@@ -98,6 +94,7 @@ name:"MyLogin",
 
   data(){
    return {
+     registertext:'Ro\'yhatdan o\'tish',
      isSidebarOpen: false,
      drawer:false,
      alert: false,
@@ -144,6 +141,30 @@ name:"MyLogin",
     </script>
 
 <style>
+/* Default button style */
+.materialDesignButton {
+  color:#fff;
+  border-radius:5px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size:1.04em;
+  letter-spacing: 0.05em;
+  width: auto;
+  transition: 0.3s;
+}
+
+.materialDesignButton:hover {
+  opacity: 0.7;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .responsive-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+
 .card_color{
   background-color: #1D1D26;
 }

@@ -15,12 +15,13 @@ import axios from "axios";
 //     }
 // })
 
-axios.defaults.baseURL= 'http://192.168.202.23:5000/api/';
+axios.defaults.baseURL= 'https://arzongina.uz/api/';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';
+
+
 //108088
 // let refresh = false;
-//
 // axios.interceptors.response.use(resp=>resp,async error => {
 //     if (error.response.status === 401 && !refresh){
 //         refresh = true;

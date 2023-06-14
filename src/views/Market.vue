@@ -5,27 +5,27 @@
           xs="12"
           sm="6"
           md="4"
-          lg="3"
+          lg="2"
           v-for="(shoe, i) in shoes"
           :key="i"
       >
         <v-card
             :class="{ 'darkCard': darkMode }"
-            class="mx-auto my-12 rounded-xl"
+            class="mx-auto my-2 rounded-xl"
             max-width="374"
 
             xs="12" sm="8" md="6" lg="4"
         >
-          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="350" :src="`http:/192.168.202.23:5000/upload/${shoe.fileUpload.name}`"></v-img>
+          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="300" :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`"></v-img>
           <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="350">
-            <source  :src="`http:/192.168.202.23:5000/upload/${shoe.fileUpload.name}`" type="video/mp4">
+            <source  :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`" type="video/mp4">
           </video>
 
           <v-toolbar color="transparent" class="mt-n7" flat>
             <v-avatar color="white" rounded class="mr-2" style="background-color: #042a0f">
-              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`http:/192.168.202.23:5000/upload/${shoe.fileUpload.name}`"></v-img>
+              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`"></v-img>
               <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="170">
-                <source  :src="`http:/192.168.202.23:5000/upload/${shoe.fileUpload.name}`" type="video/mp4">
+                <source  :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`" type="video/mp4">
               </video>
             </v-avatar>
             <v-spacer></v-spacer>
@@ -131,7 +131,7 @@ export default {
   mounted: function() {
     // setInterval(() => {
       this.nextProduct();
-    // }, 10000000000); // Replace 1000 with the desired interval in milliseconds
+    // }, 1000); // Replace 1000 with the desired interval in milliseconds
   },
 
   watch:{

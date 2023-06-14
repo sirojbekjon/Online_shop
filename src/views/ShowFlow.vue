@@ -5,8 +5,8 @@
       <!--            display image-->
       <div class="col-md-4 col-8">
         <v-img v-if="flow_product.product.fileUpload.contentType!=='video/mp4'" width="100%" height="auto" :src="`https://arzongina.uz/upload/${flow_product.product.fileUpload.name}`"></v-img>
-        <video  controls v-else-if="flow_product.product.fileUpload.contentType === 'video/mp4'" width="100%"  height="auto">
-          <source  :src="`https://arzongina.uz/upload/${flow_product.product.fileUpload.name}`" type="video/mp4">
+        <video  controls v-else-if="flow_product.fileUpload && flow_product.fileUpload.contentType === 'video/mp4'" width="100%"  height="350">
+          <source  :src="`https://arzongina.uz/upload/${flow_product.fileUpload.name}`" type="video/mp4">
         </video>
       </div>
       <!--            display flow_product details-->

@@ -107,8 +107,8 @@ export default {
   },
   methods:{
     submit(){
-      axios.post('user/paid',this.data,{headers:{'authorization': this.token}});
-      this.data=''
+    axios.post('user/paid',this.data,{headers:{'authorization': this.token}});
+    this.data=''
     },
   },
 };
