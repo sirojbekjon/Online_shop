@@ -15,7 +15,7 @@ import axios from "axios";
 //     }
 // })
 
-axios.defaults.baseURL= 'https://arzongina.uz/api/';
+axios.defaults.baseURL= 'https://onlineshopbackend-production.up.railway.app/api/';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';
 

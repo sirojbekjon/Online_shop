@@ -109,6 +109,7 @@ export default {
     props:['id'],
     typesId:'',
     rating:5,
+    i:0,
 
 
 
@@ -134,24 +135,8 @@ export default {
     // }, 1000); // Replace 1000 with the desired interval in milliseconds
   },
 
-  watch:{
-    '$store.state.typeId': {
-      immediate: true,
-      async handler() {
-        await this.nextProduct(this.$store.state.typeId)
-      }
-    },
-    '$store.state.searchQuery':{
-      async handler() {
-        await this.searchProduct(this.$store.state.searchQuery)
-      }
-    },
-    darkMode(newVal) {
-      this.$vuetify.theme.dark = newVal; // update the Vuetify theme
-    },
-  },
-
   methods:{
+
     async nextProductWithCurrentType() {
       await this.nextProduct(this.$store.state.typeId) // call nextProduct with current typeId
     },
@@ -161,6 +146,9 @@ export default {
         params: {page: this.page-1, text: this.$store.state.searchQuery},
         headers: {'authorization': token}
       })
+
+      // console.log(this.i++)
+      // console.log(products)
       this.totalElement = products.data.totalElements
       if (products.data.content.length >= 1) {
         this.shoes = products.data.content
@@ -182,6 +170,23 @@ export default {
       }
       this.totalElement = response.data.totalElements
     }
+  },
+
+  watch:{
+    '$store.state.typeId': {
+      immediate: true,
+      async handler() {
+        await this.nextProduct(this.$store.state.typeId)
+      }
+    },
+    '$store.state.searchQuery':{
+      async handler() {
+        await this.searchProduct(this.$store.state.searchQuery)
+      }
+    },
+    darkMode(newVal) {
+      this.$vuetify.theme.dark = newVal; // update the Vuetify theme
+    },
   },
 
   computed:{
