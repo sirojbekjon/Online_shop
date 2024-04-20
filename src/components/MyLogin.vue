@@ -58,7 +58,9 @@
                                 <h4 class="text-center white--text mt-6 mb-2">
                                   Iltimos profilngiz bo'lmasa ro'yhatdan o'ting!
                                 </h4>
-                                  <v-btn   class="pl-6 pr-6 pa-4 ma-2" to="/register" color="#6F0DFF" dark v-text="registertext"/>
+                                  <v-btn to="/register" :style="{ width: '100%' }" color="#6F0DFF" dark>
+                                    {{registertext}}
+                                  </v-btn>
                                 </div>
                               </v-form>
                         </v-container>
@@ -88,6 +90,8 @@
 <script>
 import axios from 'axios';
 
+
+
 export default {
 
 name:"MyLogin",
@@ -114,12 +118,12 @@ name:"MyLogin",
               sessionStorage.clear();
             axios.post('auth/login', this.data).then(response =>{
               if (response.status===202){
-              sessionStorage.setItem('token',response.data);
                this.$store.commit('setStatus',false)
-               this.$store.commit('set',false)
+                this.$store.commit('set',false)
                 this.$router.push('/market');
-                window.location.reload()
-             }
+                sessionStorage.setItem('token',response.data);
+                window.location.reload();
+              }
             }
             ).catch(()=>{
               this.alert = true
@@ -134,7 +138,7 @@ name:"MyLogin",
 
   // watch: {
   //   drawer(value) {
-  //     return value;
+  //     return value == false;
   //   }
   // },
       };

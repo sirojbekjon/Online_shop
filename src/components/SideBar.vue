@@ -122,6 +122,7 @@ export default {
       this.$vuetify.theme.dark = newVal; // update the Vuetify theme
     }
   },
+
 };
 </script>
 

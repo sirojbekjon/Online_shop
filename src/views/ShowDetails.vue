@@ -1,49 +1,64 @@
 <template>
-  <div class="container" style="color: #b9b9b9">
-    <div class="row pt-5">
-      <div class="col-md-1"></div>
-      <!--            display image-->
-      <div class="col-md-4 col-8">
-        <v-img v-if="product.fileUpload.contentType!=='video/mp4'" xs="12" ml="12" sm="8" md="6" lg="4" width="100%" height="auto" :src="`https://arzongina.uz/upload/${product.fileUpload.name}`"></v-img>
-        <video  controls v-else-if="product.fileUpload && product.fileUpload.contentType === 'video/mp4'" width="100%"  height="350">
-          <source  :src="`https://arzongina.uz/upload/${product.fileUpload.name}`" type="video/mp4">
-        </video>
-      </div>
-      <!--            display product details-->
-      <div class="col-md-6 col-12 pt-3 pt-md-0">
-        <h1>{{ product.name }}</h1>
-        <h6 class="catgory font-italic">{{ category.categoryName }}</h6>
-        <h4 class="font-weight-bold" style="color: green;font-size: 20px">Mahsulot: {{ product.price }} so'm</h4>
-        <div class="features pt-3">
-          <h3><strong>Mahsulot haqida</strong></h3>
-          <h4>{{product.about}}</h4>
+  <v-card class="product-card" :class="{ 'dark-mode': darkMode }">
+    <v-img
+        class="product-image"
+        :src="`https://vds.arzongina.uz/upload/${product.fileUpload.name}`"
+        v-if="product.fileUpload.contentType !== 'video/mp4'"
+        width="100%"
+        height="100%"
+        contain
+    ></v-img>
+    <video
+        class="product-video"
+        controls
+        v-else-if="product.fileUpload && product.fileUpload.contentType === 'video/mp4'"
+        :src="`https://vds.arzongina.uz/upload/${product.fileUpload.name}`"
+        width="100%"
+        height="100%"
+    ></video>
+
+    <v-card-title class="product-title">
+      <h2>{{ product.name }}</h2>
+    </v-card-title>
+    <v-card-subtitle class="product-category">
+      <h4 class="category font-italic">{{ category.categoryName }}</h4>
+    </v-card-subtitle>
+
+    <v-card-text class="product-details">
+      <h3 class="product-price">{{ product.price }} so'm</h3>
+      <p class="product-about">{{ product.about }}</p>
+    </v-card-text>
+
+    <v-divider></v-divider>
+
+    <v-card-actions class="product-actions">
+      <v-form ref="submit" class="buy-form">
+        <v-text-field
+            label="Ism familyangizni kiriting"
+            v-model="data.name"
+            prepend-icon="person"
+            type="text"
+            color="white"
+        ></v-text-field>
+
+        <v-text-field
+            id="phone"
+            v-model="data.phoneNumber"
+            prepend-icon="phone"
+            type="tel"
+            color="white"
+            v-mask="'+998 ## ###-##-##'"
+            label="Telefon raqamingizni kiriting"
+        ></v-text-field>
+
+        <div class="text-center">
+          <v-btn @click.prevent="submit" :style="{ width: '100%' }" color="#6F0DFF" dark>
+            Buyurtma berish
+          </v-btn>
         </div>
-        <v-form ref="submit"  :class="{ 'darkCard': darkMode }"  class="mt-6 col-md-6" style="background-color: #d7d7d7;border-radius: 5px">
-          <v-text-field
-              label="Ism familyangizni kiriting"
-              v-model="data.name"
-              prepend-icon="person"
-              type="text"
-              color="white"
-
-          />
-
-          <v-text-field
-              id="phone"
-              v-model="data.phoneNumber"
-              prepend-icon="phone"
-              type="tel"
-              color="white"
-              v-mask="'+998 ## ###-##-##'"
-              label="Telifon raqamingizni kiriting"
-          />
-          <div class="text-center mb-5">
-            <v-btn @click.prevent="submit" color="#6F0DFF" dark>Buyurtma berish</v-btn>
-          </div>
-        </v-form>
+        <br>
         <v-alert
-            class="mt-6 col-md-6"
-            :value="alert"
+            v-if="alert"
             :color="alert_color"
             dark
             border="left"
@@ -55,9 +70,12 @@
             <span>{{ message }}</span>
           </div>
         </v-alert>
-      </div>
-    </div>
-  </div>
+      </v-form>
+
+
+    </v-card-actions>
+
+  </v-card>
 </template>
 <script>
 import axios from "axios";
@@ -106,7 +124,7 @@ export default {
         .then(response =>{
           if (response.status===202){
             this.alert = true
-            this.alert_color = 'success'
+            this.alert_color = 'green'
             this.message='Sizning buyurtmangiz qabul qilindi sizga tez orada aloqaga chiqishadi!'
             this.data = '',
             setTimeout(() => {
@@ -134,7 +152,8 @@ export default {
 
 };
 </script>
-<style>
+<style scoped>
+
 .darkCard {
   background-color: #222;
   color: #000;
@@ -165,5 +184,59 @@ export default {
   100% {
     transform: scale(0);
   }
+}
+
+
+
+
+
+.product-card {
+  width: 400px;
+  max-width: 100%;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  border-radius: 10px 10px 0 0;
+}
+
+.product-video {
+  border-radius: 10px 10px 0 0;
+  outline: none;
+}
+
+.product-title {
+  text-align: center;
+  padding-top: 20px;
+  margin-bottom: 0;
+}
+
+.product-category {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.product-price {
+  text-align: center;
+  color: green;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.product-about {
+  margin-bottom: 20px;
+}
+
+.product-actions {
+   padding: 20px;
+}
+
+.buy-form {
+  background-color: #d7d7d7;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
 }
 </style>

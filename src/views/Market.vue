@@ -16,16 +16,16 @@
 
             xs="12" sm="8" md="6" lg="4"
         >
-          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="300" :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`"></v-img>
+          <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" height="300" :src="`https://vds.arzongina.uz/upload/${shoe.fileUpload.name}`"></v-img>
           <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="350">
-            <source  :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`" type="video/mp4">
+            <source  :src="`https://vds.arzongina.uz/upload/${shoe.fileUpload.name}`" type="video/mp4">
           </video>
 
           <v-toolbar color="transparent" class="mt-n7" flat>
             <v-avatar color="white" rounded class="mr-2" style="background-color: #042a0f">
-              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`"></v-img>
+              <v-img v-if="shoe.fileUpload && shoe.fileUpload.contentType!=='video/mp4'" width="100px" height="50" :src="`https://vds.arzongina.uz/upload/${shoe.fileUpload.name}`"></v-img>
               <video  controls v-else-if="shoe.fileUpload && shoe.fileUpload.contentType === 'video/mp4'" width="100%"  height="170">
-                <source  :src="`https://arzongina.uz/upload/${shoe.fileUpload.name}`" type="video/mp4">
+                <source  :src="`https://vds.arzongina.uz/upload/${shoe.fileUpload.name}`" type="video/mp4">
               </video>
             </v-avatar>
             <v-spacer></v-spacer>
@@ -131,6 +131,7 @@ export default {
 
   mounted: function() {
     // setInterval(() => {
+    console.log(this.$route.path)
       this.nextProduct();
     // }, 1000); // Replace 1000 with the desired interval in milliseconds
   },

@@ -30,6 +30,7 @@
           :loading="loading"
           sort-by="calories"
           class="myForm"
+          style="border-radius: 20px"
       >
 
 
@@ -40,12 +41,12 @@
 
 
 
-              <v-img v-if="item.fileUpload.contentType!=='video/mp4'" :src="`https://arzongina.uz/upload/${item.fileUpload.name}`" type="text/html" contain width="100px" height="auto"  />
+              <v-img v-if="item.fileUpload.contentType!=='video/mp4'" :src="`https://vds.arzongina.uz/upload/${item.fileUpload.name}`" type="text/html" contain width="100px" height="auto"  />
 
 
 
               <video  controls v-else-if="item.fileUpload.contentType === 'video/mp4'" width="100px" height="auto">
-              <source  :src="`https://arzongina.uz/upload/${item.fileUpload.name}`" type="video/mp4">
+              <source  :src="`https://vds.arzongina.uz/upload/${item.fileUpload.name}`" type="video/mp4">
             </video>
             </v-card-title>
 <!--          </v-card>-->
@@ -206,6 +207,10 @@
             </v-dialog>
           </v-toolbar>
         </template>
+
+
+
+
         <template v-slot:item.switch="{ item }">
           <v-switch
               v-model="item.status"
@@ -303,7 +308,7 @@ export default {
         value: 'name',
       },
       { text: 'Mahsulot Turi', value: 'typeProduct.name' },
-      { text: 'Mahsulot haqida', value: 'about' },
+      // { text: 'Mahsulot haqida', value: 'about' },
       { text: 'Admin to\'lovi', value: 'salary' },
       { text: 'Narxi', value: 'price' },
       { text: 'Ishlab chiqarilgan', value: 'produced' },
@@ -396,8 +401,18 @@ export default {
     },
 
     async changedStatus(item) {
+
       await axios.put(`product/edit/status/${item.id}`,this.editedItem, {headers: {'authorization': this.token}})
+
+
     },
+
+
+
+
+
+
+
 
     onFileSelected() {
       this.files = this.$refs.fileInput.files;
@@ -503,7 +518,7 @@ export default {
 <style scoped>
 .myForm{
   color: white !important;
-  background-color: #635F68!important;
+  background-color: #89898d !important;
 }
 .myForm:hover{
   color: #1D1D26 !important;

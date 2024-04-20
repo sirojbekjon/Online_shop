@@ -51,7 +51,9 @@
                               color="#6F0DFF"
                           />
                           <div class="text-center" style="height: 40px">
-                            <v-btn @click.prevent="submit" color="#6F0DFF" dark>Ro'yhatdan o'tish</v-btn>
+                            <v-btn @click.prevent="submit"  :style="{ width: '100%' }" color="#6F0DFF" dark>
+                              Ro'yhatdan o'tish
+                            </v-btn>
                           </div>
                           <h5 class="text-center white--text">
                             Iltimos profilngiz bo'lsa ro'yhatdan o'tmang! Profilingiz bo'lsa pastdagi tugmani bosing!
@@ -93,7 +95,6 @@ export default {
     },
   methods:{
     submit(){
-      console.log(this.data)
       axios.post('auth/register',this.data).then(response=>{
         console.log(response.data)
         sessionStorage.setItem('token',response.data);

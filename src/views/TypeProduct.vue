@@ -5,6 +5,7 @@
         :headers="headers"
         :items="desserts"
         class="myForm"
+
       >
         <template v-slot:top >
           <v-toolbar
@@ -239,8 +240,9 @@ export default {
 
 <style scoped>
 .myForm{
-  color: white !important;
-  background-color: #635F68!important;
+  border-radius: 10px !important;
+  color: black !important;
+  background-color: #a4a2a2 !important;
 }
 .myForm:hover{
   color: #1D1D26 !important;
